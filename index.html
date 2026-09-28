@@ -69,12 +69,12 @@
   a:hover { color: var(--accent); }
 
   .site-wrap {
-    max-width: 1320px;
+    max-width: 1360px;
     margin: 0 auto;
     padding: 0 32px;
   }
 
-  /* ---- Header ---- */
+  /* Header */
   header.site {
     position: sticky;
     top: 0;
@@ -107,7 +107,7 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 22px;
     font-size: 0.92rem;
     font-weight: 500;
   }
@@ -117,13 +117,14 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 13px;
+    padding: 7px 14px;
     border-radius: 6px;
     border: 1px solid var(--border);
     background: var(--bg-alt);
     font-size: 0.84rem;
     color: var(--ink) !important;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s;
   }
   .pdf-pill:hover {
@@ -145,14 +146,14 @@
   }
   .theme-btn:hover { color: var(--ink); border-color: var(--ink-muted); }
 
-  /* ---- Hero / About Combined ---- */
+  /* Hero & About */
   .hero-about {
     padding: 68px 0 54px;
     border-bottom: 1px solid var(--border);
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.18fr 0.82fr;
     gap: 48px;
     align-items: start;
   }
@@ -169,21 +170,21 @@
   }
   .hero-title {
     font-family: var(--display);
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-size: clamp(2.3rem, 3.8vw, 3.3rem);
     font-weight: 700;
-    line-height: 1.12;
+    line-height: 1.14;
     letter-spacing: -0.03em;
     margin: 0 0 18px;
   }
   .hero-lead {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     color: var(--ink);
     line-height: 1.6;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
   .hero-bio {
     color: var(--ink-muted);
-    font-size: 0.98rem;
+    font-size: 0.96rem;
     line-height: 1.65;
     margin-bottom: 26px;
   }
@@ -239,18 +240,18 @@
   .stat-label { color: var(--ink-muted); }
   .stat-val { font-weight: 600; text-align: right; color: var(--ink); }
 
-  /* ---- Section Headers ---- */
+  /* Sections */
   section { padding: 64px 0; border-bottom: 1px solid var(--border); }
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 32px;
+    margin-bottom: 30px;
   }
   .section-tag {
     color: var(--accent);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-bottom: 6px;
@@ -264,8 +265,8 @@
   }
   p.section-sub {
     color: var(--ink-muted);
-    font-size: 0.98rem;
-    max-width: 68ch;
+    font-size: 0.96rem;
+    max-width: 72ch;
     margin: 8px 0 0;
   }
   .carousel-controls {
@@ -273,8 +274,8 @@
     gap: 10px;
   }
   .control-btn {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 1px solid var(--border);
     background: var(--card-bg);
@@ -283,7 +284,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     transition: all 0.2s;
   }
   .control-btn:hover {
@@ -292,7 +293,7 @@
     background: var(--accent-glow);
   }
 
-  /* ---- Card Layouts ---- */
+  /* Card Layouts */
   .grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -320,7 +321,6 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    position: relative;
   }
   .scroll-card {
     flex: 0 0 320px;
@@ -329,11 +329,11 @@
   .project-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent);
-    box-shadow: 0 12px 28px rgba(221, 87, 28, 0.09);
+    box-shadow: 0 12px 28px rgba(221, 87, 28, 0.1);
   }
   .card-media {
     width: 100%;
-    height: 200px;
+    height: 205px;
     background: var(--bg-alt);
     position: relative;
     overflow: hidden;
@@ -342,29 +342,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.35s ease;
   }
   .project-card:hover .card-media img {
-    transform: scale(1.04);
-  }
-  .card-media-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--ink-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--bg-alt) 0%, var(--card-bg) 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
-    text-align: center;
-  }
-  .card-media-placeholder svg {
-    stroke: var(--accent);
+    transform: scale(1.05);
   }
   .card-body {
     padding: 20px;
@@ -373,7 +355,7 @@
     flex-grow: 1;
   }
   .card-meta {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -391,7 +373,7 @@
     color: var(--ink-muted);
     font-size: 0.88rem;
     line-height: 1.5;
-    margin: 0 0 18px;
+    margin: 0 0 16px;
     flex-grow: 1;
   }
   .card-action {
@@ -403,7 +385,7 @@
     color: var(--accent);
   }
 
-  /* ---- Experience & Tools Grid ---- */
+  /* Experience & Skills */
   .resume-grid {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -412,14 +394,13 @@
   .xp-block {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 20px;
   }
   .xp-item {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 22px;
-    position: relative;
     border-left: 4px solid var(--accent);
   }
   .xp-head {
@@ -487,7 +468,7 @@
     color: var(--ink);
   }
 
-  /* ---- Contact ---- */
+  /* Contact */
   .contact-section {
     padding: 56px 0;
     text-align: center;
@@ -504,7 +485,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 18px;
     margin-top: 26px;
   }
   .contact-btn {
@@ -532,34 +513,34 @@
     color: var(--accent);
   }
 
-  /* ---- Modal / Project Deep Dive Drawer ---- */
+  /* Modals */
   .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 11, 14, 0.7);
-    backdrop-filter: blur(6px);
+    background: rgba(10, 11, 14, 0.72);
+    backdrop-filter: blur(8px);
     z-index: 999;
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 18px;
   }
   .modal-overlay.active { display: flex; }
   .modal-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 16px;
-    max-width: 860px;
+    max-width: 900px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 92vh;
     overflow-y: auto;
     padding: 36px;
     position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.28);
+    animation: modalPop 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   }
   @keyframes modalPop {
     from { opacity: 0; transform: scale(0.96) translateY(12px); }
@@ -575,7 +556,7 @@
     height: 38px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--ink);
     display: flex;
     align-items: center;
@@ -587,7 +568,7 @@
     color: var(--accent);
   }
   .modal-category {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     font-weight: 700;
     color: var(--accent);
     text-transform: uppercase;
@@ -616,7 +597,7 @@
     font-family: var(--display);
     font-size: 1.1rem;
     font-weight: 700;
-    margin: 24px 0 10px;
+    margin: 26px 0 10px;
     color: var(--accent);
   }
   .modal-body-text {
@@ -634,31 +615,62 @@
   }
   .modal-list li { margin-bottom: 8px; }
   .modal-list strong { color: var(--ink); }
+
+  /* Gallery Grid Inside Modals */
   .modal-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
     margin: 22px 0;
   }
-  .modal-gallery img {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border);
+  .gallery-item {
     background: var(--bg-alt);
-  }
-
-  /* ---- PDF Viewer Modal ---- */
-  .pdf-modal-card {
-    max-width: 1040px;
-    height: 88vh;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 24px;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+  }
+  .gallery-item img:hover {
+    transform: scale(1.02);
+  }
+  .gallery-cap {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+  }
+
+  /* PDF Viewer Modal: Extra Tall for 11x17 and Full Resumes */
+  .pdf-modal-card {
+    max-width: 1260px;
+    width: 95vw;
+    height: 96vh;
+    max-height: 96vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+  }
+  .pdf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-right: 50px;
   }
   .pdf-frame-wrap {
     flex-grow: 1;
+    height: calc(96vh - 85px);
     width: 100%;
-    margin-top: 14px;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -668,6 +680,7 @@
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
   }
 
   footer.site {
@@ -678,7 +691,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* ---- Responsive adjustments ---- */
   @media (max-width: 1100px) {
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
   }
@@ -688,10 +700,11 @@
     .nav-links a:not(.pdf-pill) { display: none; }
   }
   @media (max-width: 600px) {
-    .site-wrap { padding: 0 20px; }
+    .site-wrap { padding: 0 18px; }
     .grid-4 { grid-template-columns: 1fr; }
     .scroll-card { flex: 0 0 270px; }
-    .modal-card { padding: 22px; }
+    .modal-card { padding: 20px; }
+    .pdf-modal-card { width: 98vw; height: 98vh; padding: 14px; }
   }
 </style>
 </head>
@@ -710,14 +723,14 @@
         <a href="#design">Design</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
-        <a href="#" class="pdf-pill" onclick="openPdfModal('resume'); return false;">
+        <button class="pdf-pill" onclick="openPdfModal('resume')" type="button">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           Resume (PDF)
-        </a>
-        <a href="#" class="pdf-pill" onclick="openPdfModal('portfolio'); return false;">
+        </button>
+        <button class="pdf-pill" onclick="openPdfModal('portfolio')" type="button">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
           Theatre Portfolio (PDF)
-        </a>
+        </button>
         <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme">Dark</button>
       </nav>
     </div>
@@ -725,7 +738,7 @@
 </header>
 
 <main>
-  <!-- Hero & About Me -->
+  <!-- Hero & About Section -->
   <section class="hero-about" id="about">
     <div class="site-wrap">
       <div class="hero-grid">
@@ -738,7 +751,7 @@
             I am a Mechanical Engineering Honors sophomore at UT Austin focused on product design engineering, mechatronics, and physical prototyping.
           </p>
           <p class="hero-bio">
-            My background bridges large-scale theatrical scenic design with core mechanical engineering. At HSPVA, I built complex physical sets and mechanism enclosures under rigid deadlines and structural constraints. At UT, I translate that spatial and hands-on intuition into product design engineering: developing gearbox powertrain architectures for Longhorn Baja Racing, designing and testing structural hardware in the FIRE research program, and prototyping interactive consumer devices in the Longhorn Design Lab.
+            My background bridges large-scale scenic design with core mechanical engineering. At HSPVA, I built complex physical sets and mechanism enclosures under rigid structural and timing constraints. At UT, I translate that spatial and hands-on intuition into product design engineering: developing gearbox powertrain architectures for Longhorn Baja Racing, designing and testing structural hardware in the FIRE research program, and prototyping interactive consumer devices in the Longhorn Design Lab.
           </p>
           <div class="badge-grid">
             <span class="badge orange">Longhorn Design Lab</span>
@@ -783,14 +796,14 @@
     </div>
   </section>
 
-  <!-- Engineering Projects -->
+  <!-- Engineering Section -->
   <section id="engineering">
     <div class="site-wrap">
       <div class="section-header">
         <div>
           <div class="section-tag">Functional Hardware &amp; Prototyping</div>
           <h2 class="section-title">Engineering Division</h2>
-          <p class="section-sub">Hardware engineered to survive outside simulations: real wind loads, real mechanical stress, and strict user constraints. Click any project card to view the technical deep dive.</p>
+          <p class="section-sub">Hardware engineered to survive outside simulations: real wind loads, real mechanical stress, and strict user constraints. Click any card for the technical build breakdown.</p>
         </div>
       </div>
 
@@ -798,10 +811,7 @@
         <!-- Card 1: Water Harvester -->
         <div class="project-card" onclick="openModal('modal-harvester')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              <span>Field Rig Support Prototype</span>
-            </div>
+            <img src="design_portfolio_images/awg-stand-with-case.jpg" alt="Atmospheric water harvester cartridge on quad-pod stand">
           </div>
           <div class="card-body">
             <div class="card-meta">UT FIRE Program / Materials Lab</div>
@@ -811,13 +821,10 @@
           </div>
         </div>
 
-        <!-- Card 2: RC Car -->
+        <!-- Card 2: RC Vehicle -->
         <div class="project-card" onclick="openModal('modal-rc')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-              <span>Vehicle Kinematics &amp; CAD</span>
-            </div>
+            <img src="design_portfolio_images/rc-car-onshape-model.png" alt="Scratch built 1:10 scale RC car CAD model in Onshape">
           </div>
           <div class="card-body">
             <div class="card-meta">Independent Robotics Build</div>
@@ -830,10 +837,7 @@
         <!-- Card 3: Borrow Box -->
         <div class="project-card" onclick="openModal('modal-borrowbox')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-              <span>Automated Escapement</span>
-            </div>
+            <img src="design_portfolio_images/borrowbox-front.png" alt="The Borrow Box automatic classroom pencil dispenser prototype">
           </div>
           <div class="card-body">
             <div class="card-meta">UT Makeathon / Technical Award</div>
@@ -846,10 +850,7 @@
         <!-- Card 4: Laundry Hamper -->
         <div class="project-card" onclick="openModal('modal-hamper')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"></path></svg>
-              <span>Convective Airflow System</span>
-            </div>
+            <img src="design_portfolio_images/hamper-prototype.png" alt="Active deodorizing laundry hamper prototype with waffle shelves">
           </div>
           <div class="card-body">
             <div class="card-meta">Texas Inventionworks Challenge</div>
@@ -862,7 +863,7 @@
     </div>
   </section>
 
-  <!-- Design Division -->
+  <!-- Design Section -->
   <section id="design">
     <div class="site-wrap">
       <div class="section-header">
@@ -872,19 +873,16 @@
           <p class="section-sub">Spatial problem solving, rapid material manipulation, and full-scale scenic builds that laid the groundwork for my product design engineering path. Scroll horizontally to explore the breadth of work.</p>
         </div>
         <div class="carousel-controls">
-          <button class="control-btn" onclick="scrollTrack('designTrack', -340)" aria-label="Previous">&larr;</button>
-          <button class="control-btn" onclick="scrollTrack('designTrack', 340)" aria-label="Next">&rarr;</button>
+          <button class="control-btn" onclick="scrollTrack('designTrack', -360)" aria-label="Previous">&larr;</button>
+          <button class="control-btn" onclick="scrollTrack('designTrack', 360)" aria-label="Next">&rarr;</button>
         </div>
       </div>
 
       <div class="scroll-track" id="designTrack">
-        <!-- Design 1: Let the Right One In -->
+        <!-- 1. Let the Right One In -->
         <div class="project-card scroll-card" onclick="openModal('modal-lettheright')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-              <span>Mainstage Scenic Architecture</span>
-            </div>
+            <img src="design_portfolio_images/lettheright-hero.jpg" alt="Let the Right One In mainstage set with illuminated scaffolding and trees">
           </div>
           <div class="card-body">
             <div class="card-meta">HSPVA Mainstage / Scenic Design</div>
@@ -894,13 +892,10 @@
           </div>
         </div>
 
-        <!-- Design 2: No No Nanette -->
+        <!-- 2. No No Nanette -->
         <div class="project-card scroll-card" onclick="openModal('modal-nanette')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-              <span>Art Deco Structural Staging</span>
-            </div>
+            <img src="design_portfolio_images/nanette-performance.jpg" alt="No No Nanette colorful Art Deco musical set with performers">
           </div>
           <div class="card-body">
             <div class="card-meta">HSPVA Mainstage / Scenic Design</div>
@@ -910,13 +905,10 @@
           </div>
         </div>
 
-        <!-- Design 3: Hadestown -->
+        <!-- 3. Hadestown -->
         <div class="project-card scroll-card" onclick="openModal('modal-hadestown')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              <span>Statewide UIL Design Entry</span>
-            </div>
+            <img src="design_portfolio_images/hadestown-model.jpg" alt="Hadestown theatrical design competition scale physical model">
           </div>
           <div class="card-body">
             <div class="card-meta">UIL State Theatrical Design</div>
@@ -926,13 +918,10 @@
           </div>
         </div>
 
-        <!-- Design 4: Servant of Two Masters -->
+        <!-- 4. Servant of Two Masters -->
         <div class="project-card scroll-card" onclick="openModal('modal-servant')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-              <span>Atmospheric Lighting Cues</span>
-            </div>
+            <img src="design_portfolio_images/servant-masked-duel.jpg" alt="The Servant of Two Masters live stage lighting with masked actors dueling">
           </div>
           <div class="card-body">
             <div class="card-meta">HSPVA Repertory / Lighting Design</div>
@@ -942,29 +931,49 @@
           </div>
         </div>
 
-        <!-- Design 5: Props & Sculpting -->
+        <!-- 5. Props, Puppetry & Carving -->
         <div class="project-card scroll-card" onclick="openModal('modal-props')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path></svg>
-              <span>Sculpture &amp; Mechanism Craft</span>
-            </div>
+            <img src="design_portfolio_images/props-capitano-mask-final.jpg" alt="Papier-mache Il Capitano commedia dell'arte mask">
           </div>
           <div class="card-body">
             <div class="card-meta">Physical Fabrication &amp; Prop Craft</div>
             <h3 class="card-title">Character Masks &amp; Puppetry</h3>
-            <p class="card-desc">Clay-sculpted papier-mâché Commedia masks, an articulated squirrel puppet with hinged linkage rods for 9 to 5, and architectural foam reliefs.</p>
+            <p class="card-desc">Clay-sculpted papier-mache Commedia masks, an articulated squirrel puppet with hinged linkage rods for 9 to 5, and architectural foam reliefs.</p>
             <div class="card-action">Explore Craft &rarr;</div>
           </div>
         </div>
 
-        <!-- Design 6: Axoloris Marketing -->
+        <!-- 6. Model Making & Projections -->
+        <div class="project-card scroll-card" onclick="openModal('modal-tempest')">
+          <div class="card-media">
+            <img src="design_portfolio_images/tempest-projection-model.jpg" alt="The Tempest projection mapped physical set model">
+          </div>
+          <div class="card-body">
+            <div class="card-meta">Lighting, Video &amp; Scale Models</div>
+            <h3 class="card-title">Model Making &amp; Projections</h3>
+            <p class="card-desc">Scale architectural modeling in Bristol board and foam core paired with QLab projection mapping to texture physical geometry with light.</p>
+            <div class="card-action">Explore Models &rarr;</div>
+          </div>
+        </div>
+
+        <!-- 7. Scenic Painting & Color Theory -->
+        <div class="project-card scroll-card" onclick="openModal('modal-scenicpaint')">
+          <div class="card-media">
+            <img src="design_portfolio_images/paint-spooky-house.jpg" alt="Scenic painting exercise demonstrating scumbling and spooky house atmosphere">
+          </div>
+          <div class="card-body">
+            <div class="card-meta">Materials &amp; Surface Treatment</div>
+            <h3 class="card-title">Scenic Painting &amp; Color Theory</h3>
+            <p class="card-desc">Large-scale surface finishes applying scumbling, chromatic black mixing, tint and shade studies, and atmospheric color theory.</p>
+            <div class="card-action">Explore Painting &rarr;</div>
+          </div>
+        </div>
+
+        <!-- 8. Axoloris Marketing -->
         <div class="project-card scroll-card" onclick="openModal('modal-axoloris')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-              <span>Visual Identity &amp; Collateral</span>
-            </div>
+            <img src="design_portfolio_images/axoloris-poster.jpg" alt="Axoloris the Musical neo-expressionist promotional poster design">
           </div>
           <div class="card-body">
             <div class="card-meta">UIL State Marketing Category</div>
@@ -974,34 +983,54 @@
           </div>
         </div>
 
-        <!-- Design 7: Costume & Millinery -->
+        <!-- 9. Costume Crafts & Millinery -->
         <div class="project-card scroll-card" onclick="openModal('modal-costume')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
-              <span>Form-Fitting &amp; Millinery</span>
-            </div>
+            <img src="design_portfolio_images/costume-tricorne-finished.jpg" alt="Handcrafted tricorne hat with wire brim for Frederic in Pirates of Penzance">
           </div>
           <div class="card-body">
-            <div class="card-meta">Structural Soft Goods</div>
+            <div class="card-meta">Structural Soft Goods &amp; Millinery</div>
             <h3 class="card-title">Costume Crafts &amp; Millinery</h3>
             <p class="card-desc">Wired buckram and Fosshape tricorne hat construction for Pirates of Penzance, precision darting on industrial stitchers, and rapid materials styling.</p>
             <div class="card-action">Explore Soft Goods &rarr;</div>
           </div>
         </div>
 
-        <!-- Design 8: Saw Blade Clock -->
+        <!-- 10. The Prom / Fly Rail -->
+        <div class="project-card scroll-card" onclick="openModal('modal-prom')">
+          <div class="card-media">
+            <img src="design_portfolio_images/prom-performance.jpg" alt="The Prom all-school musical production with scenic star and drops">
+          </div>
+          <div class="card-body">
+            <div class="card-meta">Stage Rigging &amp; Systems</div>
+            <h3 class="card-title">Stage Fly Rail &amp; Rigging: The Prom</h3>
+            <p class="card-desc">Counterweight fly system operation and rigging safety for HSPVA's 2023 fall all-school musical, coordinating real-time dynamic scenery fly cues.</p>
+            <div class="card-action">Explore Rigging &rarr;</div>
+          </div>
+        </div>
+
+        <!-- 11. Digital Modeling & CAD Assets -->
+        <div class="project-card scroll-card" onclick="openModal('modal-cad')">
+          <div class="card-media">
+            <img src="design_portfolio_images/onshape-satellite.jpg" alt="Satellite CAD model designed and rendered in Onshape">
+          </div>
+          <div class="card-body">
+            <div class="card-meta">Digital Design &amp; 3D Modeling</div>
+            <h3 class="card-title">Digital 3D CAD &amp; Asset Modeling</h3>
+            <p class="card-desc">Explorations across Onshape, Blender, AutoCAD, and TinkerCAD spanning custom consumer accessories, orbital satellites, and multi-layer graphics.</p>
+            <div class="card-action">Explore CAD Models &rarr;</div>
+          </div>
+        </div>
+
+        <!-- 12. Saw Blade Clock -->
         <div class="project-card scroll-card" onclick="openModal('modal-sawblade')">
           <div class="card-media">
-            <div class="card-media-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Upcycled Functional Art</span>
-            </div>
+            <img src="design_portfolio_images/clock-front.jpg" alt="Upcycled saw blade desk clock mounted on black wooden base">
           </div>
           <div class="card-body">
             <div class="card-meta">Personal Maker Build</div>
             <h3 class="card-title">Upcycled Saw Blade Clock</h3>
-            <p class="card-desc">Repurposed carbide circular saw blade into a desk timepiece, incorporating a custom-routed solid timber block and reliable quartz movement.</p>
+            <p class="card-desc">Repurposed circular saw blade into a desk timepiece, incorporating a custom-routed solid timber block and reliable quartz movement.</p>
             <div class="card-action">Explore Build &rarr;</div>
           </div>
         </div>
@@ -1009,7 +1038,7 @@
     </div>
   </section>
 
-  <!-- Experience & Tools Section -->
+  <!-- Experience & Skills Section -->
   <section id="experience">
     <div class="site-wrap">
       <div class="section-header">
@@ -1056,7 +1085,7 @@
             <div class="xp-org">UT Freshman Introduction to Research in Engineering (FIRE) : Dr. Guihua Yu Lab</div>
             <ul class="xp-bullets">
               <li>Optimized atmospheric water harvesting structural support systems for outdoor field deployment in arid regions.</li>
-              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through rigorous physical FDM print iteration.</li>
+              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through physical FDM print iteration.</li>
             </ul>
           </div>
 
@@ -1146,30 +1175,39 @@
   </div>
 </footer>
 
-<!-- ========================================================
-     MODALS / TECHNICAL DEEP DIVES
-======================================================== -->
+<!-- Modals -->
 
-<!-- Modal: Water Harvester -->
+<!-- 1. Modal: Water Harvester -->
 <div class="modal-overlay" id="modal-harvester" onclick="closeOnBackdrop(event, 'modal-harvester')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-harvester')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Engineering / Structural Optimization</div>
     <h3 class="modal-title">Atmospheric Water Harvester: Structural Quad-Pod System</h3>
-    <div class="modal-org">UT FIRE Program / Dr. Guihua Yu Materials Laboratory &bull; Jan - Apr 2026</div>
+    <div class="modal-org">UT FIRE Program / Dr. Guihua Yu Materials Laboratory : Jan - Apr 2026</div>
     <p class="modal-lead">
       Dr. Guihua Yu and Yaxuan Zhao's residence-scale water harvester extracts potable water from ambient air using hydrogel sheets that passively absorb moisture overnight and release water vapor when heated by solar concentrators during the day.
     </p>
 
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/awg-stand-with-case.jpg" alt="Field-test rig in the lab, cartridge resting on the redesigned quad-pod stand">
+        <div class="gallery-cap">Full test rig with hydrogel cartridge casing mounted on splayed legs.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/awg-stand-and-standoff.jpg" alt="Isolated 3D printed central load hub and lower incline standoff">
+        <div class="gallery-cap">3D printed central head block and modular lower incline standoff.</div>
+      </div>
+    </div>
+
     <div class="modal-section-title">The Engineering Challenge</div>
     <p class="modal-body-text">
-      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked catastrophic tipping under wind loads acting against its 30 lb payload and wide, tilted casing.
+      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked tipping under lateral wind loads acting against its 30 lb payload and wide, tilted casing.
     </p>
 
     <div class="modal-section-title">Design &amp; Fabrication Decisions</div>
     <ul class="modal-list">
-      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising tipping resistance.</li>
-      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic legs with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip.</li>
+      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising lateral force resistance.</li>
+      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic plates with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip.</li>
       <li><strong>Direct Load-Transfer Hub:</strong> 3D-printed a central head block on a Raise3D Pro3 using structural PLA (5 shell layers, 6 solid top layers, 18% gyroid infill). Hexagonal pockets encapsulated 30mm M10 coupling nuts via press-fit and cyanoacrylate, directing compressive forces directly into the steel rods rather than relying on plastic friction.</li>
       <li><strong>Lower Incline Standoff:</strong> Designed a secondary 3D-printed foot block at the base of the hydrogel case as a positive stop, preventing slippage along its 30-degree operating incline.</li>
     </ul>
@@ -1181,20 +1219,31 @@
   </div>
 </div>
 
-<!-- Modal: RC Vehicle -->
+<!-- 2. Modal: RC Vehicle -->
 <div class="modal-overlay" id="modal-rc" onclick="closeOnBackdrop(event, 'modal-rc')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-rc')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Robotics &amp; Vehicle Systems</div>
     <h3 class="modal-title">Scratch-Engineered 1:10 Scale RC Vehicle</h3>
-    <div class="modal-org">Independent Engineering Project &bull; Dec 2025 - Present</div>
+    <div class="modal-org">Independent Engineering Project : Dec 2025 - Present</div>
     <p class="modal-lead">
-      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical tolerancing, and real-time embedded communications.
+      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical assembly tolerances, and real-time embedded communications.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/rc-car-onshape-model.png" alt="Full CAD assembly of chassis, suspension, powertrain, and battery in Onshape">
+        <div class="gallery-cap">Complete vehicle assembly modeled in Onshape showing motor and battery packaging.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/rc-car-suspension-prototype.jpg" alt="Assembled FDM 3D printed suspension corner with shock absorber and spur gear">
+        <div class="gallery-cap">3D printed suspension corner, damper mounting, and custom spur gear reduction.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Chassis &amp; Kinematics Design</div>
     <p class="modal-body-text">
-      Modeled the full chassis, multi-link double-wishbone suspension, and steering linkages in Onshape. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression.
+      Modeled the full chassis, multi-link suspension arms, and steering linkages in Onshape. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression.
     </p>
 
     <div class="modal-section-title">Additive Manufacturing &amp; Stress Vectors</div>
@@ -1211,16 +1260,27 @@
   </div>
 </div>
 
-<!-- Modal: Borrow Box -->
+<!-- 3. Modal: Borrow Box -->
 <div class="modal-overlay" id="modal-borrowbox" onclick="closeOnBackdrop(event, 'modal-borrowbox')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-borrowbox')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Mechatronics &amp; Rapid Prototyping</div>
     <h3 class="modal-title">The Borrow Box: Automatic Classroom Supply Dispenser</h3>
-    <div class="modal-org">UT SEC Makeathon &bull; Most Technical Design Award (1st of 18 teams)</div>
+    <div class="modal-org">UT SEC Makeathon : Most Technical Design Award (1st of 18 teams)</div>
     <p class="modal-lead">
       Designed and built in 48 hours to eliminate classroom disruptions when students borrow pencils, providing a frictionless, verifiable checkout system for teachers.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/borrowbox-front.png" alt="Borrow Box initial cardboard and 3D printed proof of concept">
+        <div class="gallery-cap">Initial functional proof-of-concept demonstrating gravity chute and electronics enclosure.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/borrowbox-barrel.png" alt="Final laser-cut acrylic and wood rotating barrel escapement assembly">
+        <div class="gallery-cap">Final prototype featuring laser-cut acrylic rotating drum and token sensor slot.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Mechanical &amp; Sensor Architecture</div>
     <ul class="modal-list">
@@ -1236,16 +1296,23 @@
   </div>
 </div>
 
-<!-- Modal: Laundry Hamper -->
+<!-- 4. Modal: Laundry Hamper -->
 <div class="modal-overlay" id="modal-hamper" onclick="closeOnBackdrop(event, 'modal-hamper')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-hamper')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Thermal &amp; Fluid Product Design</div>
     <h3 class="modal-title">Active Deodorizing Laundry Hamper</h3>
-    <div class="modal-org">Texas Inventionworks Design Challenge &bull; Oct 2025 - Present</div>
+    <div class="modal-org">Texas Inventionworks Design Challenge : Oct 2025 - Present</div>
     <p class="modal-lead">
       Traditional laundry hampers trap stagnant, humid air, fostering bacterial growth and persistent odor. This project introduced an active airflow enclosure that dries damp clothing before odors set in.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hamper-prototype.png" alt="Active deodorizing laundry hamper prototype with waffle shelves">
+        <div class="gallery-cap">Laser-cut wooden hamper prototype showing finger joints, waffle grid shelves, and fan wiring.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Airflow Architecture &amp; Joinery</div>
     <p class="modal-body-text">
@@ -1259,16 +1326,43 @@
   </div>
 </div>
 
-<!-- Modal: Let the Right One In -->
+<!-- 5. Modal: Let the Right One In -->
 <div class="modal-overlay" id="modal-lettheright" onclick="closeOnBackdrop(event, 'modal-lettheright')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-lettheright')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Scenic Design &amp; Kinetic Staging</div>
     <h3 class="modal-title">Let the Right One In: Mainstage Scenic Architecture</h3>
-    <div class="modal-org">HSPVA Mainstage Production &bull; Directed by Paul Davis</div>
+    <div class="modal-org">HSPVA Mainstage Production : Directed by Paul Davis</div>
     <p class="modal-lead">
       Served as Lead Scenic Designer for the 2025 spring mainstage, engineering an ominous, industrial 1980s Chicago environment incorporating kinetic structural units.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-hero.jpg" alt="Let the Right One In full stage view with illuminated birch trees and jungle gym">
+        <div class="gallery-cap">Full stage view showing illuminated birch trees, construction scrim, and central unit.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-pool.jpg" alt="Practical pool unit with actor submerged behind translucent panels">
+        <div class="gallery-cap">Integrated practical water tank revealed behind rotating jungle gym for pool scene.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-playground.jpg" alt="Climbing actors on rolling playground unit">
+        <div class="gallery-cap">Rolling playground unit built on swivel casters for dynamic stage reconfigurations.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-lockers.jpg" alt="Rolling teal school locker unit on stage">
+        <div class="gallery-cap">Rolling locker bank designed for rapid transitions between outdoor and interior scenes.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-model.jpg" alt="Physical scaled concept model for Let the Right One In">
+        <div class="gallery-cap">Preliminary 1/4" scale concept model used for director design meetings.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/lettheright-groundplan.jpg" alt="AutoCAD technical groundplan for Let the Right One In">
+        <div class="gallery-cap">AutoCAD groundplan drafting showing placement of the "L" overpass and rolling units.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Kinetic Elements &amp; Water Tank Staging</div>
     <ul class="modal-list">
@@ -1279,16 +1373,43 @@
   </div>
 </div>
 
-<!-- Modal: No No Nanette -->
+<!-- 6. Modal: No No Nanette -->
 <div class="modal-overlay" id="modal-nanette" onclick="closeOnBackdrop(event, 'modal-nanette')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-nanette')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Architectural Drafting &amp; Fabrication</div>
     <h3 class="modal-title">No No Nanette: Art Deco Set Design</h3>
-    <div class="modal-org">HSPVA Mainstage Production &bull; Directed by Joshua Denning</div>
+    <div class="modal-org">HSPVA Mainstage Production : Directed by Joshua Denning</div>
     <p class="modal-lead">
       Designed the complete scenic environment for the 2024 spring mainstage, creating a vibrant 1920s Art Deco beach club world built from organic arcs and bold color palettes.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-performance.jpg" alt="No No Nanette full stage performance with beach props and dancers">
+        <div class="gallery-cap">Full cast musical number showcasing Art Deco arches, sun prop, and radial platforms.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-stage-pianos-chaise.jpg" alt="No No Nanette stage showing baby grand pianos and chaise lounge">
+        <div class="gallery-cap">Wide stage showing central baby grand pianos framed between flanking stair units.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-stairs-piano.jpg" alt="Top-down perspective looking down the curved staircase onto the baby grand piano">
+        <div class="gallery-cap">Overhead perspective showing curved staircase sweep, brass handrails, and piano clearance.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-model-painted.jpg" alt="Final painted 3D model in gouache for No No Nanette">
+        <div class="gallery-cap">Final scale physical model painted in gouache for paint-shop color translation.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-construction-flats.jpg" alt="Scenic shop construction of large curved wooden flats">
+        <div class="gallery-cap">Shop framing of compound curved flats matching 1920s Art Deco architectural sweeps.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/nanette-autocad-elevation.jpg" alt="AutoCAD drafting of front elevation for No No Nanette">
+        <div class="gallery-cap">AutoCAD front elevation drafting illustrating dimensional relationships and arc radii.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Dual Grand Piano Spatial Integration</div>
     <p class="modal-body-text">
@@ -1302,7 +1423,7 @@
   </div>
 </div>
 
-<!-- Modal: Hadestown -->
+<!-- 7. Modal: Hadestown -->
 <div class="modal-overlay" id="modal-hadestown" onclick="closeOnBackdrop(event, 'modal-hadestown')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-hadestown')" aria-label="Close modal">&times;</button>
@@ -1313,6 +1434,29 @@
       Scenic design submission exploring the juxtaposition between fiery industrialism and rural naturalism within a 1920s jazz-age thrust stage configuration.
     </p>
 
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hadestown-model.jpg" alt="Full view of Hadestown physical model with rolling train on track">
+        <div class="gallery-cap">Full scale concept model showcasing the industrial overpass, turntable, and train track.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hadestown-moodboard.jpg" alt="Hadestown research moodboard contrasting industrialism and naturalism">
+        <div class="gallery-cap">Visual research moodboard capturing historical industrial imagery and natural motifs.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hadestown-groundplan.jpg" alt="Detailed AutoCAD thrust stage groundplan for Hadestown">
+        <div class="gallery-cap">Detailed 1/4" scale thrust groundplan drafted in AutoCAD with audience sightlines.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hadestown-train.jpg" alt="Bristol board miniature locomotive model on track">
+        <div class="gallery-cap">Miniature locomotive scratch-built from Bristol board and painted card stock.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/hadestown-train-cart.jpg" alt="Bristol board miniature train caboose model">
+        <div class="gallery-cap">Detailed miniature trailing train car testing track radii and proscenium clearance.</div>
+      </div>
+    </div>
+
     <div class="modal-section-title">Drafting &amp; Mechanical Layout</div>
     <ul class="modal-list">
       <li><strong>AutoCAD Groundplan:</strong> Drafted a 1/4" scale thrust groundplan featuring nested circular platforms, an integrated center turntable, and deep proscenium tunnels.</li>
@@ -1321,16 +1465,43 @@
   </div>
 </div>
 
-<!-- Modal: Servant of Two Masters -->
+<!-- 8. Modal: Servant of Two Masters -->
 <div class="modal-overlay" id="modal-servant" onclick="closeOnBackdrop(event, 'modal-servant')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-servant')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Lighting Design &amp; Visual Rhythm</div>
     <h3 class="modal-title">The Servant of Two Masters: Lighting Design</h3>
-    <div class="modal-org">HSPVA Fall Repertory Show &bull; Directed by Deborah Hope</div>
+    <div class="modal-org">HSPVA Fall Repertory Show : Directed by Deborah Hope</div>
     <p class="modal-lead">
       Served as Lead Lighting Designer, programming high-energy cues, vibrant saturation palettes, and cyclorama color transitions to drive commedia dell'arte pacing.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-masked-duel.jpg" alt="Dramatic red backlight duel in The Servant of Two Masters">
+        <div class="gallery-cap">High-contrast red wash setting an energetic slapstick mood during the duel sequence.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-actress-blue.jpg" alt="Cool blue spotlighting on actress in The Servant of Two Masters">
+        <div class="gallery-cap">Deep blue high-angle spotlight carving out actor emotional focus against dark flats.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-fencing-red.jpg" alt="Warm red side lighting on fencing actor">
+        <div class="gallery-cap">Low-angle warm side lighting highlighting physical swordplay across the deck.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-kitchen-scene.jpg" alt="Bright high-key kitchen scene lighting">
+        <div class="gallery-cap">Warm natural wash highlighting character comedic timing during the feast sequence.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-lightboard.jpg" alt="ETC lighting console cue sheet display">
+        <div class="gallery-cap">ETC lighting console display mapping channel levels and timing parameters.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/servant-cue-sheet.jpg" alt="Comprehensive paperwork lighting cue sheet">
+        <div class="gallery-cap">Detailed cue tracking sheet linking script lines, color palettes, and emotional tones.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Cue Architecture &amp; Fixture Control</div>
     <p class="modal-body-text">
@@ -1339,28 +1510,137 @@
   </div>
 </div>
 
-<!-- Modal: Props & Sculpting -->
+<!-- 9. Modal: Props, Puppetry & Carving -->
 <div class="modal-overlay" id="modal-props" onclick="closeOnBackdrop(event, 'modal-props')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-props')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Prop Fabrication &amp; Sculptural Casting</div>
     <h3 class="modal-title">Props, Character Masks, &amp; Puppetry</h3>
-    <div class="modal-org">Theatrical Prop Shop &bull; Various Productions</div>
+    <div class="modal-org">Theatrical Prop Shop : Various Productions</div>
     <p class="modal-lead">
-      Hands-on fabrication utilizing clay sculpting, papier-mâché, foam carving, and mechanical linkages for stage and exhibition.
+      Hands-on fabrication utilizing clay sculpting, papier-mache, foam carving, and mechanical linkages for stage and exhibition.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/props-capitano-mask-final.jpg" alt="Papier-mache Il Capitano mask finished with leather paint">
+        <div class="gallery-cap">Finished Il Capitano mask crafted with papier-mache, Sculpt or Coat, and leather dye.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/props-capitano-clay.jpg" alt="Positive clay facial anatomy sculpture on mannequin head">
+        <div class="gallery-cap">Clay positive form sculpted over a lifecast armature to define facial contours.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/9to5-squirrel-onstage.jpg" alt="Finished squirrel puppet performing on actress shoulder in 9 to 5">
+        <div class="gallery-cap">Articulated squirrel puppet in action onstage during HSPVA's musical 9 to 5.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/9to5-squirrel-build.jpg" alt="Sculpted foam body and papier-mache head of squirrel puppet under construction">
+        <div class="gallery-cap">Puppet head and torso construction showing carved foam, armature, and control rods.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/props-balustrade-final.jpg" alt="Completed textured stone balustrade prop">
+        <div class="gallery-cap">Finished faux stone balustrade constructed from timber, plastic bottles, and Jaxsan.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/props-tile-painted.jpg" alt="Carved high-density foam medieval rosette tile painted blue and white">
+        <div class="gallery-cap">High-density foam relief tile hand-carved with precision knives and painted.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Notable Artifacts</div>
     <ul class="modal-list">
-      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mâché with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes.</li>
-      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mâché head, carved foam torso, hinged arm linkages, and control dowels for live manipulation.</li>
+      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mache with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes.</li>
+      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mache head, carved foam torso, hinged arm linkages, and control dowels for live manipulation.</li>
       <li><strong>Textured Balustrade:</strong> Engineered an architectural railing using wood framing, pantyhose-sleeved plastic bottle posts, and Jaxsan textured coating to mimic aged stone.</li>
       <li><strong>Carved Foam Reliefs:</strong> Carved high-density foam tiles with precision knives to replicate ornate medieval stone rosettes.</li>
     </ul>
   </div>
 </div>
 
-<!-- Modal: Axoloris Marketing -->
+<!-- 10. Modal: Model Making & Projections -->
+<div class="modal-overlay" id="modal-tempest" onclick="closeOnBackdrop(event, 'modal-tempest')">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('modal-tempest')" aria-label="Close modal">&times;</button>
+    <div class="modal-category">Scale Architecture &amp; Projection Technology</div>
+    <h3 class="modal-title">Model Making &amp; Projections: The Tempest</h3>
+    <div class="modal-org">HSPVA Advanced Design Studio</div>
+    <p class="modal-lead">
+      Scale architectural model making combining Bristol board, foam core, and miniature scale lumber with QLab digital projection mapping.
+    </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/tempest-projection-model.jpg" alt="Physical set model for The Tempest mapped with digital light projections">
+        <div class="gallery-cap">Model for The Tempest projection-mapped using QLab to cast dynamic light textures.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/tempest-model.jpg" alt="White physical model of set for The Tempest">
+        <div class="gallery-cap">Physical model study for The Tempest exploring multi-level rocky elevations.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/model-doorway.jpg" alt="Bristol board scale model of an ornate doorway with curtains">
+        <div class="gallery-cap">Scale doorway constructed from foam core, Bristol board, and draped tissue paper.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/model-fireplace.jpg" alt="Scale white card model of a ship prow and fireplace structure">
+        <div class="gallery-cap">White card study evaluating forced perspective and ship elements.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/model-sofa.jpg" alt="Miniature model of broken wooden pier structure">
+        <div class="gallery-cap">Scale timber study constructing weathered wooden beams and organic terrain.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-title">Technical Process</div>
+    <p class="modal-body-text">
+      In our projections studio, we constructed scale physical geometry for Shakespeare's The Tempest. Using an overhead digital projector and QLab software, we masked individual architectural elements to project animated water ripples, lightning bursts, and textured atmospheric shadows directly onto the physical model surfaces.
+    </p>
+  </div>
+</div>
+
+<!-- 11. Modal: Scenic Painting & Color Theory -->
+<div class="modal-overlay" id="modal-scenicpaint" onclick="closeOnBackdrop(event, 'modal-scenicpaint')">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('modal-scenicpaint')" aria-label="Close modal">&times;</button>
+    <div class="modal-category">Surface Finishes &amp; Color Mixing</div>
+    <h3 class="modal-title">Scenic Painting &amp; Chromatic Color Theory</h3>
+    <div class="modal-org">HSPVA Scenic Art Studio</div>
+    <p class="modal-lead">
+      Mastering scenic painting methodologies, including scumbling, wet blends, chromatic black formulations, and atmospheric perspective.
+    </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/paint-spooky-house.jpg" alt="Dramatic painting of an abandoned greenhouse with atmospheric scumbling">
+        <div class="gallery-cap">Atmospheric scenic study applying scumbling and glazing to depict an abandoned conservatory.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/color-chromatic-black.jpg" alt="Chromatic black color mixing exercise chart">
+        <div class="gallery-cap">Chromatic black exercise formulating deep neutral darks using violet, ochre, and green.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/color-wall.jpg" alt="Class color comparison wall showing swatches">
+        <div class="gallery-cap">Studio color comparison wall mapping pigments across tints, tones, and shades.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/paint-teal-scumbling.jpg" alt="Large scale teal scumbled backdrop panel">
+        <div class="gallery-cap">Large scale scumble blend creating organic marble-like surface depth.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/paint-tree-silhouette.jpg" alt="Graphic red and purple tree silhouette study">
+        <div class="gallery-cap">Color theory panel analyzing high-contrast silhouette separation against warm hues.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-title">Studio Methodologies</div>
+    <p class="modal-body-text">
+      Exercises covered mixing rich chromatic blacks from complementary earth tones rather than tube black to maintain luminous optical depth under stage lighting. Large backdrop panels were painted with multi-brush scumbling techniques, layering wet-into-wet glazes to simulate natural weathering and atmospheric distance.
+    </p>
+  </div>
+</div>
+
+<!-- 12. Modal: Axoloris Marketing -->
 <div class="modal-overlay" id="modal-axoloris" onclick="closeOnBackdrop(event, 'modal-axoloris')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-axoloris')" aria-label="Close modal">&times;</button>
@@ -1371,6 +1651,29 @@
       Comprehensive brand identity and promotional campaign for a futuristic, eco-conscious musical set in 2050 near a hydroelectric plant.
     </p>
 
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/axoloris-poster.jpg" alt="Main promotional poster for Axoloris the Musical">
+        <div class="gallery-cap">Official production poster styled after 1970s neo-expressionist street art.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/axoloris-marketing-calendar.jpg" alt="Structured marketing rollout calendar">
+        <div class="gallery-cap">Comprehensive promotional release schedule tracking print, digital, and box-office dates.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/axoloris-playbill.jpg" alt="Official production playbill program layout">
+        <div class="gallery-cap">Multi-page playbill program layout organizing director notes, cast bios, and credits.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/axoloris-social-post.jpg" alt="Instagram and social media announcement graphic">
+        <div class="gallery-cap">Social media announcement graphic sized and formatted for digital marketing.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/axoloris-directors-note.jpg" alt="Director's note and setting page from playbill">
+        <div class="gallery-cap">Director's vision statement layout explaining the retro-futuristic setting.</div>
+      </div>
+    </div>
+
     <div class="modal-section-title">Design Philosophy &amp; Collateral</div>
     <p class="modal-body-text">
       Grounded the visual branding in 1970s neo-expressionism, contrasting the raw texture of industrial machinery with vibrant, playful youth motifs. Designed the official poster, production calendar, comprehensive playbill, and social media announcements in Canva and Photoshop.
@@ -1378,16 +1681,43 @@
   </div>
 </div>
 
-<!-- Modal: Costume & Millinery -->
+<!-- 13. Modal: Costume & Millinery -->
 <div class="modal-overlay" id="modal-costume" onclick="closeOnBackdrop(event, 'modal-costume')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-costume')" aria-label="Close modal">&times;</button>
     <div class="modal-category">Structural Soft Goods &amp; Millinery</div>
     <h3 class="modal-title">Costume Crafts &amp; Millinery Construction</h3>
-    <div class="modal-org">HSPVA Costume Studio &bull; Hands-on Production Work</div>
+    <div class="modal-org">HSPVA Costume Studio : Hands-on Production Work</div>
     <p class="modal-lead">
       Developing structural garment shapes, millinery wire framing, and tailored pattern alteration using industrial stitching tools.
     </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/costume-tricorne-finished.jpg" alt="Worn finished black and red tricorne hat">
+        <div class="gallery-cap">Completed tricorne hat for Frederic in The Pirates of Penzance showing brim roll.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/costume-tricorne-buckram.jpg" alt="Buckram crown form pinned to millinery head">
+        <div class="gallery-cap">Buckram crown block wired, pinned, and hand-stitched over a millinery head.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/costume-tricorne-sketch.jpg" alt="Colored pencil sketch of tricorne hat design">
+        <div class="gallery-cap">Initial design sketch establishing color blocking and brim angles.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/costume-muslin-shirt-collar.jpg" alt="Muslin shirt alteration pinned on dress form">
+        <div class="gallery-cap">Form-fitted muslin shirt draped on a mannequin using planned darts and collar seams.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/designchallenge-henry-viii-costume.jpg" alt="King Henry VIII costume made from household paper and cardboard">
+        <div class="gallery-cap">Rapid design challenge constructing King Henry VIII costume from household paper and tape.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/designchallenge-woman-in-black-makeup.jpg" alt="Theatrical character makeup application based on The Woman in Black">
+        <div class="gallery-cap">Theatrical character makeup application designed for The Woman in Black.</div>
+      </div>
+    </div>
 
     <div class="modal-section-title">Craft Highlights</div>
     <ul class="modal-list">
@@ -1398,7 +1728,89 @@
   </div>
 </div>
 
-<!-- Modal: Saw Blade Clock -->
+<!-- 14. Modal: The Prom / Fly Rail -->
+<div class="modal-overlay" id="modal-prom" onclick="closeOnBackdrop(event, 'modal-prom')">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('modal-prom')" aria-label="Close modal">&times;</button>
+    <div class="modal-category">Stage Rigging &amp; Mechanical Systems</div>
+    <h3 class="modal-title">Stage Fly Rail &amp; Rigging: The Prom</h3>
+    <div class="modal-org">HSPVA Fall All-School Musical : Directed by Rozanne Curtis</div>
+    <p class="modal-lead">
+      Served on the stage rail crew for the 2023 fall all-school musical, operating the heavy counterweight arbor system to fly architectural drops, lighting arches, and scenic set pieces live during performance.
+    </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/prom-performance.jpg" alt="The Prom full company performance with illuminated star and streamers">
+        <div class="gallery-cap">Mainstage performance showing flown scenic star, streamer swags, and lighting arbors.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/prom-fly-rail.jpg" alt="Clancy counterweight fly rail locks labeled for Emma's Room">
+        <div class="gallery-cap">J.R. Clancy counterweight rope locks and arbor line sets operated during the show.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/prom-set-wall.jpg" alt="Flown flat painted teal with bulletin board and posters">
+        <div class="gallery-cap">Flown wall unit representing Emma's bedroom, rigged for rapid silent vertical cues.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/prom-drop-ladder.jpg" alt="Stage crew member on ladder securing flown backdrop">
+        <div class="gallery-cap">Rigging and tie-off adjustments along the battens prior to technical dress rehearsals.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/prom-star-stage.jpg" alt="Illuminated star unit flown above stage floor">
+        <div class="gallery-cap">Ground-level trim check on the central illuminated prom star scenic element.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-title">Rigging &amp; Safety Protocols</div>
+    <p class="modal-body-text">
+      Managed line set weights, arbor balance checks, and pin-rail locks backstage. Coordinated with stage management and deck crew over headset communications to execute smooth vertical flight transitions without swaying or endangering cast members on the active deck.
+    </p>
+  </div>
+</div>
+
+<!-- 15. Modal: Digital Modeling & CAD Assets -->
+<div class="modal-overlay" id="modal-cad" onclick="closeOnBackdrop(event, 'modal-cad')">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('modal-cad')" aria-label="Close modal">&times;</button>
+    <div class="modal-category">Parametric Modeling &amp; Digital Assets</div>
+    <h3 class="modal-title">Digital 3D CAD &amp; Asset Modeling</h3>
+    <div class="modal-org">CAD Studio &bull; Parametric Engineering &amp; Graphics</div>
+    <p class="modal-lead">
+      Designing functional mechanical fixtures, consumer products, and graphic assets across Onshape, AutoCAD, and Adobe Photoshop.
+    </p>
+
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/onshape-satellite.jpg" alt="Parametric 3D model of satellite with solar arrays in Onshape">
+        <div class="gallery-cap">Parametric satellite assembly modeled in Onshape with articulating solar panels and dish.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/onshape-headphone-stand.jpg" alt="Ergonomic desk headphone stand model in Onshape">
+        <div class="gallery-cap">Self-designed desk headphone stand with cantilevered cradle and counterweighted base.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/autocad-nanette-drafting.jpg" alt="AutoCAD technical cut sheets for radial platform stairs">
+        <div class="gallery-cap">AutoCAD cut-sheet layout optimizing plywood yields for compound curved stair treads.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/photoshop-zombie.jpg" alt="Multi-layer composite digital zombie creation in Photoshop">
+        <div class="gallery-cap">Multi-layer photo manipulation blending facial textures and specular lighting in Photoshop.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/photoshop-snowflake-pattern.jpg" alt="Seamless repeating snowflake pattern tile in Photoshop">
+        <div class="gallery-cap">Seamless vector pattern designed for repeating textile prints and stage wallpaper.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-title">Technical Toolset</div>
+    <p class="modal-body-text">
+      Proficient in parametric feature trees, mate connectors, and assembly configurations in Onshape, SolidWorks, and Fusion 360. Complemented by technical 2D drafting in AutoCAD for fabrication cut lists and raster/vector design in Adobe Creative Suite.
+    </p>
+  </div>
+</div>
+
+<!-- 16. Modal: Saw Blade Clock -->
 <div class="modal-overlay" id="modal-sawblade" onclick="closeOnBackdrop(event, 'modal-sawblade')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modal-sawblade')" aria-label="Close modal">&times;</button>
@@ -1409,6 +1821,25 @@
       Transforming decommissioned shop tools and casting materials into functional, tactile household artifacts.
     </p>
 
+    <div class="modal-gallery">
+      <div class="gallery-item">
+        <img src="design_portfolio_images/clock-front.jpg" alt="Front view of upcycled gold saw blade clock on timber base">
+        <div class="gallery-cap">Front face of gold-coated circular saw blade with high-torque quartz hands.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/clock-side.jpg" alt="Side profile view showing wood base and clock shaft">
+        <div class="gallery-cap">Side profile showing routed timber base slot and center arbor assembly.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/handcast-plaster-hand.jpg" alt="Detailed plaster of Paris hand sculpture showing finger details">
+        <div class="gallery-cap">Plaster of Paris casting capturing fine skin texture and anatomical finger pose.</div>
+      </div>
+      <div class="gallery-item">
+        <img src="design_portfolio_images/handcast-alginate-mold.jpg" alt="Alginate mold vessel during curing stage">
+        <div class="gallery-cap">Medical alginate mold vessel during negative curing prior to plaster pour.</div>
+      </div>
+    </div>
+
     <div class="modal-section-title">Fabrication Steps</div>
     <p class="modal-body-text">
       Refurbished an old circular saw blade, coated it in metallic gold lacquer for durability, machined and stained a stable timber pedestal, and fitted a precision quartz clock mechanism. In addition, mastered mold making with medical alginate and plaster of Paris to capture anatomical hand sculptures.
@@ -1416,12 +1847,17 @@
   </div>
 </div>
 
-<!-- Modal: PDF Viewer -->
+<!-- Modal: Taller PDF Viewer for 11x17 & Resume -->
 <div class="modal-overlay" id="modal-pdf" onclick="closeOnBackdrop(event, 'modal-pdf')">
   <div class="modal-card pdf-modal-card">
     <button class="modal-close" onclick="closeModal('modal-pdf')" aria-label="Close modal">&times;</button>
-    <div class="modal-category" id="pdfModalCategory">Document Viewer</div>
-    <h3 class="modal-title" id="pdfModalTitle" style="font-size: 1.3rem;">Document</h3>
+    <div class="pdf-modal-header">
+      <div>
+        <div class="modal-category" id="pdfModalCategory">Document Viewer</div>
+        <h3 class="modal-title" id="pdfModalTitle" style="font-size: 1.3rem;">Document</h3>
+      </div>
+      <a id="pdfDirectLink" href="#" target="_blank" rel="noopener" class="pdf-pill">Open in New Window &UpperRightArrow;</a>
+    </div>
     <div class="pdf-frame-wrap">
       <iframe id="pdfFrame" src="" title="PDF Viewer"></iframe>
     </div>
@@ -1490,15 +1926,20 @@
     const frame = document.getElementById('pdfFrame');
     const title = document.getElementById('pdfModalTitle');
     const cat = document.getElementById('pdfModalCategory');
+    const directLink = document.getElementById('pdfDirectLink');
 
     if (type === 'resume') {
+      const path = 'Suraj Ganachari - Resume (09-26).pdf';
       title.textContent = 'Suraj Ganachari - Mechanical Engineering Resume';
       cat.textContent = 'Resume Preview';
-      frame.src = 'Suraj Ganachari - Resume (09-26).pdf';
+      frame.src = path;
+      directLink.href = path;
     } else {
-      title.textContent = 'Suraj Ganachari - Theatrical Design Portfolio';
+      const path = 'LDL Application v2.pdf';
+      title.textContent = 'Suraj Ganachari - Theatrical Design Portfolio (11x17)';
       cat.textContent = 'Design Portfolio Preview';
-      frame.src = 'LDL Application v2.pdf';
+      frame.src = path;
+      directLink.href = path;
     }
     openModal('modal-pdf');
   }
