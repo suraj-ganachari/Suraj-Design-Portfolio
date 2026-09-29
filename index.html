@@ -6,15 +6,20 @@
 <title>Suraj Ganachari : Product Design & Mechanical Engineering Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Three.js + STLLoader Engine for Solid 3D CAD Rendering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+
 <style>
   :root[data-theme="light"] {
     --vellum: #F4EFE4;
     --paper: #FAF7F0;
     --paper-card: #FCFAF5;
     --ink: #171513;
-    --ink-muted: #5F5952;
-    --ink-faint: #968F84;
+    --ink-muted: #484139;
+    --ink-faint: #756D63;
     --terracotta: #B6421E;
     --terracotta-soft: rgba(182, 66, 30, 0.12);
     --blueprint: #1B3545;
@@ -27,7 +32,7 @@
     --tape-border: rgba(195, 185, 160, 0.7);
     --shadow-soft: rgba(24, 20, 15, 0.07);
     --shadow-lift: rgba(24, 20, 15, 0.16);
-    --bg-pattern-opacity: 0.04;
+    --bg-pattern-opacity: 0.045;
   }
 
   :root[data-theme="dark"] {
@@ -35,8 +40,8 @@
     --paper: #161D26;
     --paper-card: #19222D;
     --ink: #EDECE8;
-    --ink-muted: #8E98A5;
-    --ink-faint: #5C6674;
+    --ink-muted: #A8B4C4;
+    --ink-faint: #778596;
     --terracotta: #E05C32;
     --terracotta-soft: rgba(224, 92, 50, 0.16);
     --blueprint: #38BDF8;
@@ -49,7 +54,7 @@
     --tape-border: rgba(70, 88, 110, 0.6);
     --shadow-soft: rgba(0, 0, 0, 0.35);
     --shadow-lift: rgba(0, 0, 0, 0.6);
-    --bg-pattern-opacity: 0.05;
+    --bg-pattern-opacity: 0.08;
   }
 
   *, *::before, *::after { box-sizing: inherit; }
@@ -62,11 +67,23 @@
     color: var(--ink);
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.65;
     padding-left: 54px;
     position: relative;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Calibrated Header Scroll Offsets */
+  section {
+    padding: 64px 0;
+    border-bottom: 2px solid var(--border);
+    scroll-margin-top: 102px;
+  }
+  .hero-desk {
+    padding: 50px 0 46px;
+    border-bottom: 2px solid var(--border);
+    scroll-margin-top: 118px;
   }
 
   /* Atmospheric SVG Technical Background Pattern */
@@ -84,7 +101,12 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.4'%3E%3Ccircle cx='60' cy='60' r='36' stroke-dasharray='3 3'/%3E%3Cpath d='M60 16 v88 M16 60 h88'/%3E%3Cpath d='M230 40 l45 78 h-90 z'/%3E%3Ccircle cx='230' cy='92' r='14'/%3E%3Cpath d='M40 210 h70 v70 h-70 z'/%3E%3Cpath d='M40 210 l70 70'/%3E%3Cpath d='M200 240 a50 50 0 0 1 80 0' stroke-dasharray='4 2'/%3E%3Cpath d='M240 200 v80 M200 240 h80'/%3E%3Cpolygon points='160,140 175,170 145,170'/%3E%3Ccircle cx='160' cy='158' r='3'/%3E%3Cpath d='M130 50 l25 -25 l15 15 l-25 25 z'/%3E%3Cpath d='M260 160 l30 20 l-15 25 l-30 -20 z'/%3E%3C/g%3E%3C/svg%3E");
   }
 
-  /* Real-Time Dynamically Scrolling Drafting Ruler */
+  :root[data-theme="dark"] .drafting-pattern-bg {
+    filter: invert(1);
+    opacity: 0.075;
+  }
+
+  /* Dynamic Scrolling Drafting Ruler */
   #rulerCanvas {
     position: fixed;
     left: 0;
@@ -103,22 +125,31 @@
      OPENING SEQUENCE : ATELIER MANIFESTO HERO PORTAL
   ======================================================== */
   .atelier-landing-screen {
-    min-height: 100vh;
+    min-height: 92vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 24px;
+    padding: 38px 32px 52px;
     position: relative;
     z-index: 10;
   }
+
+  .atelier-hero-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 46px;
+    max-width: 1220px;
+    width: 100%;
+  }
+
   .atelier-card {
     background: var(--paper);
     border: 2px solid var(--border);
     border-radius: 6px;
-    max-width: 720px;
+    max-width: 660px;
     width: 100%;
-    padding: 50px 44px;
+    padding: 48px 42px;
     box-shadow: 0 18px 48px var(--shadow-lift);
     position: relative;
     text-align: center;
@@ -138,7 +169,7 @@
   }
   .atelier-tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     color: var(--terracotta);
@@ -147,7 +178,7 @@
   }
   .atelier-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(3rem, 7vw, 4.4rem);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
     font-weight: 700;
     letter-spacing: 0.02em;
     margin: 0;
@@ -161,16 +192,16 @@
     margin: 8px 0 22px;
   }
   .atelier-def-text {
-    font-size: 1.08rem;
+    font-size: 1.1rem;
     color: var(--ink);
     line-height: 1.6;
     margin-bottom: 20px;
     font-weight: 600;
   }
   .atelier-body-text {
-    font-size: 0.96rem;
+    font-size: 1.02rem;
     color: var(--ink-muted);
-    line-height: 1.7;
+    line-height: 1.72;
     margin-bottom: 30px;
     border-top: 1px dashed var(--border);
     padding-top: 20px;
@@ -179,13 +210,13 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 22px;
+    padding: 11px 24px;
     border-radius: 4px;
     background: var(--terracotta-soft);
     border: 1px solid var(--terracotta);
     color: var(--terracotta);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
@@ -198,7 +229,95 @@
     transform: translateY(2px);
   }
 
-  /* Compressed Docked Top Bar for Atelier Definition */
+  /* Suraj Photo Workshop Polaroid Frame */
+  .portrait-mount {
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+  .portrait-card {
+    background: var(--paper);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 14px 18px;
+    box-shadow: 0 18px 44px var(--shadow-lift);
+    position: relative;
+    transform: rotate(2deg);
+    transition: transform 0.3s ease;
+  }
+  .portrait-card:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+  .portrait-tape {
+    position: absolute;
+    top: -12px;
+    left: calc(50% - 44px);
+    width: 88px;
+    height: 24px;
+    background-color: var(--tape-bg);
+    border: 1px solid var(--tape-border);
+    clip-path: polygon(2% 0%, 98% 0%, 100% 25%, 98% 50%, 100% 78%, 97% 100%, 3% 100%, 0% 75%, 2% 50%, 0% 25%);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    transform: rotate(-2deg);
+    z-index: 10;
+  }
+  .portrait-frame {
+    width: 100%;
+    height: 380px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--vellum);
+    border: 1.5px solid var(--border-dark);
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Taped Angle Caption Card */
+  .portrait-caption-tag {
+    position: absolute;
+    bottom: -18px;
+    right: -24px;
+    background: var(--paper-card);
+    border: 1.5px solid var(--border-dark);
+    padding: 8px 16px 10px;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px var(--shadow-lift);
+    transform: rotate(-5deg);
+    z-index: 25;
+    pointer-events: none;
+  }
+  .portrait-caption-tape {
+    position: absolute;
+    top: -8px;
+    right: 18px;
+    width: 48px;
+    height: 17px;
+    background-color: var(--tape-bg);
+    border: 1px solid var(--tape-border);
+    clip-path: polygon(4% 0%, 96% 0%, 100% 30%, 97% 70%, 100% 100%, 3% 100%, 0% 65%, 3% 30%);
+    transform: rotate(3deg);
+  }
+  .caption-hand {
+    font-family: 'Architects Daughter', cursive;
+    color: var(--terracotta);
+    font-size: 1.15rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .caption-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+
+  /* Compressed Docked Top Bar */
   #dockedAtelierBar {
     position: fixed;
     top: 72px;
@@ -211,7 +330,7 @@
     align-items: center;
     justify-content: center;
     gap: 14px;
-    font-size: 0.84rem;
+    font-size: 0.86rem;
     color: var(--ink-muted);
     z-index: 140;
     box-shadow: 0 4px 12px var(--shadow-soft);
@@ -232,7 +351,7 @@
     font-size: 0.92rem;
   }
 
-  /* Sticky Main Nav Bar */
+  /* Sticky Main Nav Bar with Home Link */
   header.site {
     position: sticky;
     top: 0;
@@ -251,7 +370,7 @@
   .brand-group {
     display: flex;
     align-items: baseline;
-    gap: 12px;
+    gap: 22px;
   }
   .brand-title {
     font-family: 'Space Grotesk', sans-serif;
@@ -259,11 +378,18 @@
     font-size: 1.35rem;
     letter-spacing: -0.02em;
     color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .brand-title:hover {
+    color: var(--terracotta);
   }
   .brand-hand {
     font-family: 'Architects Daughter', cursive;
     color: var(--terracotta);
-    font-size: 1.05rem;
+    font-size: 1.24rem;
+    letter-spacing: 0.02em;
   }
   .nav-links {
     display: flex;
@@ -324,23 +450,19 @@
   }
 
   /* Hero Section : Atelier Desk Surface */
-  .hero-desk {
-    padding: 50px 0 46px;
-    border-bottom: 2px solid var(--border);
-  }
   .desk-surface {
     background: var(--paper);
     border: 2px solid var(--border);
     border-radius: 6px;
-    padding: 52px 48px;
+    padding: 48px;
     box-shadow: 0 10px 32px var(--shadow-soft);
     position: relative;
     display: grid;
-    grid-template-columns: 1.18fr 0.82fr;
-    gap: 48px;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 46px;
+    align-items: start;
   }
 
-  /* Translucent Masking Tape Strips on Desk Surface */
   .desk-tape-left {
     position: absolute;
     top: -13px;
@@ -368,17 +490,16 @@
     z-index: 10;
   }
 
-  /* Crisp 2D Inked Rubber Stamp (Corner Placement) */
   .ink-stamp {
     position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 112px;
-    height: 112px;
+    top: -55px;
+    right: -24px;
+    width: 128px;
+    height: 128px;
     pointer-events: none;
-    z-index: 15;
-    transform: rotate(4deg);
-    opacity: 0.92;
+    z-index: 30;
+    transform: rotate(6deg);
+    opacity: 0.98;
   }
 
   .eyebrow-draft {
@@ -407,7 +528,7 @@
     color: var(--ink);
   }
   .hero-lead {
-    font-size: 1.1rem;
+    font-size: 1.12rem;
     font-weight: 600;
     color: var(--ink);
     line-height: 1.6;
@@ -415,60 +536,65 @@
   }
   .hero-bio {
     color: var(--ink-muted);
-    font-size: 0.95rem;
-    line-height: 1.65;
+    font-size: 1.02rem;
+    line-height: 1.68;
     margin-bottom: 24px;
   }
+
   .badge-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
+    align-items: center;
+    padding-top: 6px;
   }
   .badge-tag {
     display: inline-flex;
     align-items: center;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    padding: 4px 0 4px 10px;
+    font-size: 0.84rem;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
-    background: var(--vellum);
-    border: 1px solid var(--border);
+    background: transparent;
+    border-left: 3px solid var(--terracotta);
     color: var(--ink);
-  }
-  .badge-tag.highlight {
-    background: var(--terracotta-soft);
-    border-color: var(--terracotta);
-    color: var(--terracotta);
+    cursor: default;
+    user-select: text;
   }
 
-  /* Interactive 3D Model CAD Inspection Bench */
+  /* Compact Proportional CAD Inspection Bench */
   .cad-3d-bench {
     background: var(--vellum);
     border: 1.5px solid var(--border-dark);
     border-radius: 6px;
-    padding: 20px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     box-shadow: inset 0 2px 8px var(--shadow-soft);
     position: relative;
+    gap: 10px;
   }
   .bench-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
     border-bottom: 1px dashed var(--border);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
     color: var(--blueprint);
     font-weight: 700;
   }
+  .bench-badge-live {
+    background: var(--terracotta-soft);
+    color: var(--terracotta);
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--terracotta);
+  }
   .canvas-wrap {
     width: 100%;
-    height: 250px;
+    height: 220px;
     position: relative;
     background: var(--paper);
     border: 1.5px solid var(--border);
@@ -488,7 +614,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
     gap: 10px;
   }
   .model-nav-btn {
@@ -496,7 +621,7 @@
     border: 1.5px solid var(--border-dark);
     color: var(--ink);
     width: 38px;
-    height: 34px;
+    height: 32px;
     border-radius: 4px;
     font-weight: 700;
     font-family: 'JetBrains Mono', monospace;
@@ -519,14 +644,44 @@
     font-size: 0.92rem;
     color: var(--terracotta);
   }
+
+  .cad-inspector-panel {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .inspector-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .inspector-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .inspector-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
   .model-telemetry-readout {
-    margin-top: 8px;
-    padding-top: 8px;
+    padding-top: 6px;
     border-top: 1px dashed var(--border);
     display: flex;
     justify-content: space-between;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--ink-muted);
   }
   .model-telemetry-readout strong {
@@ -534,7 +689,6 @@
   }
 
   /* Section Headers */
-  section { padding: 64px 0; border-bottom: 2px solid var(--border); }
   .section-header {
     display: flex;
     justify-content: space-between;
@@ -559,9 +713,10 @@
   }
   p.section-sub {
     color: var(--ink-muted);
-    font-size: 0.96rem;
+    font-size: 1.02rem;
     max-width: 72ch;
     margin: 8px 0 0;
+    line-height: 1.65;
   }
   .carousel-controls {
     display: flex;
@@ -587,7 +742,7 @@
     background: var(--terracotta-soft);
   }
 
-  /* Project Cards with Natural Alternating Random Tilt & Toned-Down Hover Deflection */
+  /* Project Cards */
   .grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -599,7 +754,7 @@
     gap: 28px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 24px 8px 28px 8px;
+    padding: 24px 8px 28px;
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) var(--vellum);
     perspective: 1200px;
@@ -626,7 +781,6 @@
     scroll-snap-align: start;
   }
 
-  /* Masking Tape Strips on Project Cards */
   .masking-tape {
     position: absolute;
     top: -12px;
@@ -689,8 +843,8 @@
   }
   .card-desc {
     color: var(--ink-muted);
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-size: 0.94rem;
+    line-height: 1.58;
     margin: 0 0 16px;
     flex-grow: 1;
   }
@@ -704,11 +858,12 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* Experience & Skills */
+  /* Balanced Two-Column Experience & Skills Grid */
   .resume-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 44px;
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: 40px;
+    align-items: start;
   }
   .xp-block {
     display: flex;
@@ -723,14 +878,54 @@
     border-left: 5px solid var(--terracotta);
     box-shadow: 0 4px 16px var(--shadow-soft);
   }
+
+  /* Clean Single-Badge Experience Logo Styling (No Duplicate Fallback Leak) */
+  .xp-header-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .xp-logo-wrap {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-dark);
+    background: var(--paper-card);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 6px var(--shadow-soft);
+  }
+  .xp-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .xp-logo-fallback {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    background: var(--paper-card);
+  }
+  .xp-head-meta {
+    flex-grow: 1;
+  }
   .xp-head {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .xp-role {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.08rem;
+    font-size: 1.12rem;
     font-weight: 700;
     color: var(--ink);
   }
@@ -746,28 +941,81 @@
   }
   .xp-org {
     color: var(--terracotta);
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     font-weight: 600;
-    margin-bottom: 12px;
   }
   .xp-bullets {
     margin: 0;
     padding-left: 18px;
     color: var(--ink-muted);
-    font-size: 0.92rem;
-    line-height: 1.6;
+    font-size: 0.96rem;
+    line-height: 1.65;
   }
   .xp-bullets li { margin-bottom: 8px; }
 
-  .skills-card {
-    background: var(--paper);
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    padding: 28px;
+  /* Right-Side Stack */
+  .side-divisions-stack {
     display: flex;
     flex-direction: column;
     gap: 22px;
+  }
+  .side-card {
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 26px;
     box-shadow: 0 4px 16px var(--shadow-soft);
+    position: relative;
+  }
+  .side-card-head {
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .side-card-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .side-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .org-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .org-item {
+    border-left: 3px solid var(--blueprint);
+    padding-left: 12px;
+  }
+  .org-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .org-desc {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  .tools-sub-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
   .skill-group h4 {
     margin: 0 0 10px;
@@ -793,7 +1041,31 @@
     color: var(--ink);
   }
 
-  /* Contact Section : Direct & Professional (No Phone) */
+  .awards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .award-item {
+    background: var(--paper-card);
+    border: 1px dashed var(--border-dark);
+    padding: 10px 14px;
+    border-radius: 4px;
+  }
+  .award-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .award-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  /* Contact Section */
   .contact-section {
     padding: 60px 0;
     text-align: center;
@@ -823,23 +1095,40 @@
     border-radius: 4px;
     font-weight: 600;
     font-size: 0.95rem;
-    border: 1.5px solid var(--border-dark);
-    background: var(--paper-card);
+    text-decoration: none;
     transition: all 0.2s ease;
   }
   .contact-btn.primary {
     background: var(--terracotta);
     color: #FFFFFF !important;
-    border-color: var(--terracotta);
+    border: 1.5px solid var(--terracotta);
   }
   .contact-btn.primary:hover {
     background: #9E3514;
     transform: translateY(-2px);
+    color: #FFFFFF !important;
+  }
+
+  .contact-btn:not(.primary) {
+    background: var(--paper-card);
+    border: 1.5px solid var(--border-dark);
+    color: var(--ink) !important;
   }
   .contact-btn:not(.primary):hover {
     border-color: var(--terracotta);
-    color: var(--terracotta);
+    color: var(--terracotta) !important;
     transform: translateY(-2px);
+  }
+  :root[data-theme="dark"] .contact-btn:not(.primary) {
+    background: #1F2833;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    color: #EDECE8 !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  :root[data-theme="dark"] .contact-btn:not(.primary):hover {
+    border-color: #FFFFFF;
+    color: #FFFFFF !important;
+    background: #273342;
   }
 
   /* Modals */
@@ -913,14 +1202,14 @@
   }
   .modal-org {
     color: var(--ink-muted);
-    font-size: 0.95rem;
+    font-size: 0.96rem;
     font-weight: 500;
     margin-bottom: 22px;
   }
   .modal-lead {
-    font-size: 1.05rem;
+    font-size: 1.06rem;
     font-weight: 500;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--ink);
     margin-bottom: 20px;
   }
@@ -933,21 +1222,20 @@
   }
   .modal-body-text {
     color: var(--ink-muted);
-    font-size: 0.96rem;
-    line-height: 1.65;
+    font-size: 1.02rem;
+    line-height: 1.7;
     margin-bottom: 16px;
   }
   .modal-list {
     margin: 0 0 20px;
     padding-left: 20px;
     color: var(--ink-muted);
-    font-size: 0.96rem;
-    line-height: 1.6;
+    font-size: 1.02rem;
+    line-height: 1.68;
   }
   .modal-list li { margin-bottom: 8px; }
   .modal-list strong { color: var(--ink); }
 
-  /* Modal Photo Gallery */
   .modal-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -976,9 +1264,9 @@
   }
   .gallery-cap {
     padding: 10px 12px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--ink-muted);
-    line-height: 1.4;
+    line-height: 1.45;
     background: var(--paper-card);
     border-top: 1.5px solid var(--border);
   }
@@ -1023,7 +1311,7 @@
   .lightbox-caption {
     margin-top: 14px;
     color: #EDECE8;
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     text-align: center;
     max-width: 650px;
   }
@@ -1049,7 +1337,7 @@
     border-color: var(--terracotta);
   }
 
-  /* PDF Viewer Modal : Extra Tall for 11x17 */
+  /* PDF Viewer Modal */
   .pdf-modal-card {
     max-width: 1300px;
     width: 96vw;
@@ -1082,17 +1370,23 @@
     display: block;
   }
 
+  /* Solid Differentiated Footer */
   footer.site {
-    padding: 38px 0;
+    background: var(--paper);
+    border-top: 2px solid var(--border);
+    padding: 34px 0;
     text-align: center;
     color: var(--ink-muted);
     font-size: 0.88rem;
-    border-top: 2px solid var(--border);
     font-family: 'JetBrains Mono', monospace;
+    box-shadow: 0 -4px 16px var(--shadow-soft);
   }
 
   @media (max-width: 1100px) {
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .atelier-hero-row { flex-direction: column; gap: 40px; }
+    .portrait-mount { max-width: 290px; }
+    .resume-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 860px) {
     body { padding-left: 0; }
@@ -1100,10 +1394,9 @@
     .drafting-pattern-bg { left: 0; width: 100vw; }
     #dockedAtelierBar { left: 0; width: 100vw; }
     .desk-surface { grid-template-columns: 1fr; gap: 32px; padding: 36px 24px; }
-    .resume-grid { grid-template-columns: 1fr; }
     .nav-links a:not(.stamp-pill) { display: none; }
     .desk-tape-right { display: none; }
-    .ink-stamp { top: 10px; right: 10px; width: 85px; height: 85px; }
+    .ink-stamp { top: -45px; right: -10px; width: 105px; height: 105px; }
   }
   @media (max-width: 600px) {
     .site-wrap { padding: 0 16px; }
@@ -1111,6 +1404,8 @@
     .scroll-card { flex: 0 0 270px; }
     .modal-card { padding: 20px; }
     .atelier-card { padding: 36px 22px; }
+    .cad-inspector-panel { grid-template-columns: 1fr; }
+    .portrait-caption-tag { right: -10px; }
   }
 </style>
 </head>
@@ -1127,12 +1422,12 @@
   <span>A master workshop where physical intuition converges with mechanical engineering rigor.</span>
 </div>
 
-<!-- Sticky Main Navigation Bar -->
+<!-- Sticky Main Navigation Bar with Home Link -->
 <header class="site">
   <div class="site-wrap">
     <div class="nav-inner">
       <div class="brand-group">
-        <span class="brand-title">Suraj Ganachari</span>
+        <a href="#" class="brand-title" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Suraj Ganachari</a>
         <span class="brand-hand">UT Austin</span>
       </div>
       <nav class="nav-links">
@@ -1149,23 +1444,42 @@
   </div>
 </header>
 
-<!-- Opening Fullscreen Screen : Atelier Manifesto Card -->
+<!-- Opening Screen : Naturally Centered Eye-Level Atelier Manifesto Card + Portrait -->
 <div class="atelier-landing-screen">
-  <div class="atelier-card">
-    <div class="atelier-card-tape"></div>
-    <div class="atelier-tag">THE DESIGN ATELIER</div>
-    <h1 class="atelier-title">ATELIER</h1>
-    <div class="atelier-sub">/ˌatəlˈyeɪ/ &bull; noun</div>
-    <div class="atelier-def-text">
-      A workshop or studio, especially one used by an artist, architect, or master craftsman.
+  <div class="atelier-hero-row">
+    <!-- Atelier Definition Card -->
+    <div class="atelier-card">
+      <div class="atelier-card-tape"></div>
+      <div class="atelier-tag">MY DESIGN ATELIER</div>
+      <h1 class="atelier-title">ATELIER</h1>
+      <div class="atelier-sub">/ˌatəlˈyeɪ/ &bull; noun</div>
+      <div class="atelier-def-text">
+        A workshop or studio, especially one used by an artist, architect, or master craftsman.
+      </div>
+      <div class="atelier-body-text">
+        For me, the atelier is where the physical intuition of human-scale theatrical craft converges with the analytical rigor of mechanical engineering. It is not just where ideas are drafted, but where materials are bent, mechanisms are prototyped, and raw engineering is forged into functional, tactile reality.
+      </div>
+      <a href="#about" class="scroll-down-btn" onclick="scrollToStudio(event)">
+        <span>ENTER THE STUDIO</span>
+        <span>&darr;</span>
+      </a>
     </div>
-    <div class="atelier-body-text">
-      For me, the atelier is where the physical intuition of human-scale theatrical craft converges with the analytical rigor of mechanical engineering. It is not just where ideas are drafted, but where materials are bent, mechanisms are prototyped, and raw engineering is forged into functional, tactile reality.
+
+    <!-- Integrated Suraj Workshop Portrait Card -->
+    <div class="portrait-mount">
+      <div class="portrait-card">
+        <div class="portrait-tape"></div>
+        <div class="portrait-frame">
+          <img src="design_portfolio_images/Suraj_photo_1.jpeg" alt="Suraj Ganachari in the studio workshop" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\'height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--vellum);color:var(--ink-muted);font-family:JetBrains Mono,monospace;font-size:0.82rem;text-align:center;padding:20px;\'><div>[ Suraj_photo_1.jpeg ]</div><div style=\'font-size:0.72rem;margin-top:8px;\'>design_portfolio_images/</div></div>';">
+        </div>
+        <!-- Angled Taped Caption Card -->
+        <div class="portrait-caption-tag">
+          <div class="portrait-caption-tape"></div>
+          <div class="caption-hand">that's me (Suraj!)</div>
+          <div class="caption-sub">// builder &bull; designer &bull; engineer</div>
+        </div>
+      </div>
     </div>
-    <a href="#about" class="scroll-down-btn" onclick="scrollToStudio(event)">
-      <span>ENTER THE STUDIO</span>
-      <span>&darr;</span>
-    </a>
   </div>
 </div>
 
@@ -1175,20 +1489,19 @@
   <section class="hero-desk" id="about">
     <div class="site-wrap">
       <div class="desk-surface">
-        <!-- Translucent Masking Tape Strips -->
         <div class="desk-tape-left"></div>
         <div class="desk-tape-right"></div>
 
-        <!-- Crisp, Legible 2D Inked Rubber Stamp (Corner Placement) -->
-        <svg class="ink-stamp" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" stroke="var(--terracotta)" stroke-width="1.8" stroke-linecap="round">
-            <circle cx="60" cy="60" r="54" stroke-dasharray="3.5 2"/>
-            <circle cx="60" cy="60" r="47" stroke-width="1.2"/>
-            <path d="M22 60 h16 M82 60 h16" stroke-width="1"/>
-            <text x="60" y="32" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="7.5" font-weight="600" fill="var(--terracotta)" stroke="none" letter-spacing="0.8">UT AUSTIN &bull; COCKRELL</text>
-            <text x="60" y="55" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700" fill="var(--terracotta)" stroke="none" letter-spacing="1.2">APPROVED</text>
-            <text x="60" y="70" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="600" fill="var(--terracotta)" stroke="none" letter-spacing="0.5">QA 4.0 // SPEC</text>
-            <text x="60" y="93" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="7.5" font-weight="600" fill="var(--terracotta)" stroke="none" letter-spacing="0.8">MECHANICAL ATELIER</text>
+        <!-- Inked Rubber Stamp -->
+        <svg class="ink-stamp" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="var(--terracotta)" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="65" cy="65" r="58" fill="var(--paper)" stroke="var(--terracotta)" stroke-width="2.2" stroke-dasharray="4.5 2.5"/>
+            <circle cx="65" cy="65" r="50" stroke-width="1.5"/>
+            <line x1="26" y1="48" x2="104" y2="48" stroke-width="1.4"/>
+            <line x1="26" y1="82" x2="104" y2="82" stroke-width="1.4"/>
+            <text x="65" y="37" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" fill="var(--terracotta)" stroke="none" letter-spacing="1.2">UT AUSTIN</text>
+            <text x="65" y="70" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14.5" font-weight="800" fill="var(--terracotta)" stroke="none" letter-spacing="1.6">APPROVED</text>
+            <text x="65" y="101" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="var(--terracotta)" stroke="none" letter-spacing="1.1">GPA 4.0</text>
           </g>
         </svg>
 
@@ -1201,48 +1514,57 @@
           <p class="hero-bio">
             My background bridges large-scale scenic design with core mechanical engineering. At HSPVA, I built complex physical sets and mechanism enclosures under rigid structural and timing constraints. At UT, I translate that spatial and hands-on intuition into product design engineering: developing gearbox powertrain architectures for Longhorn Baja Racing, designing and testing structural hardware in the FIRE research program, and prototyping interactive consumer devices in the Longhorn Design Lab.
           </p>
+          
           <div class="badge-grid">
-            <span class="badge-tag highlight">Longhorn Design Lab</span>
+            <span class="badge-tag">Longhorn Design Lab</span>
             <span class="badge-tag">Longhorn Baja Racing</span>
             <span class="badge-tag">ERock R&amp;D Intern</span>
-            <span class="badge-tag">UT Makeathon Technical Design Award</span>
-            <span class="badge-tag">SolidWorks / Onshape / Fusion</span>
-            <span class="badge-tag">Rapid Prototyping &amp; Machining</span>
           </div>
         </div>
 
-        <!-- Interactive 3D Model CAD Inspection Bench -->
+        <!-- Proportional CAD Inspection Bench (Solid 3D WebGL / STL Viewer) -->
         <div class="cad-3d-bench">
-          <div>
-            <div class="bench-top-bar">
-              <span>WORKBENCH 3D VIEWER // REAL-TIME CAD INSPECTION</span>
-              <span>DRAG TO ROTATE</span>
+          <div class="bench-top-bar">
+            <span>WORKBENCH 3D VIEWER // REAL-TIME CAD INSPECTION</span>
+            <span class="bench-badge-live">DRAG &amp; SCROLL TO ZOOM</span>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="modelCanvas"></canvas>
+          </div>
+          <div class="model-switcher-bar">
+            <button class="model-nav-btn" onclick="prevModel()" aria-label="Previous 3D Model">&lt;</button>
+            <div class="model-title-display" id="modelTitle">01. ATMOSPHERIC WATER HARVESTER STAND</div>
+            <button class="model-nav-btn" onclick="nextModel()" aria-label="Next 3D Model">&gt;</button>
+          </div>
+
+          <!-- 2-Metric Spec HUD -->
+          <div class="cad-inspector-panel">
+            <div class="inspector-item">
+              <div class="inspector-label" id="specLabel1">CORE GEOMETRY</div>
+              <div class="inspector-val" id="specVal1">27.2° Compound Stainless Splay</div>
             </div>
-            <div class="canvas-wrap">
-              <canvas id="modelCanvas"></canvas>
-            </div>
-            <div class="model-switcher-bar">
-              <button class="model-nav-btn" onclick="prevModel()" aria-label="Previous 3D Model">&lt;</button>
-              <div class="model-title-display" id="modelTitle">01. WATER HARVESTER QUAD-POD</div>
-              <button class="model-nav-btn" onclick="nextModel()" aria-label="Next 3D Model">&gt;</button>
+            <div class="inspector-item">
+              <div class="inspector-label" id="specLabel2">PRIMARY PERFORMANCE</div>
+              <div class="inspector-val" id="specVal2">+62% Base Width // 30 lb Payload</div>
             </div>
           </div>
+
           <div class="model-telemetry-readout">
             <span id="modelSpec">SPECS: 27.2° COMPOUND STAINLESS SPLAY</span>
-            <span id="modelCoords">ROT: 0° / 0°</span>
+            <span id="modelCoords">ROT: 0° / 0° | ZOOM: 100%</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Engineering Section -->
+  <!-- Engineering Projects Section -->
   <section id="engineering">
     <div class="site-wrap">
       <div class="section-header">
         <div>
           <div class="section-tag">[ SECTION 01 // FUNCTIONAL PROTOTYPES ]</div>
-          <h2 class="section-title">Engineering Division</h2>
+          <h2 class="section-title">Engineering Projects</h2>
           <p class="section-sub">Hardware engineered to survive outside simulations: real wind loads, real mechanical stress, and strict user constraints. Click any card for the technical build breakdown.</p>
         </div>
       </div>
@@ -1307,13 +1629,13 @@
     </div>
   </section>
 
-  <!-- Design Section -->
+  <!-- Design Projects Section -->
   <section id="design">
     <div class="site-wrap">
       <div class="section-header">
         <div>
           <div class="section-tag">[ SECTION 02 // SPATIAL ARCHITECTURE & FABRICATION ]</div>
-          <h2 class="section-title">Design Division</h2>
+          <h2 class="section-title">Design Projects</h2>
           <p class="section-sub">Spatial problem solving, rapid material manipulation, and full scale scenic builds that laid the groundwork for my product design engineering path. Scroll horizontally to explore the breadth of work.</p>
         </div>
         <div class="carousel-controls">
@@ -1494,7 +1816,7 @@
     </div>
   </section>
 
-  <!-- Experience & Skills Section -->
+  <!-- Experience & Technical Tools Section -->
   <section id="experience">
     <div class="site-wrap">
       <div class="section-header">
@@ -1506,99 +1828,200 @@
       </div>
 
       <div class="resume-grid">
+        <!-- Left Column: Experiences Timeline -->
         <div class="xp-block">
+          <!-- Item 1: ERock Intern -->
           <div class="xp-item">
-            <div class="xp-head">
-              <span class="xp-role">Mechanical Engineering Intern</span>
-              <span class="xp-date">05/2026 - 08/2026</span>
+            <div class="xp-header-row">
+              <div class="xp-logo-wrap">
+                <img src="design_portfolio_images/enchanted_rock_logo.jpg" alt="Enchanted Rock Logo" class="xp-logo-img" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="xp-logo-fallback">ER</div>
+              </div>
+              <div class="xp-head-meta">
+                <div class="xp-head">
+                  <span class="xp-role">Mechanical Engineering Intern</span>
+                  <span class="xp-date">05/2026 - 08/2026</span>
+                </div>
+                <div class="xp-org">Enchanted Rock (ERock) : R&amp;D Division</div>
+              </div>
             </div>
-            <div class="xp-org">Enchanted Rock (ERock) : R&amp;D Division</div>
             <ul class="xp-bullets">
-              <li>Collaborated directly with R&amp;D engineers to design a natural gas engine test cell, managing system requirements, bill of materials (BOM), and vendor sourcing.</li>
-              <li>Executed physical modifications to generator enclosures for filtration upgrades and reconfigured internal control panel wiring.</li>
-              <li>Drafted comprehensive Standard Operating Procedures (SOPs) and gained hands-on exposure from concept through Factory Acceptance Testing (FAT).</li>
+              <li>Collaborated directly with R&amp;D engineers to design a natural gas engine test cell, managing system requirements, bill of materials (BOM), and vendor sourcing[cite: 1, 4].</li>
+              <li>Executed physical modifications to generator enclosures for filtration upgrades and reconfigured internal control panel wiring[cite: 1, 4].</li>
+              <li>Drafted comprehensive Standard Operating Procedures (SOPs) and gained hands-on exposure from concept through Factory Acceptance Testing (FAT)[cite: 1, 4].</li>
             </ul>
           </div>
 
+          <!-- Item 2: Baja Racing -->
           <div class="xp-item">
-            <div class="xp-head">
-              <span class="xp-role">Powertrain Racing Team Member</span>
-              <span class="xp-date">09/2025 - Present</span>
+            <div class="xp-header-row">
+              <div class="xp-logo-wrap">
+                <img src="design_portfolio_images/longhorn_baja_racing_logo.jpg" alt="Longhorn Baja Racing Logo" class="xp-logo-img" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="xp-logo-fallback">LBR</div>
+              </div>
+              <div class="xp-head-meta">
+                <div class="xp-head">
+                  <span class="xp-role">Powertrain Racing Team Member</span>
+                  <span class="xp-date">09/2025 - Present</span>
+                </div>
+                <div class="xp-org">Longhorn Baja Racing (SAE Collegiate Design Series)</div>
+              </div>
             </div>
-            <div class="xp-org">Longhorn Baja Racing (SAE Collegiate Design Series)</div>
             <ul class="xp-bullets">
-              <li>Researched COTS and custom gearbox feasibility, analyzing gear ratio optimization curves for UT's off-road competition vehicle.</li>
-              <li>Co-authored powertrain technical research documentation detailing gear tooth contact stresses and packaging constraints.</li>
-              <li>Contributed to manual fabrication, machining on manual mills and lathes, and vehicle subassembly fitment.</li>
+              <li>Researched COTS and custom gearbox feasibility, analyzing gear ratio optimization curves for UT's off-road competition vehicle[cite: 1, 4].</li>
+              <li>Co-authored powertrain technical research documentation detailing gear tooth contact stresses and packaging constraints[cite: 1, 4].</li>
+              <li>Contributed to manual fabrication, machining on manual mills and lathes, and vehicle subassembly fitment[cite: 1, 4].</li>
             </ul>
           </div>
 
+          <!-- Item 3: Longhorn Design Lab (LDL) -->
           <div class="xp-item">
-            <div class="xp-head">
-              <span class="xp-role">Research Assistant</span>
-              <span class="xp-date">01/2026 - 04/2026</span>
+            <div class="xp-header-row">
+              <div class="xp-logo-wrap">
+                <img src="design_portfolio_images/longhorn_design_lab_logo.jpg" alt="Longhorn Design Lab Logo" class="xp-logo-img" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="xp-logo-fallback">LDL</div>
+              </div>
+              <div class="xp-head-meta">
+                <div class="xp-head">
+                  <span class="xp-role">Design Engineer &amp; Incubator Member</span>
+                  <span class="xp-date">09/2025 - Present</span>
+                </div>
+                <div class="xp-org">Longhorn Design Lab (LDL) : Hardware Development</div>
+              </div>
             </div>
-            <div class="xp-org">UT Freshman Introduction to Research in Engineering (FIRE) : Dr. Guihua Yu Lab</div>
             <ul class="xp-bullets">
-              <li>Optimized atmospheric water harvesting structural support systems for outdoor field deployment in arid regions.</li>
-              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through physical FDM print iteration.</li>
+              <li>Spearheading rapid user research, ergonomic mockups, and iterative physical prototyping for human-centered hardware devices.</li>
+              <li>Translating consumer problem statements into manufacturable CAD enclosures, leveraging mechatronics and user-feedback loops.</li>
             </ul>
           </div>
 
+          <!-- Item 4: UT FIRE -->
           <div class="xp-item">
-            <div class="xp-head">
-              <span class="xp-role">First-Year Interest Group (FIG) Mentor</span>
-              <span class="xp-date">01/2026 - Present</span>
+            <div class="xp-header-row">
+              <div class="xp-logo-wrap">
+                <img src="design_portfolio_images/ut_meche_logo.jpg" alt="UT Mechanical Engineering Logo" class="xp-logo-img" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="xp-logo-fallback">FIRE</div>
+              </div>
+              <div class="xp-head-meta">
+                <div class="xp-head">
+                  <span class="xp-role">Research Assistant</span>
+                  <span class="xp-date">01/2026 - 04/2026</span>
+                </div>
+                <div class="xp-org">UT Freshman Introduction to Research in Engineering (FIRE) : Dr. Guihua Yu Lab</div>
+              </div>
             </div>
-            <div class="xp-org">UT First-Year Experience Office</div>
             <ul class="xp-bullets">
-              <li>Mentoring incoming engineering students on academic strategy, lab access, and technical student organization pathways.</li>
+              <li>Optimized atmospheric water harvesting structural support systems for outdoor field deployment in arid regions[cite: 1, 4, 5].</li>
+              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through physical FDM print iteration[cite: 1, 4, 5].</li>
+            </ul>
+          </div>
+
+          <!-- Item 5: FIG Mentor -->
+          <div class="xp-item">
+            <div class="xp-header-row">
+              <div class="xp-logo-wrap">
+                <img src="design_portfolio_images/ut_fye_logo.jpg" alt="UT First-Year Experience Logo" class="xp-logo-img" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="xp-logo-fallback">FIG</div>
+              </div>
+              <div class="xp-head-meta">
+                <div class="xp-head">
+                  <span class="xp-role">First-Year Interest Group (FIG) Mentor</span>
+                  <span class="xp-date">01/2026 - Present</span>
+                </div>
+                <div class="xp-org">UT First-Year Experience Office</div>
+              </div>
+            </div>
+            <ul class="xp-bullets">
+              <li>Facilitating weekly seminars for incoming engineering freshmen to navigate academic success, faculty research, and lab access[cite: 4].</li>
+              <li>Mentoring students on technical student organization pathways and university engineering resources[cite: 4].</li>
             </ul>
           </div>
         </div>
 
-        <div class="skills-card">
-          <div class="skill-group">
-            <h4>Engineering CAD &amp; Modeling</h4>
-            <div class="skill-tags">
-              <span class="skill-tag">SolidWorks</span>
-              <span class="skill-tag">Onshape</span>
-              <span class="skill-tag">Fusion 360</span>
-              <span class="skill-tag">Autodesk Alias</span>
-              <span class="skill-tag">AutoCAD</span>
+        <!-- Right Column: Clubs + Technical Tools + Reordered Awards -->
+        <div class="side-divisions-stack">
+          <!-- 1. Clubs & Organizations -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <span class="side-card-badge">CAMPUS INVOLVEMENT</span>
+              <h3 class="side-card-title">Clubs &amp; Organizations</h3>
+            </div>
+            <div class="org-list">
+              <div class="org-item">
+                <div class="org-name">Longhorn Baja Racing</div>
+                <div class="org-desc">Powertrain team member analyzing gear ratio optimization, contact stresses, and vehicle subassembly machining[cite: 1, 4].</div>
+              </div>
+              <div class="org-item">
+                <div class="org-name">Longhorn Design Lab</div>
+                <div class="org-desc">Product design incubator focused on industrial sketching, mechatronics, user testing, and market-viable prototyping.</div>
+              </div>
+              <div class="org-item">
+                <div class="org-name">American Society of Mechanical Engineers (ASME)</div>
+                <div class="org-desc">Active student member engaging in engineering symposiums, hardware design reviews, and maker workshops[cite: 1, 4].</div>
+              </div>
             </div>
           </div>
 
-          <div class="skill-group">
-            <h4>Prototyping &amp; Machining</h4>
-            <div class="skill-tags">
-              <span class="skill-tag">FDM 3D Printing (Raise3D / Prusa)</span>
-              <span class="skill-tag">Laser Cutting</span>
-              <span class="skill-tag">Manual Lathe</span>
-              <span class="skill-tag">Manual Mill</span>
-              <span class="skill-tag">Rapid Timber Joinery</span>
-              <span class="skill-tag">Silicone &amp; Alginate Molding</span>
+          <!-- 2. Technical Tools -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <span class="side-card-badge">TECHNICAL ARSENAL</span>
+              <h3 class="side-card-title">Tools &amp; Capabilities</h3>
+            </div>
+            <div class="tools-sub-stack">
+              <div class="skill-group">
+                <h4>Engineering CAD &amp; Modeling</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">SolidWorks</span>
+                  <span class="skill-tag">Onshape</span>
+                  <span class="skill-tag">Fusion</span>
+                  <span class="skill-tag">Autodesk Alias</span>
+                  <span class="skill-tag">AutoCAD</span>
+                </div>
+              </div>
+
+              <div class="skill-group">
+                <h4>Prototyping &amp; Machining</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">FDM 3D Printing (Raise3D / Prusa)</span>
+                  <span class="skill-tag">Laser Cutting</span>
+                  <span class="skill-tag">Manual Lathe</span>
+                  <span class="skill-tag">Manual Mill</span>
+                  <span class="skill-tag">Precision Woodworking &amp; Joinery</span>
+                </div>
+              </div>
+
+              <div class="skill-group">
+                <h4>Electronics &amp; Programming</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">Python</span>
+                  <span class="skill-tag">C++</span>
+                  <span class="skill-tag">ESP32 &amp; ESP-NOW</span>
+                  <span class="skill-tag">Sensors &amp; Servos</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="skill-group">
-            <h4>Electronics &amp; Programming</h4>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">C++</span>
-              <span class="skill-tag">ESP32 &amp; ESP-NOW</span>
-              <span class="skill-tag">PWM Signal Tuning</span>
-              <span class="skill-tag">Sensors &amp; Servos</span>
+          <!-- 3. Honors & Awards -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <span class="side-card-badge">RECOGNITION</span>
+              <h3 class="side-card-title">Honors &amp; Awards</h3>
             </div>
-          </div>
-
-          <div class="skill-group">
-            <h4>Awards &amp; Organizations</h4>
-            <div class="skill-tags">
-              <span class="skill-tag">Longhorn Design Lab</span>
-              <span class="skill-tag">ASME</span>
-              <span class="skill-tag">UT Makeathon "Most Technical Design"</span>
-              <span class="skill-tag">Virginia &amp; Ernest Cockrell Scholarship</span>
+            <div class="awards-list">
+              <div class="award-item">
+                <div class="award-title">Virginia &amp; Ernest Cockrell, Jr. Scholarship in Engineering</div>
+                <div class="award-meta">Merit-based undergraduate engineering scholarship at The University of Texas at Austin[cite: 4]</div>
+              </div>
+              <div class="award-item">
+                <div class="award-title">UT SEC Makeathon : "Most Technical Design" Award</div>
+                <div class="award-meta">1st of 18 teams for The Borrow Box automated classroom supply dispenser[cite: 4, 5]</div>
+              </div>
+              <div class="award-item">
+                <div class="award-title">Kinder HSPVA Salutatorian</div>
+                <div class="award-meta">Graduated rank 2 of 185; Lead Scenic Designer and UIL Theatrical Design State Finalist</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1624,6 +2047,7 @@
   </section>
 </main>
 
+<!-- Solid Differentiated Footer -->
 <footer class="site">
   <div class="site-wrap">
     <p>Suraj Ganachari : University of Texas at Austin : Product Design &amp; Mechanical Engineering</p>
@@ -1640,7 +2064,7 @@
     <h3 class="modal-title">Atmospheric Water Harvester: Structural Quad-Pod System</h3>
     <div class="modal-org">UT FIRE Program / Dr. Guihua Yu Materials Laboratory : Jan - Apr 2026</div>
     <p class="modal-lead">
-      Dr. Guihua Yu and Yaxuan Zhao's residence-scale water harvester extracts potable water from ambient air using hydrogel sheets that passively absorb moisture overnight and release water vapor when heated by solar concentrators during the day.
+      Dr. Guihua Yu and Yaxuan Zhao's residence-scale water harvester extracts potable water from ambient air using hydrogel sheets that passively absorb moisture overnight and release water vapor when heated by solar concentrators during the day[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1656,20 +2080,20 @@
 
     <div class="modal-section-title">The Engineering Challenge</div>
     <p class="modal-body-text">
-      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked tipping under lateral wind loads acting against its 30 lb payload and wide, tilted casing.
+      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints[cite: 1, 5]. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked tipping under lateral wind loads acting against its 30 lb payload and wide, tilted casing[cite: 1, 5].
     </p>
 
     <div class="modal-section-title">Design &amp; Fabrication Decisions</div>
     <ul class="modal-list">
-      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising lateral force resistance.</li>
-      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic plates with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip.</li>
-      <li><strong>Direct Load-Transfer Hub:</strong> 3D-printed a central head block on a Raise3D Pro3 using structural PLA (5 shell layers, 6 solid top layers, 18% gyroid infill). Hexagonal pockets encapsulated 30mm M10 coupling nuts via press-fit and cyanoacrylate, directing compressive forces directly into the steel rods rather than relying on plastic friction.</li>
-      <li><strong>Lower Incline Standoff:</strong> Designed a secondary 3D-printed foot block at the base of the hydrogel case as a positive stop, preventing slippage along its 30-degree operating incline.</li>
+      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes[cite: 1, 5]. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising lateral force resistance[cite: 1, 5].</li>
+      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic plates with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload[cite: 1, 5]. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip[cite: 1, 5].</li>
+      <li><strong>Direct Load-Transfer Hub:</strong> 3D-printed a central head block on a Raise3D Pro3 using structural PLA (5 shell layers, 6 solid top layers, 18% gyroid infill)[cite: 1, 5]. Hexagonal pockets encapsulated 30mm M10 coupling nuts via press-fit and cyanoacrylate, directing compressive forces directly into the steel rods rather than relying on plastic friction[cite: 1, 5].</li>
+      <li><strong>Lower Incline Standoff:</strong> Designed a secondary 3D-printed foot block at the base of the hydrogel case as a positive stop, preventing slippage along its 30-degree operating incline[cite: 1, 5].</li>
     </ul>
 
     <div class="modal-section-title">Outcome &amp; Impact</div>
     <p class="modal-body-text">
-      The redesigned quad-pod increased base stability by 62%, eliminated wind tipping vulnerability during field testing, and disassembled into a compact bundle for rugged transport.
+      The redesigned quad-pod increased base stability by 62%, eliminated wind tipping vulnerability during field testing, and disassembled into a compact bundle for rugged transport[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -1682,7 +2106,7 @@
     <h3 class="modal-title">Scratch-Engineered 1:10 Scale RC Vehicle</h3>
     <div class="modal-org">Independent Engineering Project : Dec 2025 - Present</div>
     <p class="modal-lead">
-      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical assembly tolerances, and real-time embedded communications.
+      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical assembly tolerances, and real-time embedded communications[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1698,19 +2122,19 @@
 
     <div class="modal-section-title">Chassis &amp; Kinematics Design</div>
     <p class="modal-body-text">
-      Modeled the full chassis, multi-link suspension arms, and steering linkages in Onshape. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression.
+      Modeled the full chassis, multi-link suspension arms, and steering linkages in Onshape[cite: 1, 5]. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression[cite: 1, 5].
     </p>
 
     <div class="modal-section-title">Additive Manufacturing &amp; Stress Vectors</div>
     <p class="modal-body-text">
-      Load-bearing suspension arms, steering knuckles, and motor mounts were rapid-prototyped on FDM printers. Print layer lines were oriented parallel to tensile and shear planes to prevent delamination during high-velocity impacts.
+      Load-bearing suspension arms, steering knuckles, and motor mounts were rapid-prototyped on FDM printers[cite: 1, 5]. Print layer lines were oriented parallel to tensile and shear planes to prevent delamination during high-velocity impacts[cite: 1, 5].
     </p>
 
     <div class="modal-section-title">Embedded Electronics &amp; ESP-NOW Control</div>
     <ul class="modal-list">
-      <li><strong>Telemetry Link:</strong> Replaced commercial RC receivers with two ESP32 microcontrollers communicating over ESP-NOW, achieving sub-10ms transmission latency.</li>
-      <li><strong>Control Pipeline:</strong> An ESP32 host processes analog stick inputs from an Xbox controller and transmits packets to an onboard receiver.</li>
-      <li><strong>Firmware Tuning:</strong> Authored custom PWM generation code to drive an 80A electronic speed controller (ESC) and metal-gear servo, mapping non-linear throttle curves and software deadzones.</li>
+      <li><strong>Telemetry Link:</strong> Replaced commercial RC receivers with two ESP32 microcontrollers communicating over ESP-NOW, achieving sub-10ms transmission latency[cite: 1, 5].</li>
+      <li><strong>Control Pipeline:</strong> An ESP32 host processes analog stick inputs from an Xbox controller and transmits packets to an onboard receiver[cite: 1, 5].</li>
+      <li><strong>Firmware Tuning:</strong> Authored custom PWM generation code to drive an 80A electronic speed controller (ESC) and metal-gear servo, mapping non-linear throttle curves and software deadzones[cite: 1, 5].</li>
     </ul>
   </div>
 </div>
@@ -1723,7 +2147,7 @@
     <h3 class="modal-title">The Borrow Box: Automatic Classroom Supply Dispenser</h3>
     <div class="modal-org">UT SEC Makeathon : Most Technical Design Award (1st of 18 teams)</div>
     <p class="modal-lead">
-      Designed and built in 48 hours to eliminate classroom disruptions when students borrow pencils, providing a frictionless, verifiable checkout system for teachers.
+      Designed and built in 48 hours to eliminate classroom disruptions when students borrow pencils, providing a frictionless, verifiable checkout system for teachers[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1739,14 +2163,14 @@
 
     <div class="modal-section-title">Mechanical &amp; Sensor Architecture</div>
     <ul class="modal-list">
-      <li><strong>Gravity-Fed Escapement:</strong> An angled intake chute directs pencils into a servo-actuated rotating barrel that reliably isolates and dispenses one pencil at a time without motorized pushers.</li>
-      <li><strong>Optical Token Identification:</strong> Integrated a color sensor that scans student-assigned color tokens to authenticate checkout transactions.</li>
-      <li><strong>At-A-Glance Status Array:</strong> Built a hardware LED grid indicating which student slots currently hold an unreturned pencil, giving teachers an immediate status check without apps or screens.</li>
+      <li><strong>Gravity-Fed Escapement:</strong> An angled intake chute directs pencils into a servo-actuated rotating barrel that reliably isolates and dispenses one pencil at a time without motorized pushers[cite: 1, 5].</li>
+      <li><strong>Optical Token Identification:</strong> Integrated a color sensor that scans student-assigned color tokens to authenticate checkout transactions[cite: 1, 5].</li>
+      <li><strong>At-A-Glance Status Array:</strong> Built a hardware LED grid indicating which student slots currently hold an unreturned pencil, giving teachers an immediate status check without apps or screens[cite: 1, 5].</li>
     </ul>
 
     <div class="modal-section-title">Critical Pivot Under Competition Pressure</div>
     <p class="modal-body-text">
-      Testing revealed two points of failure: pencils bridged in the wide chute, and 3D-printed barrel tolerances bound under friction. With hours left, we narrowed the chute geometry to force single-file alignment and redesigned the rotating drum in Onshape to be laser-cut from clear acrylic, slashing friction and meeting live judging on time.
+      Testing revealed two points of failure: pencils bridged in the wide chute, and 3D-printed barrel tolerances bound under friction[cite: 1, 5]. With hours left, we narrowed the chute geometry to force single-file alignment and redesigned the rotating drum in Onshape to be laser-cut from clear acrylic, slashing friction and meeting live judging on time[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -1759,7 +2183,7 @@
     <h3 class="modal-title">Active Deodorizing Laundry Hamper</h3>
     <div class="modal-org">Texas Inventionworks Design Challenge : Oct 2025 - Present</div>
     <p class="modal-lead">
-      Traditional laundry hampers trap stagnant, humid air, fostering bacterial growth and persistent odor. This project introduced an active airflow enclosure that dries damp clothing before odors set in.
+      Traditional laundry hampers trap stagnant, humid air, fostering bacterial growth and persistent odor[cite: 1, 5]. This project introduced an active airflow enclosure that dries damp clothing before odors set in[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1771,12 +2195,12 @@
 
     <div class="modal-section-title">Airflow Architecture &amp; Joinery</div>
     <p class="modal-body-text">
-      Modeled in SolidWorks with interlocking finger joints to fit inside 24" x 48" laser-cutter sheets. An intake fan at the base forces air upward through waffle-pattern grates, aligning with natural thermal convection to vent moisture out the top.
+      Modeled in SolidWorks with interlocking finger joints to fit inside 24" x 48" laser-cutter sheets[cite: 1, 5]. An intake fan at the base forces air upward through waffle-pattern grates, aligning with natural thermal convection to vent moisture out the top[cite: 1, 5].
     </p>
 
     <div class="modal-section-title">Design Simplification Through Testing</div>
     <p class="modal-body-text">
-      Early prototypes included activated carbon exhaust filters. Quantitative testing demonstrated that continuous air displacement prevented volatile organic compounds (VOCs) from concentrating in the first place. Eliminating the filter cut user maintenance costs, reduced static pressure, and allowed the fan to run silently.
+      Early prototypes included activated carbon exhaust filters[cite: 1, 5]. Quantitative testing demonstrated that continuous air displacement prevented volatile organic compounds (VOCs) from concentrating in the first place[cite: 1, 5]. Eliminating the filter cut user maintenance costs, reduced static pressure, and allowed the fan to run silently[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -1789,7 +2213,7 @@
     <h3 class="modal-title">Let the Right One In: Mainstage Scenic Architecture</h3>
     <div class="modal-org">HSPVA Mainstage Production : Directed by Paul Davis</div>
     <p class="modal-lead">
-      Served as Lead Scenic Designer for the 2025 spring mainstage, engineering an ominous, industrial 1980s Chicago environment incorporating kinetic structural units.
+      Served as Lead Scenic Designer for the 2025 spring mainstage, engineering an ominous, industrial 1980s Chicago environment incorporating kinetic structural units[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1821,9 +2245,9 @@
 
     <div class="modal-section-title">Kinetic Elements &amp; Water Tank Staging</div>
     <ul class="modal-list">
-      <li><strong>Rolling Playground on Casters:</strong> Designed a full-scale jungle gym mounted on industrial swivel casters that rotated mid-performance to reveal a practical water tank representing an indoor public swimming pool.</li>
-      <li><strong>Structural "L" Train Trestle:</strong> Constructed an elevated upstage overpass creating deep vertical shadows and multi-tiered actor blocking.</li>
-      <li><strong>Morse Code Lighting Integration:</strong> Collaborated with lighting to back-illuminate specific graffiti letters across the brick and chainlink flats, pulsing Morse code signals directly through the architecture.</li>
+      <li><strong>Rolling Playground on Casters:</strong> Designed a full-scale jungle gym mounted on industrial swivel casters that rotated mid-performance to reveal a practical water tank representing an indoor public swimming pool[cite: 1, 5].</li>
+      <li><strong>Structural "L" Train Trestle:</strong> Constructed an elevated upstage overpass creating deep vertical shadows and multi-tiered actor blocking[cite: 1, 5].</li>
+      <li><strong>Morse Code Lighting Integration:</strong> Collaborated with lighting to back-illuminate specific graffiti letters across the brick and chainlink flats, pulsing Morse code signals directly through the architecture[cite: 1, 5].</li>
     </ul>
   </div>
 </div>
@@ -1836,7 +2260,7 @@
     <h3 class="modal-title">No No Nanette: Art Deco Set Design</h3>
     <div class="modal-org">HSPVA Mainstage Production : Directed by Joshua Denning</div>
     <p class="modal-lead">
-      Designed the complete scenic environment for the 2024 spring mainstage, creating a vibrant 1920s Art Deco beach club world built from organic arcs and bold color palettes.
+      Designed the complete scenic environment for the 2024 spring mainstage, creating a vibrant 1920s Art Deco beach club world built from organic arcs and bold color palettes[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1861,19 +2285,19 @@
         <div class="gallery-cap">Shop framing of compound curved flats matching 1920s Art Deco architectural sweeps.</div>
       </div>
       <div class="gallery-item" onclick="openLightbox('design_portfolio_images/nanette-autocad-elevation.jpg', 'AutoCAD front elevation drafting illustrating dimensional relationships and arc radii.')">
-        <img src="design_portfolio_images/nanette-autocad-elevation.jpg" alt="AutoCAD drafting of front elevation for No No Nanette">
+        <img src="design_portfolio_images/nanette-autocad-elevation.jpg" alt="AutoCAD front elevation drafting illustrating dimensional relationships and arc radii">
         <div class="gallery-cap">AutoCAD front elevation drafting illustrating dimensional relationships and arc radii.</div>
       </div>
     </div>
 
     <div class="modal-section-title">Dual Grand Piano Spatial Integration</div>
     <p class="modal-body-text">
-      The production required two baby grand pianos at center stage. Rather than hiding them, I drafted twin curved platforms flanking the instruments, framing them as architectural centerpieces.
+      The production required two baby grand pianos at center stage[cite: 1, 5]. Rather than hiding them, I drafted twin curved platforms flanking the instruments, framing them as architectural centerpieces[cite: 1, 5].
     </p>
 
     <div class="modal-section-title">Precision Jigsaw Joinery</div>
     <p class="modal-body-text">
-      To achieve the sweep of the Art Deco staircases, each tread was drafted in AutoCAD and hand-jigsawed with compound radii to ensure actor safety, structural stiffness, and clear pianist sightlines.
+      To achieve the sweep of the Art Deco staircases, each tread was drafted in AutoCAD and hand-jigsawed with compound radii to ensure actor safety, structural stiffness, and clear pianist sightlines[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -1886,7 +2310,7 @@
     <h3 class="modal-title">Hadestown: Thrust Stage &amp; Mechanized Train</h3>
     <div class="modal-org">UIL Theatrical Design Competition (Scenic Design Submission)</div>
     <p class="modal-lead">
-      Scenic design submission exploring the juxtaposition between fiery industrialism and rural naturalism within a 1920s jazz-age thrust stage configuration.
+      Scenic design submission exploring the juxtaposition between fiery industrialism and rural naturalism within a 1920s jazz-age thrust stage configuration[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1914,8 +2338,8 @@
 
     <div class="modal-section-title">Drafting &amp; Mechanical Layout</div>
     <ul class="modal-list">
-      <li><strong>AutoCAD Groundplan:</strong> Drafted a 1/4" scale thrust groundplan featuring nested circular platforms, an integrated center turntable, and deep proscenium tunnels.</li>
-      <li><strong>Scale Rolling Stock:</strong> Constructed miniature scale train models using Bristol board and foam core to demonstrate track clearances and kinetic entrances from the underworld.</li>
+      <li><strong>AutoCAD Groundplan:</strong> Drafted a 1/4" scale thrust groundplan featuring nested circular platforms, an integrated center turntable, and deep proscenium tunnels[cite: 1, 5].</li>
+      <li><strong>Scale Rolling Stock:</strong> Constructed miniature scale train models using Bristol board and foam core to demonstrate track clearances and kinetic entrances from the underworld[cite: 1, 5].</li>
     </ul>
   </div>
 </div>
@@ -1928,7 +2352,7 @@
     <h3 class="modal-title">The Servant of Two Masters: Lighting Design</h3>
     <div class="modal-org">HSPVA Fall Repertory Show : Directed by Deborah Hope</div>
     <p class="modal-lead">
-      Served as Lead Lighting Designer, programming high-energy cues, vibrant saturation palettes, and cyclorama color transitions to drive commedia dell'arte pacing.
+      Served as Lead Lighting Designer, programming high-energy cues, vibrant saturation palettes, and cyclorama color transitions to drive commedia dell'arte pacing[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -1960,7 +2384,7 @@
 
     <div class="modal-section-title">Cue Architecture &amp; Fixture Control</div>
     <p class="modal-body-text">
-      Programmed the ETC lighting console with custom submasters, tracking slapstick choreography across a black-and-white checkerboard deck. Leveraged warm amber front washes and deep blue backlights to carve actors out from the colorful scenery.
+      Programmed the ETC lighting console with custom submasters, tracking slapstick choreography across a black-and-white checkerboard deck[cite: 1, 5]. Leveraged warm amber front washes and deep blue backlights to carve actors out from the colorful scenery[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -1973,7 +2397,7 @@
     <h3 class="modal-title">Props, Character Masks, &amp; Puppetry</h3>
     <div class="modal-org">Theatrical Prop Shop : Various Productions</div>
     <p class="modal-lead">
-      Hands-on fabrication utilizing clay sculpting, papier-mache, foam carving, and mechanical linkages for stage and exhibition.
+      Hands-on fabrication utilizing clay sculpting, papier-mache, foam carving, and mechanical linkages for stage and exhibition[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2005,10 +2429,10 @@
 
     <div class="modal-section-title">Notable Artifacts</div>
     <ul class="modal-list">
-      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mache with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes.</li>
-      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mache head, carved foam torso, hinged arm linkages, and control dowels for live manipulation.</li>
-      <li><strong>Textured Balustrade:</strong> Engineered an architectural railing using wood framing, pantyhose-sleeved plastic bottle posts, and Jaxsan textured coating to mimic aged stone.</li>
-      <li><strong>Carved Foam Reliefs:</strong> Carved high-density foam tiles with precision knives to replicate ornate medieval stone rosettes.</li>
+      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mache with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes[cite: 1, 5].</li>
+      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mache head, carved foam torso, hinged arm linkages, and control dowels for live manipulation[cite: 1, 5].</li>
+      <li><strong>Textured Balustrade:</strong> Engineered an architectural railing using wood framing, pantyhose-sleeved plastic bottle posts, and Jaxsan textured coating to mimic aged stone[cite: 1, 5].</li>
+      <li><strong>Carved Foam Reliefs:</strong> Carved high-density foam tiles with precision knives to replicate ornate medieval stone rosettes[cite: 1, 5].</li>
     </ul>
   </div>
 </div>
@@ -2021,7 +2445,7 @@
     <h3 class="modal-title">Model Making &amp; Projections: The Tempest</h3>
     <div class="modal-org">HSPVA Advanced Design Studio</div>
     <p class="modal-lead">
-      Scale architectural model making combining Bristol board, foam core, and miniature scale lumber with QLab digital projection mapping.
+      Scale architectural model making combining Bristol board, foam core, and miniature scale lumber with QLab digital projection mapping[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2049,7 +2473,7 @@
 
     <div class="modal-section-title">Technical Process</div>
     <p class="modal-body-text">
-      In our projections studio, we constructed scale physical geometry for Shakespeare's The Tempest. Using an overhead digital projector and QLab software, we masked individual architectural elements to project animated water ripples, lightning bursts, and textured atmospheric shadows directly onto the physical model surfaces.
+      In our projections studio, we constructed scale physical geometry for Shakespeare's The Tempest[cite: 1, 5]. Using an overhead digital projector and QLab software, we masked individual architectural elements to project animated water ripples, lightning bursts, and textured atmospheric shadows directly onto the physical model surfaces[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2062,7 +2486,7 @@
     <h3 class="modal-title">Scenic Painting &amp; Chromatic Color Theory</h3>
     <div class="modal-org">HSPVA Scenic Art Studio</div>
     <p class="modal-lead">
-      Mastering scenic painting methodologies, including scumbling, wet blends, chromatic black formulations, and atmospheric perspective.
+      Mastering scenic painting methodologies, including scumbling, wet blends, chromatic black formulations, and atmospheric perspective[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2090,7 +2514,7 @@
 
     <div class="modal-section-title">Studio Methodologies</div>
     <p class="modal-body-text">
-      Exercises covered mixing rich chromatic blacks from complementary earth tones rather than tube black to maintain luminous optical depth under stage lighting. Large backdrop panels were painted with multi-brush scumbling techniques, layering wet-into-wet glazes to simulate natural weathering and atmospheric distance.
+      Exercises covered mixing rich chromatic blacks from complementary earth tones rather than tube black to maintain luminous optical depth under stage lighting[cite: 1, 5]. Large backdrop panels were painted with multi-brush scumbling techniques, layering wet-into-wet glazes to simulate natural weathering and atmospheric distance[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2103,7 +2527,7 @@
     <h3 class="modal-title">Axoloris The Musical: Visual Identity</h3>
     <div class="modal-org">UIL Theatrical Design Competition (Marketing Category)</div>
     <p class="modal-lead">
-      Comprehensive brand identity and promotional campaign for a futuristic, eco-conscious musical set in 2050 near a hydroelectric plant.
+      Comprehensive brand identity and promotional campaign for a futuristic, eco-conscious musical set in 2050 near a hydroelectric plant[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2131,7 +2555,7 @@
 
     <div class="modal-section-title">Design Philosophy &amp; Collateral</div>
     <p class="modal-body-text">
-      Grounded the visual branding in 1970s neo-expressionism, contrasting the raw texture of industrial machinery with vibrant, playful youth motifs. Designed the official poster, production calendar, comprehensive playbill, and social media announcements in Canva and Photoshop.
+      Grounded the visual branding in 1970s neo-expressionism, contrasting the raw texture of industrial machinery with vibrant, playful youth motifs[cite: 1, 5]. Designed the official poster, production calendar, comprehensive playbill, and social media announcements in Canva and Photoshop[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2144,7 +2568,7 @@
     <h3 class="modal-title">Costume Crafts &amp; Millinery Construction</h3>
     <div class="modal-org">HSPVA Costume Studio : Hands-on Production Work</div>
     <p class="modal-lead">
-      Developing structural garment shapes, millinery wire framing, and tailored pattern alteration using industrial stitching tools.
+      Developing structural garment shapes, millinery wire framing, and tailored pattern alteration using industrial stitching tools[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2154,7 +2578,7 @@
       </div>
       <div class="gallery-item" onclick="openLightbox('design_portfolio_images/costume-tricorne-buckram.jpg', 'Buckram crown block wired, pinned, and hand-stitched over a millinery head.')">
         <img src="design_portfolio_images/costume-tricorne-buckram.jpg" alt="Buckram crown form pinned to millinery head">
-        <div class="gallery-cap">Buckram crown block wired, pinned, and hand-stitched over a millinery head.</div>
+        <div class="gallery-cap">Buckram crown form pinned to millinery head.</div>
       </div>
       <div class="gallery-item" onclick="openLightbox('design_portfolio_images/costume-tricorne-sketch.jpg', 'Initial design sketch establishing color blocking and brim angles.')">
         <img src="design_portfolio_images/costume-tricorne-sketch.jpg" alt="Colored pencil sketch of tricorne hat design">
@@ -2176,9 +2600,9 @@
 
     <div class="modal-section-title">Craft Highlights</div>
     <ul class="modal-list">
-      <li><strong>Frederic's Tricorne Hat (Pirates of Penzance):</strong> Built the crown using water-formed buckram and sculpted the brim from heat-activated Fosshape. Hand-stitched heavy wire edging around the brim for rigid shape retention, clad in contrasting black and red fabrics.</li>
-      <li><strong>Muslin Mannequin Draping:</strong> Form-fitted a flat muslin garment to mannequin contours using precisely planned darts, seams, and industrial machine assembly.</li>
-      <li><strong>King Henry VIII Rapid Build:</strong> Group challenge fabricating a Tudor royal costume entirely from paper, cardboard, plastic, and magazines under timed constraints.</li>
+      <li><strong>Frederic's Tricorne Hat (Pirates of Penzance):</strong> Built the crown using water-formed buckram and sculpted the brim from heat-activated Fosshape[cite: 1, 5]. Hand-stitched heavy wire edging around the brim for rigid shape retention, clad in contrasting black and red fabrics[cite: 1, 5].</li>
+      <li><strong>Muslin Mannequin Draping:</strong> Form-fitted a flat muslin garment to mannequin contours using precisely planned darts, seams, and industrial machine assembly[cite: 1, 5].</li>
+      <li><strong>King Henry VIII Rapid Build:</strong> Group challenge fabricating a Tudor royal costume entirely from paper, cardboard, plastic, and magazines under timed constraints[cite: 1, 5].</li>
     </ul>
   </div>
 </div>
@@ -2191,7 +2615,7 @@
     <h3 class="modal-title">Stage Fly Rail &amp; Rigging: The Prom</h3>
     <div class="modal-org">HSPVA Fall All-School Musical : Directed by Rozanne Curtis</div>
     <p class="modal-lead">
-      Served on the stage rail crew for the 2023 fall all-school musical, operating the heavy counterweight arbor system to fly architectural drops, lighting arches, and scenic set pieces live during performance.
+      Served on the stage rail crew for the 2023 fall all-school musical, operating the heavy counterweight arbor system to fly architectural drops, lighting arches, and scenic set pieces live during performance[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2219,7 +2643,7 @@
 
     <div class="modal-section-title">Rigging &amp; Safety Protocols</div>
     <p class="modal-body-text">
-      Managed line set weights, arbor balance checks, and pin-rail locks backstage. Coordinated with stage management and deck crew over headset communications to execute smooth vertical flight transitions without swaying or endangering cast members on the active deck.
+      Managed line set weights, arbor balance checks, and pin-rail locks backstage[cite: 1, 5]. Coordinated with stage management and deck crew over headset communications to execute smooth vertical flight transitions without swaying or endangering cast members on the active deck[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2232,7 +2656,7 @@
     <h3 class="modal-title">Digital 3D CAD &amp; Asset Modeling</h3>
     <div class="modal-org">CAD Studio : Parametric Engineering &amp; Graphics</div>
     <p class="modal-lead">
-      Designing functional mechanical fixtures, consumer products, and graphic assets across Onshape, AutoCAD, and Adobe Photoshop.
+      Designing functional mechanical fixtures, consumer products, and graphic assets across Onshape, AutoCAD, and Adobe Photoshop[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2260,7 +2684,7 @@
 
     <div class="modal-section-title">Technical Toolset</div>
     <p class="modal-body-text">
-      Proficient in parametric feature trees, mate connectors, and assembly configurations in Onshape, SolidWorks, and Fusion 360. Complemented by technical 2D drafting in AutoCAD for fabrication cut lists and raster/vector design in Adobe Creative Suite.
+      Proficient in parametric feature trees, mate connectors, and assembly configurations in Onshape, SolidWorks, and Fusion 360[cite: 1, 5]. Complemented by technical 2D drafting in AutoCAD for fabrication cut lists and raster/vector design in Adobe Creative Suite[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2273,7 +2697,7 @@
     <h3 class="modal-title">Upcycled Saw Blade Clock &amp; Plaster Casts</h3>
     <div class="modal-org">Personal Maker Projects</div>
     <p class="modal-lead">
-      Transforming decommissioned shop tools and casting materials into functional, tactile household artifacts.
+      Transforming decommissioned shop tools and casting materials into functional, tactile household artifacts[cite: 1, 5].
     </p>
 
     <div class="modal-gallery">
@@ -2297,7 +2721,7 @@
 
     <div class="modal-section-title">Fabrication Steps</div>
     <p class="modal-body-text">
-      Refurbished an old circular saw blade, coated it in metallic gold lacquer for durability, machined and stained a stable timber pedestal, and fitted a precision quartz clock mechanism. In addition, mastered mold making with medical alginate and plaster of Paris to capture anatomical hand sculptures.
+      Refurbished an old circular saw blade, coated it in metallic gold lacquer for durability, machined and stained a stable timber pedestal, and fitted a precision quartz clock mechanism[cite: 1, 5]. In addition, mastered mold making with medical alginate and plaster of Paris to capture anatomical hand sculptures[cite: 1, 5].
     </p>
   </div>
 </div>
@@ -2329,7 +2753,7 @@
 </div>
 
 <script>
-  // Theme Toggle: Defaults to Light Mode with Toggleable Dark Mode
+  // Theme Toggle
   const themeToggle = document.getElementById('themeToggle');
   let currentTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', currentTheme);
@@ -2340,12 +2764,11 @@
     document.documentElement.setAttribute('data-theme', currentTheme);
     localStorage.setItem('theme', currentTheme);
     themeToggle.textContent = currentTheme === 'light' ? 'Dark Mode' : 'Light Mode';
-    drawRuler(); // Re-render ruler colors
+    drawRuler();
+    updateThemeLighting();
   });
 
-  // ========================================================
-  // DYNAMIC SCROLLING MILLIMETER DRAFTING RULER CANVAS
-  // ========================================================
+  // Dynamic Scrolling Millimeter Drafting Ruler
   const rCanvas = document.getElementById('rulerCanvas');
   const rCtx = rCanvas.getContext('2d');
 
@@ -2365,12 +2788,10 @@
     const tickColor = isDark ? '#768597' : '#5C5549';
     const terracotta = isDark ? '#E05C32' : '#B6421E';
 
-    // 1 mm in real drafting space = 1.6 px on screen
     const pxPerMM = 1.6;
     const scrollOffset = window.scrollY || window.pageYOffset || 0;
-    const topPadding = 18; // offset so 0mm is never cut off at top of screen
+    const topPadding = 18;
 
-    // Calculate start and end millimeter markings in view
     const firstMM = Math.floor((-topPadding + scrollOffset) / pxPerMM / 10) * 10;
     const lastMM = firstMM + Math.ceil(h / pxPerMM) + 10;
 
@@ -2383,7 +2804,7 @@
       const isMid = (mm % 50 === 20 || mm % 50 === 30);
 
       rCtx.beginPath();
-      rCtx.lineWidth = isMajor ? 1.8 : 1.0;
+      rCtx.lineWidth = isMajor ? 2.0 : 1.0;
       rCtx.strokeStyle = isMajor ? terracotta : tickColor;
 
       let tickWidth = isMajor ? 16 : (isMid ? 10 : 6);
@@ -2391,30 +2812,28 @@
       rCtx.lineTo(w, y + 0.5);
       rCtx.stroke();
 
-      // Draw number label right under the major tick line
       if (isMajor) {
         rCtx.fillStyle = isMajor ? terracotta : tickColor;
-        rCtx.font = "600 8.5px 'JetBrains Mono', monospace";
+        rCtx.font = "700 11px 'JetBrains Mono', monospace";
         rCtx.textAlign = 'right';
-        rCtx.fillText(mm === 0 ? '0mm' : `${mm}`, w - 20, y + 10);
+        rCtx.textBaseline = 'middle';
+        rCtx.fillText(mm === 0 ? '0mm' : `${mm}`, w - 20, y);
       }
     }
   }
 
-  // Smooth scroll to studio from landing card
   function scrollToStudio(e) {
     e.preventDefault();
     const target = document.getElementById('about');
     if (target) {
-      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - 110;
+      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - 118;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
     }
   }
 
-  // Opening Manifesto & Top Docking Bar Controller on Scroll
   const dockedBar = document.getElementById('dockedAtelierBar');
   function handleScroll() {
-    drawRuler(); // sync ruler position
+    drawRuler();
     const scrollY = window.scrollY || window.pageYOffset || 0;
     if (scrollY > 380) {
       dockedBar.classList.add('visible');
@@ -2425,18 +2844,15 @@
   window.addEventListener('scroll', handleScroll, { passive: true });
   resizeRuler();
 
-  // Natural Organic Random Tilt on Cards (Alternating, Wider Range: 1.2° to 2.4°)
   const allCards = document.querySelectorAll('.project-card');
   allCards.forEach((card, index) => {
     const isLeft = (index % 2 === 0);
-    // Range between 1.25 and 2.35 degrees
     const randomDeg = (1.25 + Math.random() * 1.1) * (isLeft ? -1 : 1);
     const formattedAngle = randomDeg.toFixed(2);
     card.dataset.baseAngle = formattedAngle;
     card.style.transform = `rotate(${formattedAngle}deg)`;
   });
 
-  // Toned-Down Subtle 3D Hover Deflection (Gentle ~2.5° max)
   allCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -2462,7 +2878,6 @@
     });
   });
 
-  // Carousel Track Horizontal Scroll
   function scrollTrack(trackId, amount) {
     const track = document.getElementById(trackId);
     if (track) {
@@ -2470,7 +2885,6 @@
     }
   }
 
-  // Modals Open / Close
   function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -2496,7 +2910,6 @@
     }
   }
 
-  // Full-Screen Image Lightbox
   function openLightbox(imgSrc, captionText) {
     const lightbox = document.getElementById('lightbox-overlay');
     const lbImg = document.getElementById('lightbox-img');
@@ -2520,7 +2933,6 @@
     }
   }
 
-  // Keyboard Escape listener
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const activeLightbox = document.querySelector('.lightbox-overlay.active');
@@ -2533,7 +2945,6 @@
     }
   });
 
-  // PDF Viewer Modal
   function openPdfModal(type) {
     const frame = document.getElementById('pdfFrame');
     const title = document.getElementById('pdfModalTitle');
@@ -2557,250 +2968,385 @@
   }
 
   // ========================================================
-  // INTERACTIVE 3D CAD MODEL VIEWER (CANVAS)
+  // REAL 3D SOLID STL MODEL VIEWER (THREE.JS ENGINE)
   // ========================================================
   const mCanvas = document.getElementById('modelCanvas');
-  const mCtx = mCanvas.getContext('2d');
-  let mWidth, mHeight;
-
-  function resizeModelCanvas() {
-    mWidth = mCanvas.width = mCanvas.offsetWidth;
-    mHeight = mCanvas.height = mCanvas.offsetHeight;
-  }
-  window.addEventListener('resize', resizeModelCanvas);
-  resizeModelCanvas();
-
-  let rotX = 0.35;
-  let rotY = -0.55;
+  const canvasWrap = document.querySelector('.canvas-wrap');
+  let renderer, scene, camera;
+  let dirLight, ambientLight;
+  let modelPivotGroup;
+  let modelZoom = 1.0;
+  const minZoom = 0.55;
+  const maxZoom = 1.85;
   let isDragging = false;
   let lastMouseX = 0, lastMouseY = 0;
   let currentModelIdx = 0;
 
-  // 4 CAD Models relevant to Suraj's work
   const models = [
     {
-      title: "01. WATER HARVESTER QUAD-POD",
+      title: "01. ATMOSPHERIC WATER HARVESTER STAND",
       spec: "SPECS: 27.2° COMPOUND STAINLESS SPLAY",
-      nodes: [
-        // Base plate payload box
-        [-1.1, -0.6, -0.8], [1.1, -0.6, -0.8], [1.1, 0.4, -0.8], [-1.1, 0.4, -0.8],
-        [-1.1, -0.6, 0.8], [1.1, -0.6, 0.8], [1.1, 0.4, 0.8], [-1.1, 0.4, 0.8],
-        // Central Hub Mount
-        [0, 0.4, 0],
-        // 4 Compound Splayed Leg Feet
-        [-1.7, 1.8, -1.4], [1.7, 1.8, -1.4], [1.7, 1.8, 1.4], [-1.7, 1.8, 1.4]
+      stlUrl: "design_portfolio_images/cartridge_stand.stl",
+      specsBreakdown: [
+        { label: "CORE GEOMETRY", val: "27.2° Compound Stainless Splay" },
+        { label: "PRIMARY PERFORMANCE", val: "+62% Base Width // 30 lb Payload" }
       ],
-      edges: [
-        [0,1], [1,2], [2,3], [3,0], [4,5], [5,6], [6,7], [7,4],
-        [0,4], [1,5], [2,6], [3,7],
-        // Legs to feet
-        [8,9], [8,10], [8,11], [8,12],
-        // Leg cross brace rings
-        [9,10], [10,11], [11,12], [12,9]
-      ]
+      buildFallback: function() {
+        const group = new THREE.Group();
+        const mat = getCADMaterial();
+        const legMat = getStainlessMaterial();
+        // Central hub block
+        const hub = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.35, 1.0), mat);
+        hub.position.y = 0.3;
+        group.add(hub);
+        // Inclined cartridge box
+        const box = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.45, 1.8), mat);
+        box.position.set(0, 0.85, -0.15);
+        box.rotation.x = -0.52; // ~30 deg incline
+        group.add(box);
+        // 4 Compound splayed legs
+        const legGeom = new THREE.CylinderGeometry(0.04, 0.04, 1.6, 12);
+        const legPos = [
+          [-0.6, -0.35, -0.6, 0.35, -0.35],
+          [0.6, -0.35, -0.6, 0.35, 0.35],
+          [0.6, -0.35, 0.6, -0.35, 0.35],
+          [-0.6, -0.35, 0.6, -0.35, -0.35]
+        ];
+        legPos.forEach(p => {
+          const leg = new THREE.Mesh(legGeom, legMat);
+          leg.position.set(p[0] * 1.5, p[1], p[2] * 1.4);
+          leg.rotation.z = p[4];
+          leg.rotation.x = p[3];
+          group.add(leg);
+        });
+        return group;
+      }
     },
     {
-      title: "02. 1:10 SCALE RC CAR CHASSIS",
+      title: "02. SCRATCH 1:10 SCALE RC VEHICLE",
       spec: "SPECS: DOUBLE WISHBONE + POWERTRAIN",
-      nodes: [
-        // Chassis main tub
-        [-1.8, 0.2, -0.7], [1.8, 0.2, -0.7], [1.8, 0.2, 0.7], [-1.8, 0.2, 0.7],
-        [-1.8, -0.2, -0.7], [1.8, -0.2, -0.7], [1.8, -0.2, 0.7], [-1.8, -0.2, 0.7],
-        // 4 Wheel Hubs
-        [-1.7, 0.3, -1.3], [1.7, 0.3, -1.3], [1.7, 0.3, 1.3], [-1.7, 0.3, 1.3],
-        // Motor cylindrical block
-        [0.3, -0.6, -0.3], [0.9, -0.6, -0.3], [0.9, -0.1, -0.3], [0.3, -0.1, -0.3]
+      stlUrl: "design_portfolio_images/rc_car_v1.stl",
+      specsBreakdown: [
+        { label: "CHASSIS / SUSPENSION", val: "Double Wishbone + Coilovers" },
+        { label: "POWERTRAIN & TELEMETRY", val: "550 Motor + Sub-10ms ESP-NOW" }
       ],
-      edges: [
-        [0,1], [1,2], [2,3], [3,0], [4,5], [5,6], [6,7], [7,4],
-        [0,4], [1,5], [2,6], [3,7],
-        // Suspension Wishbone linkages to wheels
-        [0,8], [4,8], [1,9], [5,9], [2,10], [6,10], [3,11], [7,11],
-        // Motor cage
-        [12,13], [13,14], [14,15], [15,12]
-      ]
+      buildFallback: function() {
+        const group = new THREE.Group();
+        const mat = getCADMaterial();
+        const tireMat = getTireMaterial();
+        // Lower tub chassis
+        const chassis = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.16, 1.1), mat);
+        group.add(chassis);
+        // Shock towers
+        const fTower = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.7, 0.9), mat);
+        fTower.position.set(-1.0, 0.35, 0);
+        const rTower = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.75, 0.9), mat);
+        rTower.position.set(0.9, 0.38, 0);
+        group.add(fTower, rTower);
+        // 550 Motor Cylinder
+        const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.65, 16), getStainlessMaterial());
+        motor.rotation.z = Math.PI / 2;
+        motor.position.set(0.4, 0.22, -0.2);
+        group.add(motor);
+        // 4 Solid Tires
+        const wheelGeom = new THREE.CylinderGeometry(0.38, 0.38, 0.3, 20);
+        wheelGeom.rotateX(Math.PI / 2);
+        const wheels = [
+          [-1.0, 0.05, -0.85],
+          [-1.0, 0.05, 0.85],
+          [0.9, 0.05, -0.85],
+          [0.9, 0.05, 0.85]
+        ];
+        wheels.forEach(w => {
+          const wheel = new THREE.Mesh(wheelGeom, tireMat);
+          wheel.position.set(w[0], w[1], w[2]);
+          group.add(wheel);
+        });
+        return group;
+      }
     },
     {
-      title: "03. THE BORROW BOX DISPENSER",
-      spec: "SPECS: GRAVITY HOPPER + ESCAPEMENT CAM",
-      nodes: [
-        // Slanted Gravity Chute Hopper
-        [-1.2, -1.5, -0.7], [1.2, -1.5, -0.7], [1.2, -0.5, 0.7], [-1.2, -0.5, 0.7],
-        [-0.8, -0.2, -0.5], [0.8, -0.2, -0.5], [0.8, -0.2, 0.5], [-0.8, -0.2, 0.5],
-        // Barrel Escapement Cylinder
-        [-1.2, 0.6, -0.6], [1.2, 0.6, -0.6], [1.2, 0.6, 0.6], [-1.2, 0.6, 0.6],
-        [-1.2, 1.2, 0], [1.2, 1.2, 0],
-        // Base Foundation
-        [-1.4, 1.6, -0.8], [1.4, 1.6, -0.8], [1.4, 1.6, 0.8], [-1.4, 1.6, 0.8]
+      title: "03. MODULAR 3D PRINTED REAR BIKE RACK",
+      spec: "SPECS: MODULAR FDM CARGO PLATFORM",
+      stlUrl: "design_portfolio_images/rear_bike_rack_v1.stl",
+      specsBreakdown: [
+        { label: "CHASSIS ARCHITECTURE", val: "Modular FDM Clamp & Splayed Struts" },
+        { label: "CUSTOM STORAGE", val: "Interchangeable Modular Deck Cleats" }
       ],
-      edges: [
-        [0,1], [1,2], [2,3], [3,0],
-        [0,4], [1,5], [2,6], [3,7],
-        [4,5], [5,6], [6,7], [7,4],
-        // Barrel cylinder edges
-        [8,9], [9,10], [10,11], [11,8], [8,12], [9,13], [10,13], [11,12],
-        // Base
-        [14,15], [15,16], [16,17], [17,14],
-        [8,14], [9,15], [10,16], [11,17]
-      ]
-    },
-    {
-      title: "04. SCENIC 'L' OVERPASS & JUNGLE GYM",
-      spec: "SPECS: 1980s INDUSTRIAL ROLLING TRESTLE",
-      nodes: [
-        // Elevated 'L' Train Trestle Bridge
-        [-2.0, -1.2, -0.8], [2.0, -1.2, -0.8], [2.0, -0.8, 0.8], [-2.0, -0.8, 0.8],
-        [-2.0, 1.6, -0.8], [2.0, 1.6, -0.8], [2.0, 1.6, 0.8], [-2.0, 1.6, 0.8],
-        // Central Climbing Playground Unit on Casters
-        [-0.7, 0.2, -0.6], [0.7, 0.2, -0.6], [0.7, 0.2, 0.6], [-0.7, 0.2, 0.6],
-        [-0.7, 1.5, -0.6], [0.7, 1.5, -0.6], [0.7, 1.5, 0.6], [-0.7, 1.5, 0.6]
-      ],
-      edges: [
-        [0,1], [1,2], [2,3], [3,0],
-        // Bridge Support Columns
-        [0,4], [1,5], [2,6], [3,7],
-        // Jungle Gym Frame
-        [8,9], [9,10], [10,11], [11,8],
-        [12,13], [13,14], [14,15], [15,12],
-        [8,12], [9,13], [10,14], [11,15],
-        // Internal Gym Rung
-        [8,10], [9,11], [12,14], [13,15]
-      ]
+      buildFallback: function() {
+        const group = new THREE.Group();
+        const mat = getCADMaterial();
+        const strutMat = getStainlessMaterial();
+        // Upper platform top deck
+        const deck = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.08, 0.95), mat);
+        deck.position.y = 0.55;
+        group.add(deck);
+        // Longitudinal cargo rails
+        const rail1 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.12, 0.08), mat);
+        rail1.position.set(0, 0.63, -0.46);
+        const rail2 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.12, 0.08), mat);
+        rail2.position.set(0, 0.63, 0.46);
+        group.add(rail1, rail2);
+        // Modular storage cutouts / cross cleats
+        for (let i = -0.8; i <= 0.8; i += 0.4) {
+          const cleat = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.06, 0.92), mat);
+          cleat.position.set(i, 0.59, 0);
+          group.add(cleat);
+        }
+        // Support struts down to dropout eyelets
+        const strutGeom = new THREE.CylinderGeometry(0.035, 0.035, 1.45, 12);
+        const s1 = new THREE.Mesh(strutGeom, strutMat);
+        s1.position.set(0.6, -0.1, -0.55);
+        s1.rotation.z = -0.32;
+        s1.rotation.x = 0.18;
+        const s2 = new THREE.Mesh(strutGeom, strutMat);
+        s2.position.set(0.6, -0.1, 0.55);
+        s2.rotation.z = -0.32;
+        s2.rotation.x = -0.18;
+        // Forward seatstay attachment arms
+        const arm1 = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.9, 12), strutMat);
+        arm1.position.set(-1.45, 0.35, -0.2);
+        arm1.rotation.z = Math.PI / 3;
+        const arm2 = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.9, 12), strutMat);
+        arm2.position.set(-1.45, 0.35, 0.2);
+        arm2.rotation.z = Math.PI / 3;
+        group.add(s1, s2, arm1, arm2);
+        return group;
+      }
     }
   ];
 
+  function getCADMaterial() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    return new THREE.MeshStandardMaterial({
+      color: isDark ? 0xE05C32 : 0xB6421E,
+      roughness: 0.38,
+      metalness: 0.12,
+      flatShading: false
+    });
+  }
+
+  function getStainlessMaterial() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    return new THREE.MeshStandardMaterial({
+      color: isDark ? 0x94A3B8 : 0x71717A,
+      roughness: 0.25,
+      metalness: 0.75
+    });
+  }
+
+  function getTireMaterial() {
+    return new THREE.MeshStandardMaterial({
+      color: 0x1E293B,
+      roughness: 0.8,
+      metalness: 0.05
+    });
+  }
+
+  function initThreeViewer() {
+    const w = canvasWrap.clientWidth;
+    const h = canvasWrap.clientHeight;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 100);
+    camera.position.set(0, 0.6, 5.2);
+
+    renderer = new THREE.WebGLRenderer({ canvas: mCanvas, antialias: true, alpha: true });
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Studio lighting setup
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
+    scene.add(ambientLight);
+
+    dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
+    dirLight.position.set(5, 8, 6);
+    scene.add(dirLight);
+
+    const rimLight = new THREE.DirectionalLight(0xe05c32, 0.45);
+    rimLight.position.set(-5, -4, -4);
+    scene.add(rimLight);
+
+    modelPivotGroup = new THREE.Group();
+    modelPivotGroup.rotation.x = 0.28;
+    modelPivotGroup.rotation.y = -0.55;
+    scene.add(modelPivotGroup);
+
+    loadModelGeometry(currentModelIdx);
+    animateThree();
+  }
+
+  function updateThemeLighting() {
+    if (!modelPivotGroup) return;
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (ambientLight) ambientLight.intensity = isDark ? 0.85 : 0.72;
+    // Re-apply materials to loaded mesh
+    modelPivotGroup.traverse((child) => {
+      if (child.isMesh && child.userData && child.userData.isSTL) {
+        child.material = getCADMaterial();
+      }
+    });
+  }
+
+  function loadModelGeometry(idx) {
+    const cur = models[idx];
+    document.getElementById('modelTitle').textContent = cur.title;
+    document.getElementById('modelSpec').textContent = cur.spec;
+    document.getElementById('specLabel1').textContent = cur.specsBreakdown[0].label;
+    document.getElementById('specVal1').textContent = cur.specsBreakdown[0].val;
+    document.getElementById('specLabel2').textContent = cur.specsBreakdown[1].label;
+    document.getElementById('specVal2').textContent = cur.specsBreakdown[1].val;
+
+    // Clear current group
+    while (modelPivotGroup.children.length > 0) {
+      modelPivotGroup.remove(modelPivotGroup.children[0]);
+    }
+
+    // Try loading actual binary/ASCII STL file from GitHub assets
+    if (window.THREE && THREE.STLLoader && cur.stlUrl) {
+      const loader = new THREE.STLLoader();
+      loader.load(
+        cur.stlUrl,
+        function (geometry) {
+          geometry.computeVertexNormals();
+          geometry.center();
+          geometry.computeBoundingBox();
+          const box = geometry.boundingBox;
+          const maxDim = Math.max(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z) || 1;
+          const scale = 2.6 / maxDim;
+
+          const mesh = new THREE.Mesh(geometry, getCADMaterial());
+          mesh.scale.set(scale, scale, scale);
+          mesh.userData = { isSTL: true };
+
+          while (modelPivotGroup.children.length > 0) {
+            modelPivotGroup.remove(modelPivotGroup.children[0]);
+          }
+          modelPivotGroup.add(mesh);
+        },
+        undefined,
+        function () {
+          // If file not yet in repo or offline, render solid shaded 3D CAD fallback
+          const fallback = cur.buildFallback();
+          modelPivotGroup.add(fallback);
+        }
+      );
+    } else {
+      modelPivotGroup.add(cur.buildFallback());
+    }
+  }
+
   function prevModel() {
     currentModelIdx = (currentModelIdx === 0) ? models.length - 1 : currentModelIdx - 1;
-    updateModelInfo();
+    loadModelGeometry(currentModelIdx);
   }
 
   function nextModel() {
     currentModelIdx = (currentModelIdx === models.length - 1) ? 0 : currentModelIdx + 1;
-    updateModelInfo();
+    loadModelGeometry(currentModelIdx);
   }
 
-  function updateModelInfo() {
-    const cur = models[currentModelIdx];
-    document.getElementById('modelTitle').textContent = cur.title;
-    document.getElementById('modelSpec').textContent = cur.spec;
+  function animateThree() {
+    requestAnimationFrame(animateThree);
+
+    if (!isDragging && modelPivotGroup) {
+      modelPivotGroup.rotation.y -= 0.004; // Idle rotation matching reversed direction
+    }
+
+    if (modelPivotGroup) {
+      const degX = Math.round(modelPivotGroup.rotation.x * (180 / Math.PI)) % 360;
+      const degY = (Math.round(modelPivotGroup.rotation.y * (180 / Math.PI)) % 360 + 360) % 360;
+      document.getElementById('modelCoords').textContent = `ROT: ${degX}° / ${degY}° | ZOOM: ${Math.round(modelZoom * 100)}%`;
+    }
+
+    renderer.render(scene, camera);
   }
 
-  function render3DModel() {
-    mCtx.clearRect(0, 0, mWidth, mHeight);
-
-    // Subtle drafting grid on CAD canvas
-    mCtx.strokeStyle = 'rgba(180, 168, 148, 0.22)';
-    mCtx.lineWidth = 1;
-    for (let x = 0; x < mWidth; x += 24) {
-      mCtx.beginPath();
-      mCtx.moveTo(x, 0);
-      mCtx.lineTo(x, mHeight);
-      mCtx.stroke();
-    }
-    for (let y = 0; y < mHeight; y += 24) {
-      mCtx.beginPath();
-      mCtx.moveTo(0, y);
-      mCtx.lineTo(mWidth, y);
-      mCtx.stroke();
-    }
-
-    // Auto rotate when idle
-    if (!isDragging) {
-      rotY += 0.007;
-    }
-
-    const cur = models[currentModelIdx];
-    const projected = [];
-    const scale = Math.min(mWidth, mHeight) * 0.28;
-    const originX = mWidth / 2;
-    const originY = mHeight / 2;
-
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const wireColor = isDark ? '#E05C32' : '#B6421E';
-    const nodeColor = isDark ? '#38BDF8' : '#1B3545';
-
-    for (let i = 0; i < cur.nodes.length; i++) {
-      let [x, y, z] = cur.nodes[i];
-
-      // Rotate Y
-      let x1 = x * Math.cos(rotY) + z * Math.sin(rotY);
-      let z1 = -x * Math.sin(rotY) + z * Math.cos(rotY);
-
-      // Rotate X
-      let y2 = y * Math.cos(rotX) - z1 * Math.sin(rotX);
-      let z2 = y * Math.sin(rotX) + z1 * Math.cos(rotX);
-
-      let px = originX + (x1 * scale);
-      let py = originY + (y2 * scale);
-      projected.push([px, py]);
-
-      // Draw vertex node
-      mCtx.fillStyle = nodeColor;
-      mCtx.beginPath();
-      mCtx.arc(px, py, 2.5, 0, Math.PI * 2);
-      mCtx.fill();
-    }
-
-    // Draw structural edges
-    mCtx.strokeStyle = wireColor;
-    mCtx.lineWidth = 1.6;
-    for (let i = 0; i < cur.edges.length; i++) {
-      let [p1, p2] = cur.edges[i];
-      if (projected[p1] && projected[p2]) {
-        mCtx.beginPath();
-        mCtx.moveTo(projected[p1][0], projected[p1][1]);
-        mCtx.lineTo(projected[p2][0], projected[p2][1]);
-        mCtx.stroke();
-      }
-    }
-
-    // Update rotation readout
-    const degX = Math.round(rotX * (180 / Math.PI)) % 360;
-    const degY = Math.round(rotY * (180 / Math.PI)) % 360;
-    document.getElementById('modelCoords').textContent = `ROT: ${degX}° /${degY}°`;
-
-    requestAnimationFrame(render3DModel);
+  function onThreeResize() {
+    if (!renderer || !camera) return;
+    const w = canvasWrap.clientWidth;
+    const h = canvasWrap.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
   }
-  render3DModel();
+  window.addEventListener('resize', onThreeResize);
 
-  // Mouse / Touch 360° Drag Rotation
+  // Wheel Zoom
+  mCanvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const zoomDelta = e.deltaY * -0.001;
+    modelZoom = Math.min(Math.max(modelZoom + zoomDelta, minZoom), maxZoom);
+    camera.position.z = 5.2 / modelZoom;
+  }, { passive: false });
+
+  // Mouse Drag Rotation (Reversed Horizontal Plane)
   mCanvas.addEventListener('mousedown', (e) => {
     isDragging = true;
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
   });
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
   mCanvas.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !modelPivotGroup) return;
     const dx = e.clientX - lastMouseX;
     const dy = e.clientY - lastMouseY;
-    rotY += dx * 0.012;
-    rotX += dy * 0.012;
+    modelPivotGroup.rotation.y -= dx * 0.009; // Reversed drag: dragging right spins counter-clockwise
+    modelPivotGroup.rotation.x += dy * 0.009;
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
   });
+
+  // Touch Drag & Pinch-to-Zoom
+  let initialPinchDist = null;
+  let initialZoom = 1.0;
 
   mCanvas.addEventListener('touchstart', (e) => {
     if (e.touches.length === 1) {
       isDragging = true;
       lastMouseX = e.touches[0].clientX;
       lastMouseY = e.touches[0].clientY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      initialPinchDist = Math.hypot(dx, dy);
+      initialZoom = modelZoom;
     }
   }, { passive: true });
-  window.addEventListener('touchend', () => {
-    isDragging = false;
+
+  window.addEventListener('touchend', (e) => {
+    if (e.touches.length === 0) {
+      isDragging = false;
+      initialPinchDist = null;
+    } else if (e.touches.length === 1) {
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+      isDragging = true;
+      initialPinchDist = null;
+    }
   });
+
   mCanvas.addEventListener('touchmove', (e) => {
-    if (!isDragging || e.touches.length !== 1) return;
-    const dx = e.touches[0].clientX - lastMouseX;
-    const dy = e.touches[0].clientY - lastMouseY;
-    rotY += dx * 0.012;
-    rotX += dy * 0.012;
-    lastMouseX = e.touches[0].clientX;
-    lastMouseY = e.touches[0].clientY;
+    if (e.touches.length === 1 && isDragging && modelPivotGroup) {
+      const dx = e.touches[0].clientX - lastMouseX;
+      const dy = e.touches[0].clientY - lastMouseY;
+      modelPivotGroup.rotation.y -= dx * 0.009;
+      modelPivotGroup.rotation.x += dy * 0.009;
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+    } else if (e.touches.length === 2 && initialPinchDist) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const currentDist = Math.hypot(dx, dy);
+      const factor = currentDist / initialPinchDist;
+      modelZoom = Math.min(Math.max(initialZoom * factor, minZoom), maxZoom);
+      camera.position.z = 5.2 / modelZoom;
+    }
   }, { passive: true });
+
+  // Initialize WebGL Scene
+  initThreeViewer();
 </script>
 </body>
 </html>
