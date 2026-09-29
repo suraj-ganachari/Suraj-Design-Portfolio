@@ -269,6 +269,9 @@
     overflow: hidden;
     background: var(--vellum);
     border: 1.5px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .portrait-frame img {
     width: 100%;
@@ -574,6 +577,8 @@
     position: relative;
     gap: 10px;
   }
+
+  /* Single-Line CAD Top Bar */
   .bench-top-bar {
     display: flex;
     justify-content: space-between;
@@ -584,6 +589,13 @@
     font-size: 0.72rem;
     color: var(--blueprint);
     font-weight: 700;
+    white-space: nowrap;
+    gap: 10px;
+  }
+  .bench-top-bar > span:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .bench-badge-live {
     background: var(--terracotta-soft);
@@ -591,7 +603,10 @@
     padding: 2px 7px;
     border-radius: 3px;
     border: 1px solid var(--terracotta);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
+
   .canvas-wrap {
     width: 100%;
     height: 220px;
@@ -858,7 +873,7 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* Balanced Two-Column Experience & Skills Grid */
+  /* Two-Column Experience & Skills Grid */
   .resume-grid {
     display: grid;
     grid-template-columns: 1.12fr 0.88fr;
@@ -879,7 +894,7 @@
     box-shadow: 0 4px 16px var(--shadow-soft);
   }
 
-  /* Clean Single-Badge Experience Logo Styling (No Duplicate Fallback Leak) */
+  /* Clean Single-Badge Experience Logo Styling */
   .xp-header-row {
     display: flex;
     align-items: flex-start;
@@ -1465,12 +1480,12 @@
       </a>
     </div>
 
-    <!-- Integrated Suraj Workshop Portrait Card -->
+    <!-- Integrated Suraj Workshop Portrait Card (Multi-Extension Image Fallback) -->
     <div class="portrait-mount">
       <div class="portrait-card">
         <div class="portrait-tape"></div>
         <div class="portrait-frame">
-          <img src="design_portfolio_images/Suraj_photo_1.jpeg" alt="Suraj Ganachari in the studio workshop" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\'height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--vellum);color:var(--ink-muted);font-family:JetBrains Mono,monospace;font-size:0.82rem;text-align:center;padding:20px;\'><div>[ Suraj_photo_1.jpeg ]</div><div style=\'font-size:0.72rem;margin-top:8px;\'>design_portfolio_images/</div></div>';">
+          <img id="surajPortraitImg" src="design_portfolio_images/Suraj_photo_1.jpeg" alt="Suraj Ganachari in the studio workshop" onerror="handlePortraitError(this)">
         </div>
         <!-- Angled Taped Caption Card -->
         <div class="portrait-caption-tag">
@@ -1524,8 +1539,9 @@
 
         <!-- Proportional CAD Inspection Bench (Solid 3D WebGL / STL Viewer) -->
         <div class="cad-3d-bench">
+          <!-- Shortened Single-Line CAD Top Bar -->
           <div class="bench-top-bar">
-            <span>WORKBENCH 3D VIEWER // REAL-TIME CAD INSPECTION</span>
+            <span>REAL-TIME CAD 3D VIEWER</span>
             <span class="bench-badge-live">DRAG &amp; SCROLL TO ZOOM</span>
           </div>
           <div class="canvas-wrap">
@@ -1846,9 +1862,9 @@
               </div>
             </div>
             <ul class="xp-bullets">
-              <li>Collaborated directly with R&amp;D engineers to design a natural gas engine test cell, managing system requirements, bill of materials (BOM), and vendor sourcing[cite: 1, 4].</li>
-              <li>Executed physical modifications to generator enclosures for filtration upgrades and reconfigured internal control panel wiring[cite: 1, 4].</li>
-              <li>Drafted comprehensive Standard Operating Procedures (SOPs) and gained hands-on exposure from concept through Factory Acceptance Testing (FAT)[cite: 1, 4].</li>
+              <li>Collaborated directly with R&amp;D engineers to design a natural gas engine test cell, managing system requirements, bill of materials (BOM), and vendor sourcing.</li>
+              <li>Executed physical modifications to generator enclosures for filtration upgrades and reconfigured internal control panel wiring.</li>
+              <li>Drafted comprehensive Standard Operating Procedures (SOPs) and gained hands-on exposure from concept through Factory Acceptance Testing (FAT).</li>
             </ul>
           </div>
 
@@ -1868,9 +1884,9 @@
               </div>
             </div>
             <ul class="xp-bullets">
-              <li>Researched COTS and custom gearbox feasibility, analyzing gear ratio optimization curves for UT's off-road competition vehicle[cite: 1, 4].</li>
-              <li>Co-authored powertrain technical research documentation detailing gear tooth contact stresses and packaging constraints[cite: 1, 4].</li>
-              <li>Contributed to manual fabrication, machining on manual mills and lathes, and vehicle subassembly fitment[cite: 1, 4].</li>
+              <li>Researched COTS and custom gearbox feasibility, analyzing gear ratio optimization curves for UT's off-road competition vehicle.</li>
+              <li>Co-authored powertrain technical research documentation detailing gear tooth contact stresses and packaging constraints.</li>
+              <li>Contributed to manual fabrication, machining on manual mills and lathes, and vehicle subassembly fitment.</li>
             </ul>
           </div>
 
@@ -1911,8 +1927,8 @@
               </div>
             </div>
             <ul class="xp-bullets">
-              <li>Optimized atmospheric water harvesting structural support systems for outdoor field deployment in arid regions[cite: 1, 4, 5].</li>
-              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through physical FDM print iteration[cite: 1, 4, 5].</li>
+              <li>Optimized atmospheric water harvesting structural support systems for outdoor field deployment in arid regions.</li>
+              <li>Modeled rapid-swappable hydrogel cartridge frames in Onshape, validating strength parameters through physical FDM print iteration.</li>
             </ul>
           </div>
 
@@ -1932,8 +1948,8 @@
               </div>
             </div>
             <ul class="xp-bullets">
-              <li>Facilitating weekly seminars for incoming engineering freshmen to navigate academic success, faculty research, and lab access[cite: 4].</li>
-              <li>Mentoring students on technical student organization pathways and university engineering resources[cite: 4].</li>
+              <li>Facilitating weekly seminars for incoming engineering freshmen to navigate academic success, faculty research, and lab access.</li>
+              <li>Mentoring students on technical student organization pathways and university engineering resources.</li>
             </ul>
           </div>
         </div>
@@ -1949,7 +1965,7 @@
             <div class="org-list">
               <div class="org-item">
                 <div class="org-name">Longhorn Baja Racing</div>
-                <div class="org-desc">Powertrain team member analyzing gear ratio optimization, contact stresses, and vehicle subassembly machining[cite: 1, 4].</div>
+                <div class="org-desc">Powertrain team member analyzing gear ratio optimization, contact stresses, and vehicle subassembly machining.</div>
               </div>
               <div class="org-item">
                 <div class="org-name">Longhorn Design Lab</div>
@@ -1957,7 +1973,7 @@
               </div>
               <div class="org-item">
                 <div class="org-name">American Society of Mechanical Engineers (ASME)</div>
-                <div class="org-desc">Active student member engaging in engineering symposiums, hardware design reviews, and maker workshops[cite: 1, 4].</div>
+                <div class="org-desc">Active student member engaging in engineering symposiums, hardware design reviews, and maker workshops.</div>
               </div>
             </div>
           </div>
@@ -2012,11 +2028,11 @@
             <div class="awards-list">
               <div class="award-item">
                 <div class="award-title">Virginia &amp; Ernest Cockrell, Jr. Scholarship in Engineering</div>
-                <div class="award-meta">Merit-based undergraduate engineering scholarship at The University of Texas at Austin[cite: 4]</div>
+                <div class="award-meta">Merit-based undergraduate engineering scholarship at The University of Texas at Austin</div>
               </div>
               <div class="award-item">
                 <div class="award-title">UT SEC Makeathon : "Most Technical Design" Award</div>
-                <div class="award-meta">1st of 18 teams for The Borrow Box automated classroom supply dispenser[cite: 4, 5]</div>
+                <div class="award-meta">1st of 18 teams for The Borrow Box automated classroom supply dispenser</div>
               </div>
               <div class="award-item">
                 <div class="award-title">Kinder HSPVA Salutatorian</div>
@@ -2064,7 +2080,7 @@
     <h3 class="modal-title">Atmospheric Water Harvester: Structural Quad-Pod System</h3>
     <div class="modal-org">UT FIRE Program / Dr. Guihua Yu Materials Laboratory : Jan - Apr 2026</div>
     <p class="modal-lead">
-      Dr. Guihua Yu and Yaxuan Zhao's residence-scale water harvester extracts potable water from ambient air using hydrogel sheets that passively absorb moisture overnight and release water vapor when heated by solar concentrators during the day[cite: 1, 5].
+      Dr. Guihua Yu and Yaxuan Zhao's residence-scale water harvester extracts potable water from ambient air using hydrogel sheets that passively absorb moisture overnight and release water vapor when heated by solar concentrators during the day.
     </p>
 
     <div class="modal-gallery">
@@ -2080,20 +2096,20 @@
 
     <div class="modal-section-title">The Engineering Challenge</div>
     <p class="modal-body-text">
-      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints[cite: 1, 5]. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked tipping under lateral wind loads acting against its 30 lb payload and wide, tilted casing[cite: 1, 5].
+      The original laboratory rig relied on 6mm laser-cut acrylic sheets and slip-fit 3D-printed joints. The apparatus was brittle, lacked torsional rigidity, could not adapt to uneven outdoor terrain, and risked tipping under lateral wind loads acting against its 30 lb payload and wide, tilted casing.
     </p>
 
     <div class="modal-section-title">Design &amp; Fabrication Decisions</div>
     <ul class="modal-list">
-      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes[cite: 1, 5]. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising lateral force resistance[cite: 1, 5].</li>
-      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic plates with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload[cite: 1, 5]. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip[cite: 1, 5].</li>
-      <li><strong>Direct Load-Transfer Hub:</strong> 3D-printed a central head block on a Raise3D Pro3 using structural PLA (5 shell layers, 6 solid top layers, 18% gyroid infill)[cite: 1, 5]. Hexagonal pockets encapsulated 30mm M10 coupling nuts via press-fit and cyanoacrylate, directing compressive forces directly into the steel rods rather than relying on plastic friction[cite: 1, 5].</li>
-      <li><strong>Lower Incline Standoff:</strong> Designed a secondary 3D-printed foot block at the base of the hydrogel case as a positive stop, preventing slippage along its 30-degree operating incline[cite: 1, 5].</li>
+      <li><strong>Splayed Quad-Pod Geometry:</strong> Modeled a rigid frame in Onshape with legs angled at 20 degrees in both lateral and longitudinal planes. This created a 27.2 degree true compound angle, widening the base stance from 21 cm to 34 cm (a 62% increase) and vastly raising lateral force resistance.</li>
+      <li><strong>Threaded Rod Architecture:</strong> Replaced the acrylic plates with four 250mm M10 x 1.5mm pitch 304 stainless steel threaded rods to prevent column buckling under the payload. Terminated each leg with heavy-duty rubberized M10 leveling feet with a 30-degree pivot for rough terrain grip.</li>
+      <li><strong>Direct Load-Transfer Hub:</strong> 3D-printed a central head block on a Raise3D Pro3 using structural PLA (5 shell layers, 6 solid top layers, 18% gyroid infill). Hexagonal pockets encapsulated 30mm M10 coupling nuts via press-fit and cyanoacrylate, directing compressive forces directly into the steel rods rather than relying on plastic friction.</li>
+      <li><strong>Lower Incline Standoff:</strong> Designed a secondary 3D-printed foot block at the base of the hydrogel case as a positive stop, preventing slippage along its 30-degree operating incline.</li>
     </ul>
 
     <div class="modal-section-title">Outcome &amp; Impact</div>
     <p class="modal-body-text">
-      The redesigned quad-pod increased base stability by 62%, eliminated wind tipping vulnerability during field testing, and disassembled into a compact bundle for rugged transport[cite: 1, 5].
+      The redesigned quad-pod increased base stability by 62%, eliminated wind tipping vulnerability during field testing, and disassembled into a compact bundle for rugged transport.
     </p>
   </div>
 </div>
@@ -2106,7 +2122,7 @@
     <h3 class="modal-title">Scratch-Engineered 1:10 Scale RC Vehicle</h3>
     <div class="modal-org">Independent Engineering Project : Dec 2025 - Present</div>
     <p class="modal-lead">
-      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical assembly tolerances, and real-time embedded communications[cite: 1, 5].
+      Built from a clean CAD sheet rather than an off-the-shelf kit to master suspension kinematics, mechanical assembly tolerances, and real-time embedded communications.
     </p>
 
     <div class="modal-gallery">
@@ -2122,19 +2138,19 @@
 
     <div class="modal-section-title">Chassis &amp; Kinematics Design</div>
     <p class="modal-body-text">
-      Modeled the full chassis, multi-link suspension arms, and steering linkages in Onshape[cite: 1, 5]. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression[cite: 1, 5].
+      Modeled the full chassis, multi-link suspension arms, and steering linkages in Onshape. Applied mechanical ball-and-tangent mates to simulate travel over the full stroke and tuned steering geometry to eliminate bump steer under hard compression.
     </p>
 
     <div class="modal-section-title">Additive Manufacturing &amp; Stress Vectors</div>
     <p class="modal-body-text">
-      Load-bearing suspension arms, steering knuckles, and motor mounts were rapid-prototyped on FDM printers[cite: 1, 5]. Print layer lines were oriented parallel to tensile and shear planes to prevent delamination during high-velocity impacts[cite: 1, 5].
+      Load-bearing suspension arms, steering knuckles, and motor mounts were rapid-prototyped on FDM printers. Print layer lines were oriented parallel to tensile and shear planes to prevent delamination during high-velocity impacts.
     </p>
 
     <div class="modal-section-title">Embedded Electronics &amp; ESP-NOW Control</div>
     <ul class="modal-list">
-      <li><strong>Telemetry Link:</strong> Replaced commercial RC receivers with two ESP32 microcontrollers communicating over ESP-NOW, achieving sub-10ms transmission latency[cite: 1, 5].</li>
-      <li><strong>Control Pipeline:</strong> An ESP32 host processes analog stick inputs from an Xbox controller and transmits packets to an onboard receiver[cite: 1, 5].</li>
-      <li><strong>Firmware Tuning:</strong> Authored custom PWM generation code to drive an 80A electronic speed controller (ESC) and metal-gear servo, mapping non-linear throttle curves and software deadzones[cite: 1, 5].</li>
+      <li><strong>Telemetry Link:</strong> Replaced commercial RC receivers with two ESP32 microcontrollers communicating over ESP-NOW, achieving sub-10ms transmission latency.</li>
+      <li><strong>Control Pipeline:</strong> An ESP32 host processes analog stick inputs from an Xbox controller and transmits packets to an onboard receiver.</li>
+      <li><strong>Firmware Tuning:</strong> Authored custom PWM generation code to drive an 80A electronic speed controller (ESC) and metal-gear servo, mapping non-linear throttle curves and software deadzones.</li>
     </ul>
   </div>
 </div>
@@ -2147,7 +2163,7 @@
     <h3 class="modal-title">The Borrow Box: Automatic Classroom Supply Dispenser</h3>
     <div class="modal-org">UT SEC Makeathon : Most Technical Design Award (1st of 18 teams)</div>
     <p class="modal-lead">
-      Designed and built in 48 hours to eliminate classroom disruptions when students borrow pencils, providing a frictionless, verifiable checkout system for teachers[cite: 1, 5].
+      Designed and built in 48 hours to eliminate classroom disruptions when students borrow pencils, providing a frictionless, verifiable checkout system for teachers.
     </p>
 
     <div class="modal-gallery">
@@ -2163,14 +2179,14 @@
 
     <div class="modal-section-title">Mechanical &amp; Sensor Architecture</div>
     <ul class="modal-list">
-      <li><strong>Gravity-Fed Escapement:</strong> An angled intake chute directs pencils into a servo-actuated rotating barrel that reliably isolates and dispenses one pencil at a time without motorized pushers[cite: 1, 5].</li>
-      <li><strong>Optical Token Identification:</strong> Integrated a color sensor that scans student-assigned color tokens to authenticate checkout transactions[cite: 1, 5].</li>
-      <li><strong>At-A-Glance Status Array:</strong> Built a hardware LED grid indicating which student slots currently hold an unreturned pencil, giving teachers an immediate status check without apps or screens[cite: 1, 5].</li>
+      <li><strong>Gravity-Fed Escapement:</strong> An angled intake chute directs pencils into a servo-actuated rotating barrel that reliably isolates and dispenses one pencil at a time without motorized pushers.</li>
+      <li><strong>Optical Token Identification:</strong> Integrated a color sensor that scans student-assigned color tokens to authenticate checkout transactions.</li>
+      <li><strong>At-A-Glance Status Array:</strong> Built a hardware LED grid indicating which student slots currently hold an unreturned pencil, giving teachers an immediate status check without apps or screens.</li>
     </ul>
 
     <div class="modal-section-title">Critical Pivot Under Competition Pressure</div>
     <p class="modal-body-text">
-      Testing revealed two points of failure: pencils bridged in the wide chute, and 3D-printed barrel tolerances bound under friction[cite: 1, 5]. With hours left, we narrowed the chute geometry to force single-file alignment and redesigned the rotating drum in Onshape to be laser-cut from clear acrylic, slashing friction and meeting live judging on time[cite: 1, 5].
+      Testing revealed two points of failure: pencils bridged in the wide chute, and 3D-printed barrel tolerances bound under friction. With hours left, we narrowed the chute geometry to force single-file alignment and redesigned the rotating drum in Onshape to be laser-cut from clear acrylic, slashing friction and meeting live judging on time.
     </p>
   </div>
 </div>
@@ -2183,7 +2199,7 @@
     <h3 class="modal-title">Active Deodorizing Laundry Hamper</h3>
     <div class="modal-org">Texas Inventionworks Design Challenge : Oct 2025 - Present</div>
     <p class="modal-lead">
-      Traditional laundry hampers trap stagnant, humid air, fostering bacterial growth and persistent odor[cite: 1, 5]. This project introduced an active airflow enclosure that dries damp clothing before odors set in[cite: 1, 5].
+      Traditional laundry hampers trap stagnant, humid air, fostering bacterial growth and persistent odor. This project introduced an active airflow enclosure that dries damp clothing before odors set in.
     </p>
 
     <div class="modal-gallery">
@@ -2195,12 +2211,12 @@
 
     <div class="modal-section-title">Airflow Architecture &amp; Joinery</div>
     <p class="modal-body-text">
-      Modeled in SolidWorks with interlocking finger joints to fit inside 24" x 48" laser-cutter sheets[cite: 1, 5]. An intake fan at the base forces air upward through waffle-pattern grates, aligning with natural thermal convection to vent moisture out the top[cite: 1, 5].
+      Modeled in SolidWorks with interlocking finger joints to fit inside 24" x 48" laser-cutter sheets. An intake fan at the base forces air upward through waffle-pattern grates, aligning with natural thermal convection to vent moisture out the top.
     </p>
 
     <div class="modal-section-title">Design Simplification Through Testing</div>
     <p class="modal-body-text">
-      Early prototypes included activated carbon exhaust filters[cite: 1, 5]. Quantitative testing demonstrated that continuous air displacement prevented volatile organic compounds (VOCs) from concentrating in the first place[cite: 1, 5]. Eliminating the filter cut user maintenance costs, reduced static pressure, and allowed the fan to run silently[cite: 1, 5].
+      Early prototypes included activated carbon exhaust filters. Quantitative testing demonstrated that continuous air displacement prevented volatile organic compounds (VOCs) from concentrating in the first place. Eliminating the filter cut user maintenance costs, reduced static pressure, and allowed the fan to run silently.
     </p>
   </div>
 </div>
@@ -2213,7 +2229,7 @@
     <h3 class="modal-title">Let the Right One In: Mainstage Scenic Architecture</h3>
     <div class="modal-org">HSPVA Mainstage Production : Directed by Paul Davis</div>
     <p class="modal-lead">
-      Served as Lead Scenic Designer for the 2025 spring mainstage, engineering an ominous, industrial 1980s Chicago environment incorporating kinetic structural units[cite: 1, 5].
+      Served as Lead Scenic Designer for the 2025 spring mainstage, engineering an ominous, industrial 1980s Chicago environment incorporating kinetic structural units.
     </p>
 
     <div class="modal-gallery">
@@ -2245,9 +2261,9 @@
 
     <div class="modal-section-title">Kinetic Elements &amp; Water Tank Staging</div>
     <ul class="modal-list">
-      <li><strong>Rolling Playground on Casters:</strong> Designed a full-scale jungle gym mounted on industrial swivel casters that rotated mid-performance to reveal a practical water tank representing an indoor public swimming pool[cite: 1, 5].</li>
-      <li><strong>Structural "L" Train Trestle:</strong> Constructed an elevated upstage overpass creating deep vertical shadows and multi-tiered actor blocking[cite: 1, 5].</li>
-      <li><strong>Morse Code Lighting Integration:</strong> Collaborated with lighting to back-illuminate specific graffiti letters across the brick and chainlink flats, pulsing Morse code signals directly through the architecture[cite: 1, 5].</li>
+      <li><strong>Rolling Playground on Casters:</strong> Designed a full-scale jungle gym mounted on industrial swivel casters that rotated mid-performance to reveal a practical water tank representing an indoor public swimming pool.</li>
+      <li><strong>Structural "L" Train Trestle:</strong> Constructed an elevated upstage overpass creating deep vertical shadows and multi-tiered actor blocking.</li>
+      <li><strong>Morse Code Lighting Integration:</strong> Collaborated with lighting to back-illuminate specific graffiti letters across the brick and chainlink flats, pulsing Morse code signals directly through the architecture.</li>
     </ul>
   </div>
 </div>
@@ -2260,7 +2276,7 @@
     <h3 class="modal-title">No No Nanette: Art Deco Set Design</h3>
     <div class="modal-org">HSPVA Mainstage Production : Directed by Joshua Denning</div>
     <p class="modal-lead">
-      Designed the complete scenic environment for the 2024 spring mainstage, creating a vibrant 1920s Art Deco beach club world built from organic arcs and bold color palettes[cite: 1, 5].
+      Designed the complete scenic environment for the 2024 spring mainstage, creating a vibrant 1920s Art Deco beach club world built from organic arcs and bold color palettes.
     </p>
 
     <div class="modal-gallery">
@@ -2292,12 +2308,12 @@
 
     <div class="modal-section-title">Dual Grand Piano Spatial Integration</div>
     <p class="modal-body-text">
-      The production required two baby grand pianos at center stage[cite: 1, 5]. Rather than hiding them, I drafted twin curved platforms flanking the instruments, framing them as architectural centerpieces[cite: 1, 5].
+      The production required two baby grand pianos at center stage. Rather than hiding them, I drafted twin curved platforms flanking the instruments, framing them as architectural centerpieces.
     </p>
 
     <div class="modal-section-title">Precision Jigsaw Joinery</div>
     <p class="modal-body-text">
-      To achieve the sweep of the Art Deco staircases, each tread was drafted in AutoCAD and hand-jigsawed with compound radii to ensure actor safety, structural stiffness, and clear pianist sightlines[cite: 1, 5].
+      To achieve the sweep of the Art Deco staircases, each tread was drafted in AutoCAD and hand-jigsawed with compound radii to ensure actor safety, structural stiffness, and clear pianist sightlines.
     </p>
   </div>
 </div>
@@ -2310,7 +2326,7 @@
     <h3 class="modal-title">Hadestown: Thrust Stage &amp; Mechanized Train</h3>
     <div class="modal-org">UIL Theatrical Design Competition (Scenic Design Submission)</div>
     <p class="modal-lead">
-      Scenic design submission exploring the juxtaposition between fiery industrialism and rural naturalism within a 1920s jazz-age thrust stage configuration[cite: 1, 5].
+      Scenic design submission exploring the juxtaposition between fiery industrialism and rural naturalism within a 1920s jazz-age thrust stage configuration.
     </p>
 
     <div class="modal-gallery">
@@ -2338,8 +2354,8 @@
 
     <div class="modal-section-title">Drafting &amp; Mechanical Layout</div>
     <ul class="modal-list">
-      <li><strong>AutoCAD Groundplan:</strong> Drafted a 1/4" scale thrust groundplan featuring nested circular platforms, an integrated center turntable, and deep proscenium tunnels[cite: 1, 5].</li>
-      <li><strong>Scale Rolling Stock:</strong> Constructed miniature scale train models using Bristol board and foam core to demonstrate track clearances and kinetic entrances from the underworld[cite: 1, 5].</li>
+      <li><strong>AutoCAD Groundplan:</strong> Drafted a 1/4" scale thrust groundplan featuring nested circular platforms, an integrated center turntable, and deep proscenium tunnels.</li>
+      <li><strong>Scale Rolling Stock:</strong> Constructed miniature scale train models using Bristol board and foam core to demonstrate track clearances and kinetic entrances from the underworld.</li>
     </ul>
   </div>
 </div>
@@ -2352,7 +2368,7 @@
     <h3 class="modal-title">The Servant of Two Masters: Lighting Design</h3>
     <div class="modal-org">HSPVA Fall Repertory Show : Directed by Deborah Hope</div>
     <p class="modal-lead">
-      Served as Lead Lighting Designer, programming high-energy cues, vibrant saturation palettes, and cyclorama color transitions to drive commedia dell'arte pacing[cite: 1, 5].
+      Served as Lead Lighting Designer, programming high-energy cues, vibrant saturation palettes, and cyclorama color transitions to drive commedia dell'arte pacing.
     </p>
 
     <div class="modal-gallery">
@@ -2384,7 +2400,7 @@
 
     <div class="modal-section-title">Cue Architecture &amp; Fixture Control</div>
     <p class="modal-body-text">
-      Programmed the ETC lighting console with custom submasters, tracking slapstick choreography across a black-and-white checkerboard deck[cite: 1, 5]. Leveraged warm amber front washes and deep blue backlights to carve actors out from the colorful scenery[cite: 1, 5].
+      Programmed the ETC lighting console with custom submasters, tracking slapstick choreography across a black-and-white checkerboard deck. Leveraged warm amber front washes and deep blue backlights to carve actors out from the colorful scenery.
     </p>
   </div>
 </div>
@@ -2397,7 +2413,7 @@
     <h3 class="modal-title">Props, Character Masks, &amp; Puppetry</h3>
     <div class="modal-org">Theatrical Prop Shop : Various Productions</div>
     <p class="modal-lead">
-      Hands-on fabrication utilizing clay sculpting, papier-mache, foam carving, and mechanical linkages for stage and exhibition[cite: 1, 5].
+      Hands-on fabrication utilizing clay sculpting, papier-mache, foam carving, and mechanical linkages for stage and exhibition.
     </p>
 
     <div class="modal-gallery">
@@ -2429,10 +2445,10 @@
 
     <div class="modal-section-title">Notable Artifacts</div>
     <ul class="modal-list">
-      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mache with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes[cite: 1, 5].</li>
-      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mache head, carved foam torso, hinged arm linkages, and control dowels for live manipulation[cite: 1, 5].</li>
-      <li><strong>Textured Balustrade:</strong> Engineered an architectural railing using wood framing, pantyhose-sleeved plastic bottle posts, and Jaxsan textured coating to mimic aged stone[cite: 1, 5].</li>
-      <li><strong>Carved Foam Reliefs:</strong> Carved high-density foam tiles with precision knives to replicate ornate medieval stone rosettes[cite: 1, 5].</li>
+      <li><strong>Commedia dell'Arte Mask (Il Capitano):</strong> Sculpted clay facial anatomy over a positive lifecast, layered high-density papier-mache with Sculpt or Coat, hand-cut eye apertures, and sealed with leather dyes.</li>
+      <li><strong>Articulated Squirrel Puppet (9 to 5):</strong> Co-created a stage puppet featuring a papier-mache head, carved foam torso, hinged arm linkages, and control dowels for live manipulation.</li>
+      <li><strong>Textured Balustrade:</strong> Engineered an architectural railing using wood framing, pantyhose-sleeved plastic bottle posts, and Jaxsan textured coating to mimic aged stone.</li>
+      <li><strong>Carved Foam Reliefs:</strong> Carved high-density foam tiles with precision knives to replicate ornate medieval stone rosettes.</li>
     </ul>
   </div>
 </div>
@@ -2445,7 +2461,7 @@
     <h3 class="modal-title">Model Making &amp; Projections: The Tempest</h3>
     <div class="modal-org">HSPVA Advanced Design Studio</div>
     <p class="modal-lead">
-      Scale architectural model making combining Bristol board, foam core, and miniature scale lumber with QLab digital projection mapping[cite: 1, 5].
+      Scale architectural model making combining Bristol board, foam core, and miniature scale lumber with QLab digital projection mapping.
     </p>
 
     <div class="modal-gallery">
@@ -2473,7 +2489,7 @@
 
     <div class="modal-section-title">Technical Process</div>
     <p class="modal-body-text">
-      In our projections studio, we constructed scale physical geometry for Shakespeare's The Tempest[cite: 1, 5]. Using an overhead digital projector and QLab software, we masked individual architectural elements to project animated water ripples, lightning bursts, and textured atmospheric shadows directly onto the physical model surfaces[cite: 1, 5].
+      In our projections studio, we constructed scale physical geometry for Shakespeare's The Tempest. Using an overhead digital projector and QLab software, we masked individual architectural elements to project animated water ripples, lightning bursts, and textured atmospheric shadows directly onto the physical model surfaces.
     </p>
   </div>
 </div>
@@ -2486,7 +2502,7 @@
     <h3 class="modal-title">Scenic Painting &amp; Chromatic Color Theory</h3>
     <div class="modal-org">HSPVA Scenic Art Studio</div>
     <p class="modal-lead">
-      Mastering scenic painting methodologies, including scumbling, wet blends, chromatic black formulations, and atmospheric perspective[cite: 1, 5].
+      Mastering scenic painting methodologies, including scumbling, wet blends, chromatic black formulations, and atmospheric perspective.
     </p>
 
     <div class="modal-gallery">
@@ -2514,7 +2530,7 @@
 
     <div class="modal-section-title">Studio Methodologies</div>
     <p class="modal-body-text">
-      Exercises covered mixing rich chromatic blacks from complementary earth tones rather than tube black to maintain luminous optical depth under stage lighting[cite: 1, 5]. Large backdrop panels were painted with multi-brush scumbling techniques, layering wet-into-wet glazes to simulate natural weathering and atmospheric distance[cite: 1, 5].
+      Exercises covered mixing rich chromatic blacks from complementary earth tones rather than tube black to maintain luminous optical depth under stage lighting. Large backdrop panels were painted with multi-brush scumbling techniques, layering wet-into-wet glazes to simulate natural weathering and atmospheric distance.
     </p>
   </div>
 </div>
@@ -2527,7 +2543,7 @@
     <h3 class="modal-title">Axoloris The Musical: Visual Identity</h3>
     <div class="modal-org">UIL Theatrical Design Competition (Marketing Category)</div>
     <p class="modal-lead">
-      Comprehensive brand identity and promotional campaign for a futuristic, eco-conscious musical set in 2050 near a hydroelectric plant[cite: 1, 5].
+      Comprehensive brand identity and promotional campaign for a futuristic, eco-conscious musical set in 2050 near a hydroelectric plant.
     </p>
 
     <div class="modal-gallery">
@@ -2555,7 +2571,7 @@
 
     <div class="modal-section-title">Design Philosophy &amp; Collateral</div>
     <p class="modal-body-text">
-      Grounded the visual branding in 1970s neo-expressionism, contrasting the raw texture of industrial machinery with vibrant, playful youth motifs[cite: 1, 5]. Designed the official poster, production calendar, comprehensive playbill, and social media announcements in Canva and Photoshop[cite: 1, 5].
+      Grounded the visual branding in 1970s neo-expressionism, contrasting the raw texture of industrial machinery with vibrant, playful youth motifs. Designed the official poster, production calendar, comprehensive playbill, and social media announcements in Canva and Photoshop.
     </p>
   </div>
 </div>
@@ -2568,7 +2584,7 @@
     <h3 class="modal-title">Costume Crafts &amp; Millinery Construction</h3>
     <div class="modal-org">HSPVA Costume Studio : Hands-on Production Work</div>
     <p class="modal-lead">
-      Developing structural garment shapes, millinery wire framing, and tailored pattern alteration using industrial stitching tools[cite: 1, 5].
+      Developing structural garment shapes, millinery wire framing, and tailored pattern alteration using industrial stitching tools.
     </p>
 
     <div class="modal-gallery">
@@ -2600,9 +2616,9 @@
 
     <div class="modal-section-title">Craft Highlights</div>
     <ul class="modal-list">
-      <li><strong>Frederic's Tricorne Hat (Pirates of Penzance):</strong> Built the crown using water-formed buckram and sculpted the brim from heat-activated Fosshape[cite: 1, 5]. Hand-stitched heavy wire edging around the brim for rigid shape retention, clad in contrasting black and red fabrics[cite: 1, 5].</li>
-      <li><strong>Muslin Mannequin Draping:</strong> Form-fitted a flat muslin garment to mannequin contours using precisely planned darts, seams, and industrial machine assembly[cite: 1, 5].</li>
-      <li><strong>King Henry VIII Rapid Build:</strong> Group challenge fabricating a Tudor royal costume entirely from paper, cardboard, plastic, and magazines under timed constraints[cite: 1, 5].</li>
+      <li><strong>Frederic's Tricorne Hat (Pirates of Penzance):</strong> Built the crown using water-formed buckram and sculpted the brim from heat-activated Fosshape. Hand-stitched heavy wire edging around the brim for rigid shape retention, clad in contrasting black and red fabrics.</li>
+      <li><strong>Muslin Mannequin Draping:</strong> Form-fitted a flat muslin garment to mannequin contours using precisely planned darts, seams, and industrial machine assembly.</li>
+      <li><strong>King Henry VIII Rapid Build:</strong> Group challenge fabricating a Tudor royal costume entirely from paper, cardboard, plastic, and magazines under timed constraints.</li>
     </ul>
   </div>
 </div>
@@ -2615,7 +2631,7 @@
     <h3 class="modal-title">Stage Fly Rail &amp; Rigging: The Prom</h3>
     <div class="modal-org">HSPVA Fall All-School Musical : Directed by Rozanne Curtis</div>
     <p class="modal-lead">
-      Served on the stage rail crew for the 2023 fall all-school musical, operating the heavy counterweight arbor system to fly architectural drops, lighting arches, and scenic set pieces live during performance[cite: 1, 5].
+      Served on the stage rail crew for the 2023 fall all-school musical, operating the heavy counterweight arbor system to fly architectural drops, lighting arches, and scenic set pieces live during performance.
     </p>
 
     <div class="modal-gallery">
@@ -2643,7 +2659,7 @@
 
     <div class="modal-section-title">Rigging &amp; Safety Protocols</div>
     <p class="modal-body-text">
-      Managed line set weights, arbor balance checks, and pin-rail locks backstage[cite: 1, 5]. Coordinated with stage management and deck crew over headset communications to execute smooth vertical flight transitions without swaying or endangering cast members on the active deck[cite: 1, 5].
+      Managed line set weights, arbor balance checks, and pin-rail locks backstage. Coordinated with stage management and deck crew over headset communications to execute smooth vertical flight transitions without swaying or endangering cast members on the active deck.
     </p>
   </div>
 </div>
@@ -2656,7 +2672,7 @@
     <h3 class="modal-title">Digital 3D CAD &amp; Asset Modeling</h3>
     <div class="modal-org">CAD Studio : Parametric Engineering &amp; Graphics</div>
     <p class="modal-lead">
-      Designing functional mechanical fixtures, consumer products, and graphic assets across Onshape, AutoCAD, and Adobe Photoshop[cite: 1, 5].
+      Designing functional mechanical fixtures, consumer products, and graphic assets across Onshape, AutoCAD, and Adobe Photoshop.
     </p>
 
     <div class="modal-gallery">
@@ -2684,7 +2700,7 @@
 
     <div class="modal-section-title">Technical Toolset</div>
     <p class="modal-body-text">
-      Proficient in parametric feature trees, mate connectors, and assembly configurations in Onshape, SolidWorks, and Fusion 360[cite: 1, 5]. Complemented by technical 2D drafting in AutoCAD for fabrication cut lists and raster/vector design in Adobe Creative Suite[cite: 1, 5].
+      Proficient in parametric feature trees, mate connectors, and assembly configurations in Onshape, SolidWorks, and Fusion 360. Complemented by technical 2D drafting in AutoCAD for fabrication cut lists and raster/vector design in Adobe Creative Suite.
     </p>
   </div>
 </div>
@@ -2697,7 +2713,7 @@
     <h3 class="modal-title">Upcycled Saw Blade Clock &amp; Plaster Casts</h3>
     <div class="modal-org">Personal Maker Projects</div>
     <p class="modal-lead">
-      Transforming decommissioned shop tools and casting materials into functional, tactile household artifacts[cite: 1, 5].
+      Transforming decommissioned shop tools and casting materials into functional, tactile household artifacts.
     </p>
 
     <div class="modal-gallery">
@@ -2721,7 +2737,7 @@
 
     <div class="modal-section-title">Fabrication Steps</div>
     <p class="modal-body-text">
-      Refurbished an old circular saw blade, coated it in metallic gold lacquer for durability, machined and stained a stable timber pedestal, and fitted a precision quartz clock mechanism[cite: 1, 5]. In addition, mastered mold making with medical alginate and plaster of Paris to capture anatomical hand sculptures[cite: 1, 5].
+      Refurbished an old circular saw blade, coated it in metallic gold lacquer for durability, machined and stained a stable timber pedestal, and fitted a precision quartz clock mechanism. In addition, mastered mold making with medical alginate and plaster of Paris to capture anatomical hand sculptures.
     </p>
   </div>
 </div>
@@ -2753,6 +2769,27 @@
 </div>
 
 <script>
+  // Robust Multi-Extension Image Fallback Handler for Top Portrait
+  function handlePortraitError(img) {
+    const candidates = [
+      'design_portfolio_images/Suraj_photo_1.jpg',
+      'design_portfolio_images/suraj_photo_1.jpeg',
+      'design_portfolio_images/suraj_photo_1.jpg',
+      'design_portfolio_images/Suraj_photo_1.JPG',
+      'design_portfolio_images/suraj_photo_1.JPG',
+      'design_portfolio_images/Suraj_photo_1.png',
+      'design_portfolio_images/suraj_photo_1.png'
+    ];
+    let idx = parseInt(img.dataset.tryIdx || '0', 10);
+    if (idx < candidates.length) {
+      img.dataset.tryIdx = idx + 1;
+      img.src = candidates[idx];
+    } else {
+      img.onerror = null;
+      img.parentElement.innerHTML = '<div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--vellum);color:var(--ink-muted);font-family:JetBrains Mono,monospace;font-size:0.82rem;text-align:center;padding:20px;"><div>[ Suraj_photo_1.jpeg ]</div><div style="font-size:0.72rem;margin-top:8px;">Check filename in design_portfolio_images/</div></div>';
+    }
+  }
+
   // Theme Toggle
   const themeToggle = document.getElementById('themeToggle');
   let currentTheme = localStorage.getItem('theme') || 'light';
@@ -2995,16 +3032,13 @@
         const group = new THREE.Group();
         const mat = getCADMaterial();
         const legMat = getStainlessMaterial();
-        // Central hub block
         const hub = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.35, 1.0), mat);
         hub.position.y = 0.3;
         group.add(hub);
-        // Inclined cartridge box
         const box = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.45, 1.8), mat);
         box.position.set(0, 0.85, -0.15);
-        box.rotation.x = -0.52; // ~30 deg incline
+        box.rotation.x = -0.52;
         group.add(box);
-        // 4 Compound splayed legs
         const legGeom = new THREE.CylinderGeometry(0.04, 0.04, 1.6, 12);
         const legPos = [
           [-0.6, -0.35, -0.6, 0.35, -0.35],
@@ -3034,21 +3068,17 @@
         const group = new THREE.Group();
         const mat = getCADMaterial();
         const tireMat = getTireMaterial();
-        // Lower tub chassis
         const chassis = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.16, 1.1), mat);
         group.add(chassis);
-        // Shock towers
         const fTower = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.7, 0.9), mat);
         fTower.position.set(-1.0, 0.35, 0);
         const rTower = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.75, 0.9), mat);
         rTower.position.set(0.9, 0.38, 0);
         group.add(fTower, rTower);
-        // 550 Motor Cylinder
         const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.65, 16), getStainlessMaterial());
         motor.rotation.z = Math.PI / 2;
         motor.position.set(0.4, 0.22, -0.2);
         group.add(motor);
-        // 4 Solid Tires
         const wheelGeom = new THREE.CylinderGeometry(0.38, 0.38, 0.3, 20);
         wheelGeom.rotateX(Math.PI / 2);
         const wheels = [
@@ -3077,23 +3107,19 @@
         const group = new THREE.Group();
         const mat = getCADMaterial();
         const strutMat = getStainlessMaterial();
-        // Upper platform top deck
         const deck = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.08, 0.95), mat);
         deck.position.y = 0.55;
         group.add(deck);
-        // Longitudinal cargo rails
         const rail1 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.12, 0.08), mat);
         rail1.position.set(0, 0.63, -0.46);
         const rail2 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.12, 0.08), mat);
         rail2.position.set(0, 0.63, 0.46);
         group.add(rail1, rail2);
-        // Modular storage cutouts / cross cleats
         for (let i = -0.8; i <= 0.8; i += 0.4) {
           const cleat = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.06, 0.92), mat);
           cleat.position.set(i, 0.59, 0);
           group.add(cleat);
         }
-        // Support struts down to dropout eyelets
         const strutGeom = new THREE.CylinderGeometry(0.035, 0.035, 1.45, 12);
         const s1 = new THREE.Mesh(strutGeom, strutMat);
         s1.position.set(0.6, -0.1, -0.55);
@@ -3103,7 +3129,6 @@
         s2.position.set(0.6, -0.1, 0.55);
         s2.rotation.z = -0.32;
         s2.rotation.x = -0.18;
-        // Forward seatstay attachment arms
         const arm1 = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.9, 12), strutMat);
         arm1.position.set(-1.45, 0.35, -0.2);
         arm1.rotation.z = Math.PI / 3;
@@ -3149,14 +3174,14 @@
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 100);
-    camera.position.set(0, 0.6, 5.2);
+    // Camera placed on direct horizon line looking slightly down at model center
+    camera.position.set(0, 0, 5.0);
 
     renderer = new THREE.WebGLRenderer({ canvas: mCanvas, antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Studio lighting setup
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
     scene.add(ambientLight);
 
     dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
@@ -3168,7 +3193,9 @@
     scene.add(rimLight);
 
     modelPivotGroup = new THREE.Group();
-    modelPivotGroup.rotation.x = 0.28;
+    // Raised pivot position so models are centered higher up in canvas view
+    modelPivotGroup.position.set(0, 0.24, 0);
+    modelPivotGroup.rotation.x = 0.32;
     modelPivotGroup.rotation.y = -0.55;
     scene.add(modelPivotGroup);
 
@@ -3179,8 +3206,7 @@
   function updateThemeLighting() {
     if (!modelPivotGroup) return;
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (ambientLight) ambientLight.intensity = isDark ? 0.85 : 0.72;
-    // Re-apply materials to loaded mesh
+    if (ambientLight) ambientLight.intensity = isDark ? 0.85 : 0.75;
     modelPivotGroup.traverse((child) => {
       if (child.isMesh && child.userData && child.userData.isSTL) {
         child.material = getCADMaterial();
@@ -3197,23 +3223,23 @@
     document.getElementById('specLabel2').textContent = cur.specsBreakdown[1].label;
     document.getElementById('specVal2').textContent = cur.specsBreakdown[1].val;
 
-    // Clear current group
     while (modelPivotGroup.children.length > 0) {
       modelPivotGroup.remove(modelPivotGroup.children[0]);
     }
 
-    // Try loading actual binary/ASCII STL file from GitHub assets
     if (window.THREE && THREE.STLLoader && cur.stlUrl) {
       const loader = new THREE.STLLoader();
       loader.load(
         cur.stlUrl,
         function (geometry) {
           geometry.computeVertexNormals();
+          // Correct 90° CAD Z-up to Three.js Y-up so models lie flat on their wheels/base
+          geometry.rotateX(-Math.PI / 2);
           geometry.center();
-          geometry.computeBoundingBox();
-          const box = geometry.boundingBox;
+
+          const box = geometry.boundingBox || (geometry.computeBoundingBox(), geometry.boundingBox);
           const maxDim = Math.max(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z) || 1;
-          const scale = 2.6 / maxDim;
+          const scale = 2.5 / maxDim;
 
           const mesh = new THREE.Mesh(geometry, getCADMaterial());
           mesh.scale.set(scale, scale, scale);
@@ -3226,7 +3252,6 @@
         },
         undefined,
         function () {
-          // If file not yet in repo or offline, render solid shaded 3D CAD fallback
           const fallback = cur.buildFallback();
           modelPivotGroup.add(fallback);
         }
@@ -3250,7 +3275,7 @@
     requestAnimationFrame(animateThree);
 
     if (!isDragging && modelPivotGroup) {
-      modelPivotGroup.rotation.y -= 0.004; // Idle rotation matching reversed direction
+      modelPivotGroup.rotation.y += 0.004; // Idle rotation matching user drag orientation
     }
 
     if (modelPivotGroup) {
@@ -3272,15 +3297,14 @@
   }
   window.addEventListener('resize', onThreeResize);
 
-  // Wheel Zoom
   mCanvas.addEventListener('wheel', (e) => {
     e.preventDefault();
     const zoomDelta = e.deltaY * -0.001;
     modelZoom = Math.min(Math.max(modelZoom + zoomDelta, minZoom), maxZoom);
-    camera.position.z = 5.2 / modelZoom;
+    camera.position.z = 5.0 / modelZoom;
   }, { passive: false });
 
-  // Mouse Drag Rotation (Reversed Horizontal Plane)
+  // Mouse Drag Rotation (Reversed Horizontal Plane per Request)
   mCanvas.addEventListener('mousedown', (e) => {
     isDragging = true;
     lastMouseX = e.clientX;
@@ -3291,7 +3315,8 @@
     if (!isDragging || !modelPivotGroup) return;
     const dx = e.clientX - lastMouseX;
     const dy = e.clientY - lastMouseY;
-    modelPivotGroup.rotation.y -= dx * 0.009; // Reversed drag: dragging right spins counter-clockwise
+    // Reversed horizontal drag direction
+    modelPivotGroup.rotation.y += dx * 0.009;
     modelPivotGroup.rotation.x += dy * 0.009;
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
@@ -3331,7 +3356,7 @@
     if (e.touches.length === 1 && isDragging && modelPivotGroup) {
       const dx = e.touches[0].clientX - lastMouseX;
       const dy = e.touches[0].clientY - lastMouseY;
-      modelPivotGroup.rotation.y -= dx * 0.009;
+      modelPivotGroup.rotation.y += dx * 0.009;
       modelPivotGroup.rotation.x += dy * 0.009;
       lastMouseX = e.touches[0].clientX;
       lastMouseY = e.touches[0].clientY;
@@ -3341,11 +3366,10 @@
       const currentDist = Math.hypot(dx, dy);
       const factor = currentDist / initialPinchDist;
       modelZoom = Math.min(Math.max(initialZoom * factor, minZoom), maxZoom);
-      camera.position.z = 5.2 / modelZoom;
+      camera.position.z = 5.0 / modelZoom;
     }
   }, { passive: true });
 
-  // Initialize WebGL Scene
   initThreeViewer();
 </script>
 </body>
